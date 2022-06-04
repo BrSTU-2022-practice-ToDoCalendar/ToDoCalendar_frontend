@@ -1,3 +1,9 @@
+# Набросок дизайна
+
+[Figma](https://www.figma.com/file/anNALPsTGG4iZa6IHQVJc7/Untitled?node-id=0%3A1)
+
+![Design img](https://user-images.githubusercontent.com/58526911/172027225-20741265-d818-429c-921f-991b9ae2ab15.png)
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

@@ -17,7 +17,7 @@ function App() {
         <Route path="/view-frame" element={<ViewFrame />} />
         <Route path="/general-frame" element={<GeneralFrame />} />
         <Route path="/edit-frame" element={<EditFrame />} />
-        <Route element={<Error404 />} />
+        <Route path="*" element={<Error404 />} />
       </Routes>
     </div>
   );

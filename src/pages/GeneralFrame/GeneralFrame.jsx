@@ -1,6 +1,6 @@
 function GeneralFrame() {
     return (
-        <div>general frame</div>
+        <div>General Frame</div>
     )
 }
 

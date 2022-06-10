@@ -72,6 +72,12 @@
   line-height: 39px;
 }
 
+.date_component__block:hover {
+  background-color: black;
+  color: white;
+  border-color: black;
+}
+
 .date_component__block_selected {
   background-color: black;
   border-color: black;

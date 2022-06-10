@@ -1,0 +1,18 @@
+[
+  {
+    "name": "New design for modile UI",
+    "type": "task"
+  },
+  {
+    "name": "Daily meeting with team",
+    "type": "completed"
+  },
+  {
+    "name": "Meditation",
+    "type": "completed"
+  },
+  {
+    "name": "Check emails",
+    "type": "current"
+  }
+]

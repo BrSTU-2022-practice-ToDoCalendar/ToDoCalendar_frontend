@@ -1,11 +1,11 @@
-import { Route, Routes } from "react-router";
+import { Route, Routes } from 'react-router';
 
-import SingIn from "./pages/SingIn/SingIn";
-import SingOut from "./pages/SingOut/SingOut";
-import ViewFrame from "./pages/ViewFrame/VIewFrame";
-import GeneralFrame from "./pages/GeneralFrame/GeneralFrame";
-import EditFrame from "./pages/EditFrame/EditFrame";
-import Error404 from "./pages/Error404/Error404";
+import SingIn from './pages/SingIn/SingIn';
+import SingOut from './pages/SingOut/SingOut';
+import ViewFrame from './pages/ViewFrame/VIewFrame';
+import GeneralFrame from './pages/GeneralFrame/GeneralFrame';
+import EditFrame from './pages/EditFrame/EditFrame';
+import Error404 from './pages/Error404/Error404';
 
 function App() {
   return (

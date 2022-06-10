@@ -1,0 +1,34 @@
+[
+  {
+    "string_data": "2022-06-08",
+    "selected": true
+  },
+  {
+    "string_data": "2022-06-09",
+    "selected": false
+  },
+  {
+    "string_data": "2022-06-10",
+    "selected": false
+  },
+  {
+    "string_data": "2022-06-11",
+    "selected": false
+  },
+  {
+    "string_data": "2022-06-12",
+    "selected": false
+  },
+  {
+    "string_data": "2022-06-13",
+    "selected": false
+  },
+  {
+    "string_data": "2022-06-14",
+    "selected": false
+  },
+  {
+    "string_data": "2022-06-15",
+    "selected": false
+  }
+]

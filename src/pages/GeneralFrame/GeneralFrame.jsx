@@ -16,44 +16,48 @@ function GeneralFrame() {
 
   return (
     <div className={styles.window_center}>
-      <header className={styles.header}>
-        <div className={styles.header__name}>Tassker</div>
-        <div className={styles.header__buttons}>
-          <span>
-            <FontAwesomeIcon icon={faBell} />
-          </span>
-          <span>
-            <FontAwesomeIcon icon={faUser} />
-          </span>
+      <div className="wrapper">
+        <div className="content">
+          <header className={styles.header}>
+            <div className={styles.header__name}>Tassker</div>
+            <div className={styles.header__buttons}>
+              <span>
+                <FontAwesomeIcon icon={faBell} />
+              </span>
+              <span>
+                <FontAwesomeIcon icon={faUser} />
+              </span>
+            </div>
+          </header>
+          <div className={styles.dates}>
+            {calendarDays.map((element, index) => {
+              return (
+                <DateComponent
+                  key={index}
+                  string_data={element.string_data}
+                  selected={element.selected}
+                />
+              );
+            })}
+          </div>
+          <div className={styles.counter__block}>
+            <span>{tasksList.length} Tasks Today</span>
+          </div>
+          <ul className={styles.task_list__ul}>
+            {tasksList.map((element, index) => {
+              return (
+                <TaskListElement
+                  key={index}
+                  task_name={element.name}
+                  type={element.type}
+                />
+              );
+            })}
+          </ul>
         </div>
-      </header>
-      <div className={styles.dates}>
-        {calendarDays.map((element, index) => {
-          return (
-            <DateComponent
-              key={index}
-              string_data={element.string_data}
-              selected={element.selected}
-            />
-          );
-        })}
-      </div>
-      <div className={styles.counter__block}>
-        <span>{tasksList.length} Tasks Today</span>
-      </div>
-      <ul className={styles.task_list__ul}>
-        {tasksList.map((element, index) => {
-          return (
-            <TaskListElement
-              key={index}
-              task_name={element.name}
-              type={element.type}
-            />
-          );
-        })}
-      </ul>
-      <div>
-        <button className={styles.button__block}>+ Add a New Task</button>
+        <div className="footer">
+          <button className={styles.button__block}>+ Add a New Task</button>
+        </div>
       </div>
     </div>
   );

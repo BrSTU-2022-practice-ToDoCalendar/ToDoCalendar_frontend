@@ -1,0 +1,36 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  margin: 75px 0 45px 0;
+}
+
+.header__name {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 800;
+  font-size: 40px;
+  margin: 0;
+}
+
+.header__nav_buttons ul {
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+
+.header__nav_buttons ul li {
+  list-style-type: none;
+  color: black;
+  margin-left: 60px;
+}
+
+.header__nav_buttons ul li svg,
+.header__nav_buttons ul li svg {
+  width: 40px;
+  height: 40px;
+}
+
+.header__nav_buttons ul li svg:hover,
+.header__nav_buttons ul li svg:hover {
+  color: #ef8655;
+}

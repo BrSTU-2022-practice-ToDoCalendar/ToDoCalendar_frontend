@@ -1,0 +1,22 @@
+.button_section__button {
+  background-color: #ee6e3f;
+  border-color: #ee6e3f;
+  border-style: solid;
+  border-width: 3px;
+  color: white;
+  width: 100%;
+  border-radius: 35px;
+  padding: 16px 0;
+  margin: 8px 0;
+
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 36px;
+  line-height: 44px;
+}
+
+.button_section__button:hover {
+  color: #ee6e3f;
+  background-color: transparent;
+}

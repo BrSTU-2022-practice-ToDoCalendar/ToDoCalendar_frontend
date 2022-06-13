@@ -5,7 +5,7 @@ import {Link} from "react-router-dom";
 function SingUp() {
     return (
         <>
-            <GeneralFrame/>
+            <div className={style.generalframe}><GeneralFrame/></div>
             <div className={style.window}>
                 <main className={style.main}>
                     <h2 className={style.h2}>Sign up</h2>

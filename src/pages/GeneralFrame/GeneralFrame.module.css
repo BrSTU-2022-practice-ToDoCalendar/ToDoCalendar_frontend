@@ -2,6 +2,7 @@
   background-color: #f5f7fa;
   width: 100%;
   height: 100%;
+  overflow-y: hidden;
 }
 
 .not_footer {
@@ -19,7 +20,15 @@
 
   display: flex;
   flex-direction: column;
-  min-height: 100%;
+  height: 100%;
+  overflow-y: scroll;
+  scrollbar-width: none;
+}
+
+/* for Chrome/Edge/Safari */
+.mobile_center_block::-webkit-scrollbar {
+  height: 0;
+  width: 0;
 }
 
 .container {

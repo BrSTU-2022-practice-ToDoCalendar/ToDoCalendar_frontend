@@ -26,7 +26,6 @@ function Calendar(props) {
 
   function getDay(date_object) {
     const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
-    console.log(date_object);
     return days[date_object.getDay()];
   }
 

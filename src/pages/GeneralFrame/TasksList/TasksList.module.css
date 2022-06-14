@@ -34,16 +34,32 @@
   margin-right: 15px;
 }
 
-.task_list__circle_current {
-  border-color: #5cad6c;
-  background-color: #5cad6c;
+.task_list__li_current .task_list__circle {
+  border-color: var(--current-task-color);
+  background-color: var(--current-task-color);
 }
 
-.task_list__circle_completed {
-  border-color: #ef8655;
-  background-color: #ef8655;
+.task_list__li_completed .task_list__circle {
+  border-color: var(--completed-task-color);
+  background-color: var(--completed-task-color);
 }
 
-.task_list__circle_task {
-  border-color: #F1C95B;
+.task_list__li_task .task_list__circle {
+  border-color: var(--task-color);
+}
+
+.task_list__li_completed .task_list__title {
+  color: var(--not-selected-text-color);
+}
+
+.task_list__circle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.task_list__circle svg {
+  color: white;
+  width: 16px;
+  height: 16px;
 }

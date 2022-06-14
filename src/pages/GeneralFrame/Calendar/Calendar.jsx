@@ -36,22 +36,46 @@ function Calendar(props) {
 
   return (
     <section className={styles.calendar_section}>
-      {props.calendarDays.map((element, index) => {
-        const date_object = getObjectDate(element.string_data);
-        return (
-          <div
-            key={index}
-            className={[
-              styles.calendar_section__day_block, //Bacis day component
-              getSelectedClass(element.selected), //Selected day
-              getWeekendClass(date_object), //Weekend day
-            ].join(' ')}
-          >
-            <div>{getDay(date_object)}</div>
-            <div>{getDate(date_object)}</div>
-          </div>
-        );
-      })}
+      <ul>
+        {props.calendarDays.map((element, index) => {
+          const date_object = getObjectDate(element.string_data);
+          return (
+            <li key={index}>
+              <div
+                className={[
+                  styles.calendar_section__day_block, //Bacis day component
+                  getSelectedClass(element.selected), //Selected day
+                  getWeekendClass(date_object), //Weekend day
+                ].join(' ')}
+              >
+                <div>{getDay(date_object)}</div>
+                <div>{getDate(date_object)}</div>
+              </div>
+              <div className={styles.calendar_section__circles}>
+                {element.hasCompletedTask === true ? (
+                  <span
+                    className={styles.calendar_section__task_completed_circle}
+                  ></span>
+                ) : (
+                  <></>
+                )}
+                {element.hasTask === true ? (
+                  <span className={styles.calendar_section__task_circle}></span>
+                ) : (
+                  <></>
+                )}
+                {element.hasCurrentTask === true ? (
+                  <span
+                    className={styles.calendar_section__task_current_circle}
+                  ></span>
+                ) : (
+                  <></>
+                )}
+              </div>
+            </li>
+          );
+        })}
+      </ul>
     </section>
   );
 }

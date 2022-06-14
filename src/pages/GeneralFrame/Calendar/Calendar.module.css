@@ -20,11 +20,11 @@
   float: left;
 
   border-width: 4px;
-  border-color: #f2f3f3;
+  border-color: var(--not-selected-color);
   border-style: solid;
   border-radius: 35px;
 
-  color: #c0c0bf;
+  color: var(--not-selected-text-color);
   text-align: center;
   font-family: 'Inter';
   font-style: normal;
@@ -50,6 +50,6 @@
 }
 
 .calendar_section__day_block_weekend {
-  border-color: #ef8655;
-  color: #ef8655;
+  border-color: var(--completed-task-color);
+  color: var(--completed-task-color);
 }

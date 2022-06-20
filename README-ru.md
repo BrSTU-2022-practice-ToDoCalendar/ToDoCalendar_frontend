@@ -1,10 +1,10 @@
 # README
 
-**Menu**:
+**Меню**:
 
-- [Folder structure](#folder-structure)
+- [Структура проекта](#структура-папок)
 
-## Folder structure
+## Структура папок
 
 ```bash
 sudo apt install tree

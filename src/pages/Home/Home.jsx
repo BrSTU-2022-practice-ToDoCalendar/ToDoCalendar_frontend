@@ -8,9 +8,9 @@ import Button from './Button/Button';
 import calendar_json_example from './calendar_example.json';
 import task_today_example from './tasks_today_example.json';
 
-import styles from './GeneralFrame.module.css';
+import styles from './Home.module.css';
 
-function GeneralFrame() {
+function Home() {
   const [calendarDays, setCalendarDays] = useState([]);
   const [tasksList, setTasksList] = useState([]);
   useEffect(() => {
@@ -40,4 +40,4 @@ function GeneralFrame() {
   );
 }
 
-export default GeneralFrame;
+export default Home;

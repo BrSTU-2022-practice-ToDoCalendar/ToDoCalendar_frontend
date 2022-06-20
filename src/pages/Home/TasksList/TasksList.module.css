@@ -58,8 +58,11 @@
   align-items: center;
 }
 
-.task_list__circle svg {
-  color: white;
-  width: 16px;
-  height: 16px;
+.task_list__circle i {
+  width: 16px !important;
+  height: 16px !important;
+}
+
+.task_list__circle i span {
+  background-color: white !important;
 }

@@ -1,6 +1,4 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCheck } from '@fortawesome/free-solid-svg-icons';
-
+import CheckIcon from '../../../components/CheckIcon/CheckIcon';
 import styles from './TasksList.module.css';
 
 function TasksList(props) {
@@ -37,11 +35,7 @@ function TaskListElement(props) {
   return (
     <li className={li_type_class}>
       <span className={styles.task_list__circle}>
-        {props.type === 'completed' ? (
-          <FontAwesomeIcon icon={faCheck} />
-        ) : (
-          <></>
-        )}
+        {props.type === 'completed' ? <CheckIcon /> : <></>}
       </span>
       <span className={styles.task_list__title}>{props.task_name}</span>
     </li>

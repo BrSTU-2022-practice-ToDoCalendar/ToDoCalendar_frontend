@@ -1,5 +1,8 @@
 import { useEffect, useState } from 'react';
 
+import Container from '../../components/Container/Container';
+import FooterPattern from '../../components/FooterPattern/FooterPattern';
+
 import Header from './Header/Header';
 import Calendar from './Calendar/Calendar';
 import TasksList from './TasksList/TasksList';
@@ -7,8 +10,6 @@ import Button from './Button/Button';
 
 import calendar_json_example from './calendar_example.json';
 import task_today_example from './tasks_today_example.json';
-
-import styles from './Home.module.css';
 
 function Home() {
   const [calendarDays, setCalendarDays] = useState([]);
@@ -19,24 +20,20 @@ function Home() {
   }, []);
 
   return (
-    <div className={styles.background_block}>
-      <div className={styles.mobile_center_block}>
-        <div className={styles.not_footer}>
-          <div className={styles.container}>
-            <Header />
-          </div>
-          <Calendar calendarDays={calendarDays} />
-          <div className={styles.container}>
-            <TasksList calendarDays={calendarDays} tasksList={tasksList} />
-          </div>
-        </div>
-        <footer className={styles.footer}>
-          <div className={styles.container}>
-            <Button />
-          </div>
-        </footer>
-      </div>
-    </div>
+    <FooterPattern
+      NotFooter={
+        <>
+          <Container InnerHTML={<Header />} />
+          <Container InnerHTML={<Calendar calendarDays={calendarDays} />} />
+          <Container
+            InnerHTML={
+              <TasksList calendarDays={calendarDays} tasksList={tasksList} />
+            }
+          />
+        </>
+      }
+      Footer={<Container InnerHTML={<Button />} />}
+    />
   );
 }
 

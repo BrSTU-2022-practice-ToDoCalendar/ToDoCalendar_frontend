@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 
+import MenuIcon from '../../components/MenuIcon/MenuIcon';
 import Container from '../../components/Container/Container';
 import FooterPattern from '../../components/FooterPattern/FooterPattern';
 
@@ -23,7 +24,9 @@ function Home() {
     <FooterPattern
       NotFooter={
         <>
-          <Container InnerHTML={<Header title="Tassker" />} />
+          <Container
+            InnerHTML={<Header title="Tassker" IconsArray={[<MenuIcon />]} />}
+          />
           <Container InnerHTML={<Calendar calendarDays={calendarDays} />} />
           <Container
             InnerHTML={

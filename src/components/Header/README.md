@@ -11,13 +11,16 @@
 </header>
 ```
 
-Принимает параметр:
+Принимает параметры:
 
-- title: String
-- Icons: JSX список
+- title: String - заголовок (не обязательный параметр)
+- IconsArray: JSX Array - массив иконок (не обязательный параметр)
 
 Пример:
 
 ```jsx
-<Header title="Tassker" />
+<Header
+  title="Tassker"
+  IconsArray={[<MenuIcon />, <MenuIcon />, <MenuIcon />]}
+/>
 ```

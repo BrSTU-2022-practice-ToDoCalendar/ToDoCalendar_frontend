@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import Container from '../../components/Container/Container';
 import FooterPattern from '../../components/FooterPattern/FooterPattern';
 
-import Header from './Header/Header';
+import Header from '../../components/Header/Header';
 import Calendar from './Calendar/Calendar';
 import TasksList from './TasksList/TasksList';
 import Button from './Button/Button';
@@ -23,7 +23,7 @@ function Home() {
     <FooterPattern
       NotFooter={
         <>
-          <Container InnerHTML={<Header />} />
+          <Container InnerHTML={<Header title="Tassker" />} />
           <Container InnerHTML={<Calendar calendarDays={calendarDays} />} />
           <Container
             InnerHTML={

@@ -1,7 +1,6 @@
 function ViewFrame() {
-    return (
-        <div>view frame</div>
-    )
+  return (
+    <></>
+);
 }
-
 export default ViewFrame;

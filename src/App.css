@@ -3,37 +3,37 @@
 html,
 body,
 #root {
-  width: 100%;
-  height: 100%;
+    width: 100%;
+    height: 100%;
 }
 
 body {
-  margin: 0;
-  font-family: 'Inter';
-  font-style: normal;
+    margin: 0;
+    font-family: 'Inter';
+    font-style: normal;
 }
 
 .background_block {
-  background-color: #f5f7fa;
-  width: 100%;
-  height: 100%;
-  overflow-y: hidden;
+    background-color: #f5f7fa;
+    width: 100%;
+    height: 100%;
+    overflow-y: hidden;
 }
 
 .mobile_center_block {
-  max-width: 762px;
-  margin: 0 auto;
-  background-color: #fff;
-  box-shadow: 0px 0px 4px lightgray;
+    max-width: 762px;
+    margin: 0 auto;
+    background-color: #fff;
+    box-shadow: 0 0 4px lightgray;
 
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  overflow-y: scroll;
-  scrollbar-width: none;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow-y: scroll;
+    scrollbar-width: none;
 }
 
 .container {
-  padding: 0 54px;
-  width: calc(100% - 54px * 2);
+    padding: 75px 54px 54px 54px;
+    width: calc(100% - 54px * 2);
 }

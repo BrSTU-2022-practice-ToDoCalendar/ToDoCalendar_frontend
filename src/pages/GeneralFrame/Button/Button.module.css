@@ -1,4 +1,7 @@
 .button_section__button {
+  display: block;
+  text-decoration: none;
+  text-align: center;
   background-color: #ee6e3f;
   border-color: #ee6e3f;
   border-style: solid;
@@ -8,9 +11,6 @@
   border-radius: 35px;
   padding: 16px 0;
   margin: 8px 0 54px 0;
-
-  font-family: 'Inter';
-  font-style: normal;
   font-weight: 500;
   font-size: 36px;
   line-height: 44px;

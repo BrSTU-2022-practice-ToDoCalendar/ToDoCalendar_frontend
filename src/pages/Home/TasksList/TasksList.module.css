@@ -1,0 +1,68 @@
+.counter__block {
+  margin: 38px 0 30px 0;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 29px;
+}
+
+.task_list__ul {
+  margin: 0;
+  padding: 0;
+}
+
+.task_list__ul li {
+  list-style-type: none;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 29px;
+  padding: 10px 0;
+}
+
+.task_list__circle {
+  width: 25px;
+  height: 25px;
+  display: block;
+  float: left;
+  border-width: 3px;
+  border-style: solid;
+  border-color: black;
+  border-radius: 50%;
+  margin-right: 15px;
+}
+
+.task_list__li_current .task_list__circle {
+  border-color: var(--current-task-color);
+  background-color: var(--current-task-color);
+}
+
+.task_list__li_completed .task_list__circle {
+  border-color: var(--completed-task-color);
+  background-color: var(--completed-task-color);
+}
+
+.task_list__li_task .task_list__circle {
+  border-color: var(--task-color);
+}
+
+.task_list__li_completed .task_list__title {
+  color: var(--not-selected-text-color);
+}
+
+.task_list__circle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.task_list__circle i {
+  width: 16px !important;
+  height: 16px !important;
+}
+
+.task_list__circle i span {
+  background-color: white !important;
+}

@@ -1,0 +1,40 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  margin: 75px 0 45px 0;
+}
+
+.header__title {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 800;
+  font-size: 40px;
+  margin: 0;
+}
+
+.header__nav_buttons ul {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+
+.header__nav_buttons ul li {
+  list-style-type: none;
+  color: black;
+  margin-left: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.header__nav_buttons ul li i {
+  width: 34px !important;
+  height: 34px !important;
+}
+
+.header__nav_buttons ul li i:hover span {
+  color: var(--completed-task-color) !important;
+  background-color: var(--completed-task-color) !important;
+}

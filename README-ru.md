@@ -41,23 +41,21 @@ tree --charset ascii -I "node_modules"
 
 ```
 .
-|-- LICENSE
-|-- README.md
-|-- build
-|-- build-gh-pages
-|-- package-lock.json
-|-- package.json
 |-- public
 `-- src
+    |-- components
+    |   |-- CheckIcon
+    |   |-- Container
+    |   |-- FooterPattern
+    |   |-- Header
+    |   `-- MenuIcon
     `-- pages
-        |-- EditFrame
         |-- Error404
-        |-- GeneralFrame
+        |-- Home
         |   |-- Button
         |   |-- Calendar
-        |   |-- Header
         |   `-- TasksList
         |-- SingIn
         |-- SingUp
-        `-- ViewFrame
+        `-- Task
 ```

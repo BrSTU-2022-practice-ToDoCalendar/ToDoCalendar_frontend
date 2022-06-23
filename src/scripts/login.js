@@ -28,14 +28,6 @@ export default async function login(username = '', password = '') {
 
   const data = await response.json();
 
-  console.log({
-    title: 'login.js',
-    fetch_url: url,
-    fetch_body: body,
-    fetch_response: response,
-    fetch_json_response: data,
-  });
-
   if (status === 401) {
     alert(JSON.stringify(data, null, 2));
     return;
@@ -43,19 +35,11 @@ export default async function login(username = '', password = '') {
 
   if (status === 200) {
     const refresh = data.refresh;
-    const access = data.access;
+
+    // TODO добавить куда-то access токен
+    // const access = data.access;
 
     localStorage.setItem('refresh', '' + refresh);
-
-    console.log({
-      title: 'login.js',
-      fetch_url: url,
-      fetch_body: body,
-      fetch_response: response,
-      fetch_json_response: data,
-      refresh_token: refresh,
-      access_token: access,
-    });
 
     alert(JSON.stringify(data, null, 2));
     return;

@@ -33,16 +33,5 @@ export default async function verify(token = '') {
     return false;
   }
 
-  const data = await response.json();
-
-  console.log({
-    title: 'verify.js',
-    fetch_url: url,
-    fetch_body: body,
-    fetch_response: response,
-    fetch_json_response: data,
-    token: token,
-  });
-
   return true;
 }

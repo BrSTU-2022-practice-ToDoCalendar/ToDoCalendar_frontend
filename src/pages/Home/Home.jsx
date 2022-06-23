@@ -26,16 +26,10 @@ function Home() {
     setTasksList(task_today_example);
 
     const refresh_token = localStorage.getItem('refresh');
-    console.log(refresh_token);
 
     // Если нет в локальной базе данных refresh токена, то выйти
-    if (refresh_token === null) {
-      setHtmlRedirect(<Navigate to="/sign-in" replace={true} />);
-      return;
-    }
-
     // Если refresh токен не авторизован, то выйти
-    if (verify(refresh_token) === false) {
+    if (!refresh_token || !verify(refresh_token)) {
       setHtmlRedirect(<Navigate to="/sign-in" replace={true} />);
       return;
     }

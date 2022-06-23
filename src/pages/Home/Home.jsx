@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Navigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import verify from '../../scripts/verify';
 import MenuIcon from '../../components/MenuIcon/MenuIcon';
@@ -15,31 +15,35 @@ import task_today_example from './tasks_today_example.json';
 function Home() {
   const [calendarDays, setCalendarDays] = useState([]);
   const [tasksList, setTasksList] = useState([]);
-  const [htmlRedirect, setHtmlRedirect] = useState(<></>);
 
+  let navigate = useNavigate();
+
+  // Функция, которая вызывается один раз (костыль коструктора)
   useEffect(() => {
-    constructor();
-  }, []);
-
-  function constructor() {
     setCalendarDays(calendar_json_example);
     setTasksList(task_today_example);
+  }, []);
 
-    const refresh_token = localStorage.getItem('refresh');
+  // Функция, которая вызывается один раз (костыль коструктора)
+  useEffect(() => {
+    const check_refresh_token = () => {
+      const refresh_token = localStorage.getItem('refresh');
 
-    // Если нет в локальной базе данных refresh токена, то выйти
-    // Если refresh токен не авторизован, то выйти
-    if (!refresh_token || !verify(refresh_token)) {
-      setHtmlRedirect(<Navigate to="/sign-in" replace={true} />);
-      return;
-    }
-  }
+      // Если нет в локальной базе данных refresh токена, то выйти
+      // Если refresh токен не авторизован, то выйти
+      if (!refresh_token || !verify(refresh_token)) {
+        navigate('/sign-in', { replace: true });
+        return;
+      }
+    };
+    check_refresh_token();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <FooterPattern
       NotFooter={
         <>
-          {htmlRedirect}
           <Container
             InnerHTML={<Header title="Tassker" IconsArray={[<MenuIcon />]} />}
           />

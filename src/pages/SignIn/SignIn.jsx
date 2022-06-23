@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link, Navigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import login from './../../scripts/login';
 import verify from '../../scripts/verify';
@@ -8,7 +8,8 @@ import style from './SignIn.module.css';
 function SignIn() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [htmlRedirect, setHtmlRedirect] = useState(<></>);
+
+  let navigate = useNavigate();
 
   async function buttonOnClick(event) {
     event.preventDefault();
@@ -22,12 +23,11 @@ function SignIn() {
       return;
     }
 
-    setHtmlRedirect(<Navigate to="/" replace={true} />);
+    navigate('/', { replace: true });
   }
 
   return (
     <div className={style.window}>
-      {htmlRedirect}
       <main className={style.main}>
         <h2 className={style.h2}>Sign in</h2>
         <form>

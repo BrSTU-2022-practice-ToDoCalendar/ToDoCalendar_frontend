@@ -1,7 +1,8 @@
 # Container
 
-**FooterPattern** - компонент, который возвращает обертку похожую как в
-Bootstrap. У нас эта обертка только имеет 54px слева и справа.
+**Container** - компонент, который возвращает обертку похожую как в Bootstrap.
+
+У нас эта обертка только имеет 54px слева и справа.
 
 ```html
 <div class="container">...</div>
@@ -9,10 +10,10 @@ Bootstrap. У нас эта обертка только имеет 54px слев
 
 Принимает параметр:
 
-- InnerHTML: JSX
+- children: JSX
 
 Пример:
 
 ```jsx
-<Container InnerHTML={<div>...</div>} />
+<Container children={<div>...</div>} />
 ```

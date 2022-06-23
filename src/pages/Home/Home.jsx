@@ -41,17 +41,17 @@ function Home() {
       NotFooter={
         <>
           <Container
-            InnerHTML={<Header title="Tassker" IconsArray={[<MenuIcon />]} />}
+            children={<Header title="Tassker" IconsArray={[<MenuIcon />]} />}
           />
-          <Container InnerHTML={<Calendar calendarDays={calendarDays} />} />
+          <Container children={<Calendar calendarDays={calendarDays} />} />
           <Container
-            InnerHTML={
+            children={
               <TasksList calendarDays={calendarDays} tasksList={tasksList} />
             }
           />
         </>
       }
-      Footer={<Container InnerHTML={<Button />} />}
+      Footer={<Container children={<Button />} />}
     />
   );
 }

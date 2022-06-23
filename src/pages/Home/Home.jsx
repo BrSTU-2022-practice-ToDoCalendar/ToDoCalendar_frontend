@@ -26,19 +26,15 @@ function Home() {
 
   // Функция, которая вызывается один раз (костыль коструктора)
   useEffect(() => {
-    const check_refresh_token = () => {
-      const refresh_token = localStorage.getItem('refresh');
+    const refresh_token = localStorage.getItem('refresh');
 
-      // Если нет в локальной базе данных refresh токена, то выйти
-      // Если refresh токен не авторизован, то выйти
-      if (!refresh_token || !verify(refresh_token)) {
-        navigate('/sign-in', { replace: true });
-        return;
-      }
-    };
-    check_refresh_token();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    // Если нет в локальной базе данных refresh токена, то выйти
+    // Если refresh токен не авторизован, то выйти
+    if (!refresh_token || !verify(refresh_token)) {
+      navigate('/sign-in', { replace: true });
+      return;
+    }
+  }, [navigate]);
 
   return (
     <FooterPattern

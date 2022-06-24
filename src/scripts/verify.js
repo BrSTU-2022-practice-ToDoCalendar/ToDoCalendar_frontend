@@ -10,28 +10,32 @@
  * @returns
  */
 export default async function verify(token = '') {
-  const url = `${process.env.REACT_APP_api_server}/api/v1/login/verify/`;
+  try {
+    const url = `${process.env.REACT_APP_api_server}/api/v1/login/verify/`;
 
-  const body = {
-    token: token,
-  };
+    const body = {
+      token: token,
+    };
 
-  const response = await fetch(url, {
-    method: 'POST',
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(body),
-  });
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(body),
+    });
 
-  const status = response.status;
+    const status = response.status;
 
-  if (status !== 200) {
-    alert('Не авторизован');
-    localStorage.removeItem('refresh');
-    return false;
+    if (status !== 200) {
+      alert('Не авторизован');
+      localStorage.removeItem('refresh');
+      return false;
+    }
+
+    return true;
+  } catch (err) {
+    alert('' + err);
   }
-
-  return true;
 }

@@ -1,0 +1,25 @@
+.block {
+    display: block;
+    position: relative;
+  }
+  
+  .reactangle_up {
+    position: absolute;
+    background-color: black;
+    width: 40%;
+    height: 8%;
+    transform: rotate(135deg);
+    bottom: 67%;
+    left: 7%;
+  }
+  
+  .reactangle_down {
+    position: absolute;
+    background-color: black;
+    width: 40%;
+    height: 8%;
+    transform: rotate(225deg);
+    bottom: 44%;
+    left: 7%;
+  }
+  

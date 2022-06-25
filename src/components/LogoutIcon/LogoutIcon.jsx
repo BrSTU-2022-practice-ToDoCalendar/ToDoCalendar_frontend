@@ -1,6 +1,6 @@
 import styles from './LogoutIcon.module.css';
 
-function MenuIcon(props) {
+function LogoutIcon(props) {
   return (
     <i
       style={{
@@ -19,4 +19,4 @@ function MenuIcon(props) {
   );
 }
 
-export default MenuIcon;
+export default LogoutIcon;

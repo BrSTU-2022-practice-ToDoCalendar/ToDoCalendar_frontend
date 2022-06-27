@@ -39,19 +39,17 @@ function Home() {
   return (
     <FooterPattern
       NotFooter={
-        <>
-          <Container
-            children={<Header title="Tassker" IconsArray={[<MenuIcon />]} />}
-          />
-          <Container children={<Calendar calendarDays={calendarDays} />} />
-          <Container
-            children={
-              <TasksList calendarDays={calendarDays} tasksList={tasksList} />
-            }
-          />
-        </>
+        <Container>
+          <Header title="Tassker" IconsArray={[<MenuIcon />]} />
+          <Calendar calendarDays={calendarDays} />
+          <TasksList calendarDays={calendarDays} tasksList={tasksList} />
+        </Container>
       }
-      Footer={<Container children={<Button />} />}
+      Footer={
+        <Container>
+          <Button />
+        </Container>
+      }
     />
   );
 }

@@ -17,3 +17,9 @@
 ```jsx
 <Container children={<div>...</div>} />
 ```
+
+```jsx
+<Container>
+  <div>...</div>
+</Container>
+```

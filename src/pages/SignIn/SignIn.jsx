@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 
 import login from './../../scripts/login';
 import verify from '../../scripts/verify';
-import style from './SignIn.module.css';
+import styles from './SignIn.module.css';
 
 function SignIn() {
   const [username, setUsername] = useState('');
@@ -27,32 +27,24 @@ function SignIn() {
   }
 
   return (
-    <div className={style.window}>
-      <main className={style.main}>
-        <h2 className={style.h2}>Sign in</h2>
-        <form>
-          <input
-            type="text"
-            className={style.input}
-            placeholder={'Name'}
-            value={username}
-            onInput={(event) => setUsername(event.target.value)}
-          />
-          <input
-            type="password"
-            className={style.input}
-            placeholder={'Password'}
-            value={password}
-            onInput={(event) => setPassword(event.target.value)}
-          />
-          <Link to={'/sign-up'} className={style.Link}>
-            You haven’t account?
-          </Link>
-          <button className={style.button} onClick={buttonOnClick}>
-            Submit
-          </button>
-        </form>
-      </main>
+    <div className={styles.background}>
+      <form className={styles.form} action="">
+        <h2>Sign in</h2>
+        <input
+          type="text"
+          placeholder={'Username'}
+          value={username}
+          onInput={(event) => setUsername(event.target.value)}
+        />
+        <input
+          type="password"
+          placeholder={'Password'}
+          value={password}
+          onInput={(event) => setPassword(event.target.value)}
+        />
+        <Link to={'/sign-up'}>You haven’t account?</Link>
+        <button onClick={buttonOnClick}>Submit</button>
+      </form>
     </div>
   );
 }

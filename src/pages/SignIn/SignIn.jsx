@@ -1,27 +1,18 @@
-import style from './SignIn.module.css';
 import { Link } from 'react-router-dom';
+
+import styles from './SignIn.module.css';
 
 function SingIn() {
   return (
-    <>
-      <div className={style.window}>
-        <main className={style.main}>
-          <h2 className={style.h2}>Sign in</h2>
-          <form action="">
-            <input type="email" className={style.input} placeholder={'Email'} />
-            <input
-              type="password"
-              className={style.input}
-              placeholder={'Password'}
-            />
-            <Link to={'/sing-up'} className={style.Link}>
-              You haven’t account?
-            </Link>
-            <button className={style.button}>Submit</button>
-          </form>
-        </main>
-      </div>
-    </>
+    <div className={styles.background}>
+      <form className={styles.form} action="">
+        <h2>Sign in</h2>
+        <input type="email" placeholder={'Email'} />
+        <input type="password" placeholder={'Password'} />
+        <Link to={'/sign-up'}>You haven’t account?</Link>
+        <button>Submit</button>
+      </form>
+    </div>
   );
 }
 

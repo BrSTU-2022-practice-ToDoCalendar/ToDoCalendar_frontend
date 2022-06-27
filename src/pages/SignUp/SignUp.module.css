@@ -1,73 +1,91 @@
-.window {
-    display: flex;
-    left: 0;
-    top: 0;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    width: 100%;
-    position: absolute;
-    background-color: rgba(255, 255, 255, 0.95);
+.background {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.main {
-    display: block;
-    width: 400px;
-    height: 530px;
-    background: #FFFFFF;
+.form {
+  width: calc(400px - 40px * 2);
+  border-radius: 30px;
+  padding: 40px;
+}
+
+/* Форма на компьютере */
+@media (min-width: 762px) {
+  .form {
     box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
-    border-radius: 30px;
+  }
 }
 
-.h2 {
-    font-weight: 500;
-    font-size: 40px;
-    line-height: 48px;
-    display: flex;
-    height: 80px;
-    margin: 40px 100px 45px 100px;
-    justify-content: center;
-    align-items: center;
+.form h2 {
+  height: 80px;
+  margin: 0;
+  padding-bottom: 70px;
+  text-align: center;
+
+  font-weight: 500;
+  font-size: 40px;
+  line-height: 48px;
 }
 
-.input {
-    margin: 25px 40px 0px 40px;
-    padding: 0 0 0 25px;
-    width: 293px;
-    height: 48px;
-    background: rgba(217, 217, 217, 0.3);
-    border: 1px solid #000000;
-    border-radius: 15px;
-    color: black;
-    font-weight: 500;
-    font-size: 24px;
-    line-height: 29px;
+.form input {
+  width: calc(100% - 25px - 2px * 2);
+  height: 48px;
+  margin-bottom: 25px;
+  padding: 0 0 0 25px;
+
+  background: rgba(217, 217, 217, 0.3);
+  border: 2px solid rgba(0, 0, 0, 0.6);
+  border-radius: 15px;
+  color: black;
+
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 29px;
 }
 
-.Link {
-    text-decoration: none;
-    font-weight: 500;
-    font-size: 14px;
-    line-height: 17px;
-    display: flex;
-    align-items: center;
-    color: #064AF8;
-    width: 130px;
-    height: 34px;
-    margin: 8px 40px 8px 40px;
+.form input:hover {
+  background-color: #fff;
+  border: 2px solid black;
 }
 
-.button {
-    display: block;
-    width: 320px;
-    height: 50px;
-    background: #5CAD6C;
-    border-radius: 15px;
-    border: 0px;
-    padding: 0;
-    font-weight: 500;
-    font-size: 32px;
-    line-height: 39px;
-    color: #FFFFFF;
-    margin: 8px 40px 40px 40px;
+.form a {
+  display: block;
+
+  text-decoration: none;
+
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+
+  color: #064af8;
+  margin-bottom: 40px;
+}
+
+.form a:hover {
+  text-decoration: underline;
+}
+
+.form button {
+  display: block;
+  width: 100%;
+  height: 50px;
+  margin-top: 8px;
+
+  border: 2px solid var(--current-task-color);
+  color: #ffffff;
+  background: var(--current-task-color);
+
+  border-radius: 15px;
+
+  font-weight: 500;
+  font-size: 32px;
+  line-height: 39px;
+}
+
+.form button:hover {
+  color: var(--current-task-color);
+  background: transparent;
 }

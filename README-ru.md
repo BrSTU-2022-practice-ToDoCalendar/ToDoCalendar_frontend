@@ -19,6 +19,8 @@
 ## Как запустить приложение
 
 ```bash
+cp .env.example .env
+cp .env.production.example .env.production
 npm i
 npm run start
 ```

@@ -3,7 +3,9 @@ import Header from '../../components/Header/Header';
 
 function Error404() {
   return (
-    <Container InnerHTML={<Header title="Error 404 - Page not found" />} />
+    <Container>
+      <Header title="Error 404 - Page not found" />
+    </Container>
   );
 }
 

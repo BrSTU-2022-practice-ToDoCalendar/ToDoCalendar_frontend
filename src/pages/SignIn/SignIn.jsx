@@ -19,7 +19,7 @@ function SignIn() {
     await login(username, password);
     const verify_flag = await verify(localStorage.getItem('refresh'));
 
-    if (verify_flag === false) {
+    if (!verify_flag) {
       return;
     }
 

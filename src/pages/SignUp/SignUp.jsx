@@ -1,7 +1,7 @@
-import style from '../SingUp/SignUp.module.css';
+import style from './SignUp.module.css';
 import { Link } from 'react-router-dom';
 
-function SingUp() {
+function SignUp() {
   return (
     <>
       <div className={style.window}>
@@ -26,4 +26,4 @@ function SingUp() {
   );
 }
 
-export default SingUp;
+export default SignUp;

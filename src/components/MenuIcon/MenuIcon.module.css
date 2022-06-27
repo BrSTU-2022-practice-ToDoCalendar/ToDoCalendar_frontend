@@ -1,0 +1,12 @@
+.block {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.reactangle {
+  display: block;
+  width: calc(100% - 2 * 5%);
+  height: calc(33.33% - 2 * 10%);
+  margin: 10% 5% 10% 5%;
+  background-color: black;
+}

@@ -1,22 +1,41 @@
+/* = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = */
+
+/* Кнопка вне зависимости от устройства */
 .button_section__button {
-  background-color: #ee6e3f;
-  border-color: #ee6e3f;
-  border-style: solid;
-  border-width: 3px;
+  background-color: var(--completed-task-color);
   color: white;
+
   width: 100%;
   border-radius: 35px;
-  padding: 16px 0;
   margin: 8px 0 54px 0;
 
   font-family: 'Inter';
   font-style: normal;
   font-weight: 500;
-  font-size: 36px;
-  line-height: 44px;
 }
 
+/* Кнопка на компьютере */
+@media (min-width: 762px) {
+  .button_section__button {
+    border: 3px solid var(--completed-task-color);
+    padding: 16px 0;
+    font-size: 36px;
+    line-height: 44px;
+  }
+}
+
+/* Кнопка на телефоне */
+@media (max-width: 761px) {
+  .button_section__button {
+    border: 2px solid var(--completed-task-color);
+    padding: 8px 0;
+    font-size: 1.2em;
+  }
+}
+
+/* = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = */
+
 .button_section__button:hover {
-  color: #ee6e3f;
+  color: var(--completed-task-color);
   background-color: transparent;
 }

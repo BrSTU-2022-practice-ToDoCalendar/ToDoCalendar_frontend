@@ -4,13 +4,31 @@
   margin: 75px 0 45px 0;
 }
 
+/* = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = */
+
+/* Заголовок вне зависимости от устройства */
 .header__title {
   font-family: 'Inter';
   font-style: normal;
   font-weight: 800;
-  font-size: 40px;
   margin: 0;
 }
+
+/* Заголовок на компьютере */
+@media (min-width: 762px) {
+  .header__title {
+    font-size: 40px;
+  }
+}
+
+/* Заголовок на телефоне */
+@media (max-width: 761px) {
+  .header__title {
+    font-size: 2em;
+  }
+}
+
+/* = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = */
 
 .header__nav_buttons ul {
   margin: 0;
@@ -29,10 +47,25 @@
   align-items: center;
 }
 
-.header__nav_buttons ul li i {
-  width: 34px !important;
-  height: 34px !important;
+/* = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = */
+
+/* Иконки меню на компьютере */
+@media (min-width: 762px) {
+  .header__nav_buttons ul li i {
+    width: 34px !important;
+    height: 34px !important;
+  }
 }
+
+/* Иконки меню на телефоне */
+@media (max-width: 761px) {
+  .header__nav_buttons ul li i {
+    width: 2em !important;
+    height: 2em !important;
+  }
+}
+
+/* = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = */
 
 .header__nav_buttons ul li i:hover span {
   color: var(--completed-task-color) !important;

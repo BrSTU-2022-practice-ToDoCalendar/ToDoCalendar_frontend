@@ -16,6 +16,7 @@ function App() {
       <Route path="/sign-in" element={<SignIn />} />
       <Route path="/sign-up" element={<SignUp />} />
       <Route path="/task" element={<Task />} />
+      <Route path="/task/:task_id" element={<Task />} />
       <Route path="*" element={<Error404 />} />
     </Routes>
   );

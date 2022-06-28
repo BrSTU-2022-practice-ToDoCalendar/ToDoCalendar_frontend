@@ -1,7 +1,10 @@
 /* = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = */
 
 /* Кнопка вне зависимости от устройства */
-.button_section__button {
+.btn {
+  display: block;
+  text-decoration: none;
+  text-align: center;
   background-color: var(--completed-task-color);
   color: white;
 
@@ -16,7 +19,7 @@
 
 /* Кнопка на компьютере */
 @media (min-width: 762px) {
-  .button_section__button {
+  .btn {
     border: 3px solid var(--completed-task-color);
     padding: 16px 0;
     font-size: 36px;
@@ -26,7 +29,7 @@
 
 /* Кнопка на телефоне */
 @media (max-width: 761px) {
-  .button_section__button {
+  .btn {
     border: 2px solid var(--completed-task-color);
     padding: 8px 0;
     font-size: 1.2em;
@@ -35,7 +38,7 @@
 
 /* = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = */
 
-.button_section__button:hover {
+.btn:hover {
   color: var(--completed-task-color);
   background-color: transparent;
 }

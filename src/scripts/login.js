@@ -1,3 +1,5 @@
+import Verify from './verify';
+
 /**
  * Функция отправляет в POST имя пользователя и пароль. Ответ сервера:
  * 200 - ввошел (записываем refresh в LocalStorage)
@@ -31,20 +33,27 @@ export default async function login(username = '', password = '') {
 
     if (status === 401) {
       alert(JSON.stringify(data, null, 2));
-      return;
+      return false;
     }
 
     if (status === 200) {
-      const refresh = data.refresh;
+      const refresh_token = '' + data.refresh;
+      const access_token = '' + data.access;
 
-      // TODO добавить куда-то access токен
-      // const access = data.access;
+      localStorage.setItem('refresh', refresh_token);
+      localStorage.setItem('access', access_token);
 
-      localStorage.setItem('refresh', '' + refresh);
+      const is_verify_refresh_token = await Verify.refresh();
+      const is_verify_access_token = await Verify.access();
 
-      alert(JSON.stringify(data, null, 2));
-      return;
+      if (is_verify_refresh_token && is_verify_access_token) {
+        return true;
+      }
+
+      return false;
     }
+
+    return false;
   } catch (err) {
     alert('' + err);
   }

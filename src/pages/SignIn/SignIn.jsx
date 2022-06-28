@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 import login from './../../scripts/login';
-import verify from '../../scripts/verify';
+import Verify from '../../scripts/verify';
 import styles from './SignIn.module.css';
 
 function SignIn() {
@@ -16,14 +16,15 @@ function SignIn() {
 
     localStorage.removeItem('refresh');
 
-    await login(username, password);
-    const verify_flag = await verify(localStorage.getItem('refresh'));
+    const isLogin = await login(username, password);
 
-    if (!verify_flag) {
+    if (isLogin) {
+      navigate('/', { replace: true });
+      return;
+    } else {
+      alert('Не авторизован');
       return;
     }
-
-    navigate('/', { replace: true });
   }
 
   return (

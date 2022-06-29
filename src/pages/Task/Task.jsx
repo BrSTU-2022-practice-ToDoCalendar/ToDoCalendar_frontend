@@ -4,6 +4,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import Container from '../../components/Container/Container';
 import Header from '../../components/Header/Header';
 import TaskFabric from '../../scripts/task';
+import FooterPattern from '../../components/FooterPattern/FooterPattern';
 import { ReactComponent as ArrowLeftSVG } from '../../svg/left-arrow-svgrepo-com.svg';
 import { ReactComponent as CheckSVG } from '../../svg/check-svgrepo-com.svg';
 import { ReactComponent as CrossSVG } from '../../svg/cross-svgrepo-com.svg';
@@ -101,120 +102,134 @@ function Task() {
   }
 
   return (
-    <Container>
-      <Header>
-        <ArrowLeftSVG onClick={(event) => navigate(`/`, { replace: true })} />
-        <h2>Task</h2>
-      </Header>
-      <section className={styles.date_section}>
-        {isEdit ? (
-          <>
-            Task start
-            <input
-              type="date"
-              name="trip-start"
-              value={startDate}
-              onInput={(event) => setStartDate(event.target.value)}
+    <FooterPattern
+      NotFooter={
+        <Container>
+          <Header>
+            <ArrowLeftSVG
+              onClick={(event) => navigate(`/`, { replace: true })}
             />
-            <input
-              type="time"
-              value={startTime}
-              onInput={(event) => setStartTime(event.target.value)}
-            />
-          </>
-        ) : (
-          <p>
-            Task start: {startDate}, {startTime}
-          </p>
-        )}
-      </section>
-      <section className={styles.date_section}>
-        {isEdit ? (
-          <>
-            Task end
-            <input
-              type="date"
-              name="trip-start"
-              value={endDate}
-              onInput={(event) => setEndDate(event.target.value)}
-            />
-            <input
-              type="time"
-              value={endTime}
-              max="24:00"
-              onInput={(event) => {
-                setEndTime(event.target.value);
-                console.log(event.target.value);
-              }}
-            />
-          </>
-        ) : (
-          <p>
-            Task end: {endDate}, {endTime}
-          </p>
-        )}
-      </section>
-      <section className={styles.title_section}>
-        {isEdit ? (
-          <input
-            type="text"
-            value={title}
-            onInput={(event) => setTitle(event.target.value)}
-            placeholder={'Task name'}
-          />
-        ) : (
-          <h2>{title}</h2>
-        )}
-      </section>
-      <section className={styles.description_section}>
-        {isEdit ? (
-          <textarea
-            value={description}
-            onInput={(event) => setDescription(event.target.value)}
-            placeholder={'Task description'}
-          />
-        ) : (
-          <pre>{description}</pre>
-        )}
-      </section>
-      <section className={styles.buttons_section}>
-        <button
-          className={isCompleted ? '' : styles.delete_button}
-          onClick={(event) => setIsCompleted(!isCompleted)}
-        >
-          {isCompleted ? (
-            <>
-              <CheckSVG /> Task completed
-            </>
-          ) : (
-            <>
-              <CrossSVG /> Task not completed
-            </>
-          )}
-        </button>
-      </section>
-      <section className={styles.buttons_section}>
-        {task_id ? (
-          <button onClick={delete_task}>
-            <DeleteSVG /> Delete
-          </button>
-        ) : (
-          <></>
-        )}
-
-        <button onClick={edit_or_view} onClick={save_or_edit_clicked}>
+            <h2>Task</h2>
+          </Header>
+          <section className={styles.date_section}>
+            {isEdit ? (
+              <>
+                Task start
+                <input
+                  type="date"
+                  name="trip-start"
+                  value={startDate}
+                  onInput={(event) => setStartDate(event.target.value)}
+                />
+                <input
+                  type="time"
+                  value={startTime}
+                  onInput={(event) => setStartTime(event.target.value)}
+                />
+              </>
+            ) : (
+              <p>
+                Task start: {startDate}, {startTime}
+              </p>
+            )}
+          </section>
+          <section className={styles.date_section}>
+            {isEdit ? (
+              <>
+                Task end
+                <input
+                  type="date"
+                  name="trip-start"
+                  value={endDate}
+                  onInput={(event) => setEndDate(event.target.value)}
+                />
+                <input
+                  type="time"
+                  value={endTime}
+                  max="24:00"
+                  onInput={(event) => {
+                    setEndTime(event.target.value);
+                    console.log(event.target.value);
+                  }}
+                />
+              </>
+            ) : (
+              <p>
+                Task end: {endDate}, {endTime}
+              </p>
+            )}
+          </section>
+          <section className={styles.title_section}>
+            {isEdit ? (
+              <input
+                type="text"
+                value={title}
+                onInput={(event) => setTitle(event.target.value)}
+                placeholder={'Task name'}
+              />
+            ) : (
+              <h2>{title}</h2>
+            )}
+          </section>
+          <section className={styles.description_section}>
+            {isEdit ? (
+              <textarea
+                value={description}
+                onInput={(event) => setDescription(event.target.value)}
+                placeholder={'Task description'}
+              />
+            ) : (
+              <pre>{description}</pre>
+            )}
+          </section>
           {isEdit ? (
-            <>
-              <SaveSVG /> Save
-            </>
+            <section className={styles.buttons_section}>
+              <button
+                className={isCompleted ? '' : styles.delete_button}
+                onClick={(event) => setIsCompleted(!isCompleted)}
+              >
+                {isCompleted ? (
+                  <>
+                    <CheckSVG /> Task completed
+                  </>
+                ) : (
+                  <>
+                    <CrossSVG /> Task not completed
+                  </>
+                )}
+              </button>
+            </section>
           ) : (
-            <>
-              <EditSVG /> Edit
-            </>
+            <></>
           )}
-        </button>
-      </section>
-    </Container>
+        </Container>
+      }
+      Footer={
+        <Container>
+          <section className={styles.buttons_section}>
+            {task_id ? (
+              <button onClick={delete_task}>
+                <DeleteSVG /> Delete
+              </button>
+            ) : (
+              <></>
+            )}
+
+            <button onClick={edit_or_view} onClick={save_or_edit_clicked}>
+              {isEdit ? (
+                <>
+                  <SaveSVG /> Save
+                </>
+              ) : (
+                <>
+                  <EditSVG /> Edit
+                </>
+              )}
+            </button>
+          </section>
+        </Container>
+      }
+    />
   );
 }
 

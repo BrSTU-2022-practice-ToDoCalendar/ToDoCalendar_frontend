@@ -40,6 +40,10 @@
   justify-content: center;
 }
 
+.buttons_section:last-child {
+  padding-bottom: 54px;
+}
+
 .buttons_section button {
   display: flex;
   justify-content: center;

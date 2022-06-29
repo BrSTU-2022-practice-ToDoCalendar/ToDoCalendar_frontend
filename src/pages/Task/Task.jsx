@@ -1,12 +1,10 @@
-import { useEffect } from 'react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 
 import Container from '../../components/Container/Container';
 import Header from '../../components/Header/Header';
-
 import TaskFabric from '../../scripts/task';
-
+import { ReactComponent as ArrowLeftSVG } from '../../svg/left-arrow-svgrepo-com.svg';
 import styles from './Task.module.css';
 
 function Task() {
@@ -82,10 +80,10 @@ function Task() {
 
   return (
     <Container>
-      <button onClick={(event) => navigate(`/`, { replace: true })}>
-        To Home
-      </button>
-      <Header title="Task" />
+      <Header>
+        <ArrowLeftSVG onClick={(event) => navigate(`/`, { replace: true })} />
+        <h2>Task</h2>
+      </Header>
       <section className={styles.date_section}>
         {isEdit ? (
           <>

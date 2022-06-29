@@ -1,11 +1,13 @@
+import { Link } from 'react-router-dom';
+
 import styles from './Button.module.css';
 
 function Button() {
   return (
     <section>
-      <button className={styles.button_section__button}>
+      <Link to={'/task'} className={styles.btn}>
         + Add a New Task
-      </button>
+      </Link>
     </section>
   );
 }

@@ -75,48 +75,48 @@
 
 /* Кнопка удаления */
 
-.delete_button {
+.danger_button {
   border: 1px solid var(--danger) !important;
   background-color: var(--danger) !important;
 }
 
-.delete_button:hover {
+.danger_button:hover {
   color: var(--danger) !important;
   background-color: transparent !important;
 }
 
-.delete_button:hover svg {
+.danger_button:hover svg {
   fill: var(--danger) !important;
 }
 
 /* Кнопка просмотра редактирования */
 
-.edit_button {
+.warning_button {
   border: 1px solid var(--warning) !important;
   background-color: var(--warning) !important;
 }
 
-.edit_button:hover {
+.warning_button:hover {
   color: var(--warning) !important;
   background-color: transparent !important;
 }
 
-.edit_button:hover svg {
+.warning_button:hover svg {
   fill: var(--warning) !important;
 }
 
 /* Кнопка выполненого таска */
 
-.completed_button {
+.success_button {
   border: 1px solid var(--success) !important;
   background-color: var(--success) !important;
 }
 
-.completed_button:hover {
+.success_button:hover {
   color: var(--success) !important;
   background-color: transparent !important;
 }
 
-.completed_button:hover svg {
+.success_button:hover svg {
   fill: var(--success) !important;
 }

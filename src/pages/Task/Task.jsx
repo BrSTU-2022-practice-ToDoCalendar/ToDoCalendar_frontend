@@ -97,10 +97,6 @@ function Task() {
     }
   }
 
-  function edit_or_view() {
-    setIsEdit(!isEdit);
-  }
-
   return (
     <FooterPattern
       NotFooter={
@@ -185,7 +181,9 @@ function Task() {
           {isEdit ? (
             <section className={styles.buttons_section}>
               <button
-                className={isCompleted ? '' : styles.delete_button}
+                className={
+                  isCompleted ? styles.success_button : styles.warning_button
+                }
                 onClick={(event) => setIsCompleted(!isCompleted)}
               >
                 {isCompleted ? (
@@ -208,14 +206,17 @@ function Task() {
         <Container>
           <section className={styles.buttons_section}>
             {task_id ? (
-              <button onClick={delete_task}>
+              <button onClick={delete_task} class={styles.danger_button}>
                 <DeleteSVG /> Delete
               </button>
             ) : (
               <></>
             )}
 
-            <button onClick={edit_or_view} onClick={save_or_edit_clicked}>
+            <button
+              onClick={save_or_edit_clicked}
+              className={styles.success_button}
+            >
               {isEdit ? (
                 <>
                   <SaveSVG /> Save

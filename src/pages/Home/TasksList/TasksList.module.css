@@ -45,6 +45,10 @@
   padding: 10px 0;
 }
 
+.task_list__ul li:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
 /* Элемент списка на компьютере */
 @media (min-width: 762px) {
   .task_list__ul li {

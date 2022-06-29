@@ -51,19 +51,19 @@ function Calendar(props) {
                 <div>{getDate(date_object)}</div>
               </div>
               <div className={styles.calendar_section__circles}>
-                {element.hasCompletedTask === true ? (
+                {element.counter_completed_tasks > 0 ? (
                   <span
                     className={styles.calendar_section__task_completed_circle}
                   ></span>
                 ) : (
                   <></>
                 )}
-                {element.hasTask === true ? (
+                {element.counter_tasks > 0 ? (
                   <span className={styles.calendar_section__task_circle}></span>
                 ) : (
                   <></>
                 )}
-                {element.hasCurrentTask === true ? (
+                {element.counter_current_tasks > 0 ? (
                   <span
                     className={styles.calendar_section__task_current_circle}
                   ></span>

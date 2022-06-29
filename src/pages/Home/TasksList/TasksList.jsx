@@ -1,3 +1,5 @@
+import { useNavigate } from 'react-router-dom';
+
 import CheckIcon from '../../../components/CheckIcon/CheckIcon';
 import styles from './TasksList.module.css';
 
@@ -12,8 +14,8 @@ function TasksList(props) {
           return (
             <TaskListElement
               key={index}
-              task_name={element.name}
-              type={element.type}
+              task_name={element.title}
+              element={element}
             />
           );
         })}
@@ -23,17 +25,24 @@ function TasksList(props) {
 }
 
 function TaskListElement(props) {
+  let navigate = useNavigate();
+
   const li_type_class =
     props.type === 'current'
       ? styles.task_list__li_current
-      : props.type === 'completed'
+      : props.element.completed === true
       ? styles.task_list__li_completed
-      : props.type === 'task'
-      ? styles.task_list__li_task
-      : '';
+      : styles.task_list__li_task;
+
+  function tast_selected(id) {
+    navigate(`/task/${id}/`, { replace: true });
+  }
 
   return (
-    <li className={li_type_class}>
+    <li
+      className={li_type_class}
+      onClick={(event) => tast_selected(props.element.id)}
+    >
       <span className={styles.task_list__circle}>
         {props.type === 'completed' ? <CheckIcon /> : <></>}
       </span>

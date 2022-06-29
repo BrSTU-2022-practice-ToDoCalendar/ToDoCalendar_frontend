@@ -82,6 +82,9 @@ function Task() {
 
   return (
     <Container>
+      <button onClick={(event) => navigate(`/`, { replace: true })}>
+        To Home
+      </button>
       <Header title="Task" />
       <section className={styles.date_section}>
         {isEdit ? (
@@ -194,10 +197,10 @@ function getDateNow() {
 function getDate(d = new Date()) {
   const year = d.getFullYear();
 
-  let mounth = d.getMonth();
+  let mounth = d.getMonth() + 1;
   mounth = mounth < 10 ? `0${mounth}` : `${mounth}`;
 
-  let date = d.getMonth();
+  let date = d.getDate();
   date = date < 10 ? `0${date}` : `${date}`;
 
   const result = `${year}-${mounth}-${date}`;

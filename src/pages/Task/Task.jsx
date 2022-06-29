@@ -5,6 +5,11 @@ import Container from '../../components/Container/Container';
 import Header from '../../components/Header/Header';
 import TaskFabric from '../../scripts/task';
 import { ReactComponent as ArrowLeftSVG } from '../../svg/left-arrow-svgrepo-com.svg';
+import { ReactComponent as CheckSVG } from '../../svg/check-svgrepo-com.svg';
+import { ReactComponent as CrossSVG } from '../../svg/cross-svgrepo-com.svg';
+import { ReactComponent as SaveSVG } from '../../svg/save-svgrepo-com.svg';
+import { ReactComponent as EditSVG } from '../../svg/edit-svgrepo-com.svg';
+import { ReactComponent as DeleteSVG } from '../../svg/delete-svgrepo-com.svg';
 import styles from './Task.module.css';
 
 function Task() {
@@ -21,6 +26,8 @@ function Task() {
   const [description, setDescription] = useState('');
 
   const [isEdit, setIsEdit] = useState(task_id ? false : true);
+
+  const [isCompleted, setIsCompleted] = useState(false);
 
   useEffect(() => {
     async function get_task() {
@@ -42,27 +49,42 @@ function Task() {
     if (task_id) get_task();
   }, [navigate, task_id]);
 
-  async function create_task() {
-    const start_date_instance = new Date(`${startDate} ${startTime}`);
-    const start_date = start_date_instance.toJSON();
+  async function save_or_edit_clicked() {
+    if (isEdit) {
+      const start_date_instance = new Date(`${startDate} ${startTime}`);
+      const start_date = start_date_instance.toJSON();
 
-    const end_date_instance = new Date(`${endDate} ${endTime}`);
-    const end_date = end_date_instance.toJSON();
+      const end_date_instance = new Date(`${endDate} ${endTime}`);
+      const end_date = end_date_instance.toJSON();
 
-    const isCreated = await TaskFabric.create({
-      title,
-      description,
-      start_date,
-      end_date,
-    });
+      const completed = isCompleted;
+      if (task_id) {
+        const isCreated = await TaskFabric.update(task_id, {
+          title,
+          description,
+          start_date,
+          end_date,
+          completed,
+        });
 
-    if (isCreated) {
-      navigate(`/`, { replace: true });
+        if (isCreated) {
+          navigate(`/`, { replace: true });
+        }
+      } else {
+        const isCreated = await TaskFabric.create({
+          title,
+          description,
+          start_date,
+          end_date,
+          completed,
+        });
+
+        if (isCreated) {
+          navigate(`/`, { replace: true });
+        }
+      }
     }
-  }
-
-  function complete_task() {
-    alert('Заглушка выполненого таска');
+    setIsEdit(!isEdit);
   }
 
   async function delete_task() {
@@ -156,32 +178,41 @@ function Task() {
         )}
       </section>
       <section className={styles.buttons_section}>
+        <button
+          className={isCompleted ? '' : styles.delete_button}
+          onClick={(event) => setIsCompleted(!isCompleted)}
+        >
+          {isCompleted ? (
+            <>
+              <CheckSVG /> Task completed
+            </>
+          ) : (
+            <>
+              <CrossSVG /> Task not completed
+            </>
+          )}
+        </button>
+      </section>
+      <section className={styles.buttons_section}>
         {task_id ? (
-          <button className={styles.delete_button} onClick={delete_task}>
-            Delete
+          <button onClick={delete_task}>
+            <DeleteSVG /> Delete
           </button>
         ) : (
           <></>
         )}
 
-        <button
-          className={styles.edit_button}
-          onClick={edit_or_view}
-          title={
-            isEdit ? 'Выбрать режим просмотра' : 'Выбрать режим редактирования'
-          }
-        >
-          {isEdit ? 'View task' : 'Edit task'}
+        <button onClick={edit_or_view} onClick={save_or_edit_clicked}>
+          {isEdit ? (
+            <>
+              <SaveSVG /> Save
+            </>
+          ) : (
+            <>
+              <EditSVG /> Edit
+            </>
+          )}
         </button>
-        {!task_id ? (
-          <button className={styles.completed_button} onClick={create_task}>
-            Create
-          </button>
-        ) : (
-          <button className={styles.completed_button} onClick={complete_task}>
-            Complete
-          </button>
-        )}
       </section>
     </Container>
   );

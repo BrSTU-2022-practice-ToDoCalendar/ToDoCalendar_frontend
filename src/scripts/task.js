@@ -90,6 +90,40 @@ export default class Task {
     }
   }
 
+  static async update(id = 0, object = {}) {
+    try {
+      const url = `${process.env.REACT_APP_api_server}/api/v1/task/${id}/`;
+
+      const body = {
+        ...object,
+      };
+
+      const access_token = localStorage.getItem('access');
+
+      const response = await fetch(url, {
+        method: 'PUT',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${access_token}`,
+        },
+        body: JSON.stringify(body),
+      });
+
+      const status = response.status;
+
+      if (status !== 200) {
+        console.log(status);
+        alert('Task not updated');
+        return false;
+      }
+
+      return true;
+    } catch (err) {
+      alert('' + err);
+    }
+  }
+
   static async remove(task_id = 1) {
     try {
       const url = `${process.env.REACT_APP_api_server}/api/v1/task/${task_id}/`;

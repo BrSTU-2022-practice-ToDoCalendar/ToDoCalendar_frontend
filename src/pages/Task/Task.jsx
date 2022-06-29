@@ -25,26 +25,24 @@ function Task() {
   const [isEdit, setIsEdit] = useState(task_id ? false : true);
 
   useEffect(() => {
-    (function () {
-      if (task_id) get_task();
-    })();
-  }, []);
+    async function get_task() {
+      const task_object = await TaskFabric.read(task_id);
 
-  async function get_task() {
-    const task_object = await TaskFabric.read(task_id);
+      if (Object.keys(task_object).length === 0)
+        navigate(`/task/${task_id}/error404`, { replace: true });
 
-    if (Object.keys(task_object).length === 0)
-      navigate(`/task/${task_id}/error404`, { replace: true });
+      setTitle(task_object.title);
+      setDescription(task_object.description);
 
-    setTitle(task_object.title);
-    setDescription(task_object.description);
+      setStartDate(getDate(new Date(task_object.start_date)));
+      setStartTime(getTime(new Date(task_object.start_date)));
 
-    setStartDate(getDate(new Date(task_object.start_date)));
-    setStartTime(getTime(new Date(task_object.start_date)));
+      setEndDate(getDate(new Date(task_object.end_date)));
+      setEndTime(getTime(new Date(task_object.end_date)));
+    }
 
-    setEndDate(getDate(new Date(task_object.end_date)));
-    setEndTime(getTime(new Date(task_object.end_date)));
-  }
+    if (task_id) get_task();
+  }, [navigate, task_id]);
 
   async function create_task() {
     const start_date_instance = new Date(`${startDate} ${startTime}`);

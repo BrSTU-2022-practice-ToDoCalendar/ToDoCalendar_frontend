@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 import login from './../../scripts/login';
-import Verify from '../../scripts/verify';
 import styles from './SignIn.module.css';
 
 function SignIn() {

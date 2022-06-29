@@ -60,7 +60,7 @@ export default class Task {
     }
   }
 
-  static async delet(task_id = 1) {
+  static async remove(task_id = 1) {
     try {
       const url = `${process.env.REACT_APP_api_server}/api/v1/task/${task_id}/`;
 

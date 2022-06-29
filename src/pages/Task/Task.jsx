@@ -70,7 +70,7 @@ function Task() {
   }
 
   async function delete_task() {
-    const isDeleted = await TaskFabric.delet(task_id);
+    const isDeleted = await TaskFabric.remove(task_id);
     if (isDeleted) {
       navigate(`/`, { replace: true });
     } else {

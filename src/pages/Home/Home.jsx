@@ -31,7 +31,6 @@ function Home() {
       for (let i = 0; i < calendar_days.length; ++i) {
         if (calendar_days[i].selected) {
           tasks_list = calendar_days[i].tasks_list;
-          console.log(tasks_list);
           break;
         }
       }

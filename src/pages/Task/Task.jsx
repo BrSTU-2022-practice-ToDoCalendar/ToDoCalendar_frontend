@@ -143,10 +143,7 @@ function Task() {
                   type="time"
                   value={endTime}
                   max="24:00"
-                  onInput={(event) => {
-                    setEndTime(event.target.value);
-                    console.log(event.target.value);
-                  }}
+                  onInput={(event) => setEndTime(event.target.value)}
                 />
               </>
             ) : (

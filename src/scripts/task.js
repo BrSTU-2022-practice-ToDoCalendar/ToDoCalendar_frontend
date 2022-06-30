@@ -113,7 +113,6 @@ export default class Task {
       const status = response.status;
 
       if (status !== 200) {
-        console.log(status);
         alert('Task not updated');
         return false;
       }

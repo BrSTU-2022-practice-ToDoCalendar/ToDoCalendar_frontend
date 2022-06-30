@@ -1,0 +1,12 @@
+version: '3.10'
+
+services:
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/app
+    ports:
+      - 3000:3000
+    command: sh /app/run.sh

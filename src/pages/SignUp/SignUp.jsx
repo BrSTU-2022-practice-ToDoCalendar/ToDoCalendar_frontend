@@ -31,12 +31,8 @@ function SignUp() {
       if (status != 200) {
         alert(JSON.stringify(data, null, 2));
       }
-
-      console.log(response);
-      console.log(data);
     } catch (error) {
-      console.log(error);
-      console.log('eees');
+      alert('' + error);
     }
   }
 

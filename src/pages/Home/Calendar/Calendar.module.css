@@ -37,11 +37,11 @@
 /* = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = */
 
 .calendar_section ul li:first-child {
-  margin-left: 0px;
+  margin-left: 0;
 }
 
 .calendar_section ul li:last-child {
-  margin-right: 0px;
+  margin-right: 0;
 }
 
 /* = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = */

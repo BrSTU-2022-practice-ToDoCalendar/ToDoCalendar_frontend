@@ -11,7 +11,7 @@
  */
 export default async function verify(token = '') {
   try {
-    const url = `${process.env.REACT_APP_api_server}/api/v1/login/verify/`;
+    const url = `${process.env.REACT_APP_api_server}/api/v1/verify-token/`;
 
     const body = {
       token: token,

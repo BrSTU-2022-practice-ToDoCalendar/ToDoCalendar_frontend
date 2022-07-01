@@ -28,17 +28,18 @@ npm run start
 ## Application stack
 
 - **[Figma](https://www.figma.com/file/anNALPsTGG4iZa6IHQVJc7/Untitled?node-id=0%3A1)** -
-  for design
-- **[GitHub pages](https://todocalendar.github.io/ToDoCalendar_frontend/#/general-frame)** -
-  hosting
-- **React** - framework for frontend
-- **Font Awesome** - icons
+  application for design
+- **[VS Code](https://code.visualstudio.com/#alt-downloads)** - code editor
+- **[Node JS](https://nodejs.org/en/)** - for application development
+- **[React](https://reactjs.org/)** - frontend framework
+- **[Firefox](https://www.mozilla.org/en-US/firefox/enterprise/)** - browser
+- **[SVG repo](https://www.svgrepo.com/)** - SVG icons
 
 ## Folder structure
 
 ```bash
 sudo apt install tree
-tree --charset ascii -I "node_modules"
+tree --charset ascii -I "node_modules|build" -d
 ```
 
 ```
@@ -46,18 +47,40 @@ tree --charset ascii -I "node_modules"
 |-- public
 `-- src
     |-- components
+    |   |-- ArrowIcon
     |   |-- CheckIcon
     |   |-- Container
     |   |-- FooterPattern
     |   |-- Header
+    |   |-- LogoutIcon
     |   `-- MenuIcon
-    `-- pages
-        |-- Error404
-        |-- Home
-        |   |-- Button
-        |   |-- Calendar
-        |   `-- TasksList
-        |-- SingIn
-        |-- SingUp
-        `-- Task
+    |-- pages
+    |   |-- Error404
+    |   |-- Home
+    |   |   |-- Button
+    |   |   |-- Calendar
+    |   |   `-- TasksList
+    |   |-- SignIn
+    |   |-- SignUp
+    |   `-- Task
+    |-- scripts
+    `-- svg
+
+21 directories
 ```
+
+- **components**:
+  - **Description**: A folder with components that can be used several times
+  - **Types of files**:
+    - `*.jsx`
+    - `*.module.css`
+- **pages**:
+  - **Description**: Folder with application pages
+  - **Types of files**:
+    - `*.jsx`
+    - `*.module.css`
+- **scripts**:
+  - **Description**: A folder with application scripts that are repeated on
+    several pages
+  - **Types of files**:
+    - `*.js`

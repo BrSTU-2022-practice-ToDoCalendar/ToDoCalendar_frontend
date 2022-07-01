@@ -40,10 +40,16 @@
   justify-content: center;
 }
 
+.buttons_section:last-child {
+  padding-bottom: 54px;
+}
+
 .buttons_section button {
+  display: flex;
+  justify-content: center;
   width: 100%;
-  border: 1px solid black;
-  background-color: black;
+  border: 1px solid var(--completed-task-color);
+  background-color: var(--completed-task-color);
   color: white;
   padding: 8px;
   margin: 8px;
@@ -51,43 +57,66 @@
   font-size: 1.2em;
 }
 
+.buttons_section button svg {
+  width: 1.2em;
+  height: 1.2em;
+  fill: white;
+  padding-right: 8px;
+}
+
 .buttons_section button:hover {
-  color: black;
+  color: var(--completed-task-color);
   background-color: transparent;
+}
+
+.buttons_section button:hover svg {
+  fill: var(--completed-task-color);
 }
 
 /* Кнопка удаления */
 
-.delete_button {
+.danger_button {
   border: 1px solid var(--danger) !important;
   background-color: var(--danger) !important;
 }
 
-.delete_button:hover {
+.danger_button:hover {
   color: var(--danger) !important;
   background-color: transparent !important;
 }
 
+.danger_button:hover svg {
+  fill: var(--danger) !important;
+}
+
 /* Кнопка просмотра редактирования */
 
-.edit_button {
+.warning_button {
   border: 1px solid var(--warning) !important;
   background-color: var(--warning) !important;
 }
 
-.edit_button:hover {
+.warning_button:hover {
   color: var(--warning) !important;
   background-color: transparent !important;
 }
 
+.warning_button:hover svg {
+  fill: var(--warning) !important;
+}
+
 /* Кнопка выполненого таска */
 
-.completed_button {
+.success_button {
   border: 1px solid var(--success) !important;
   background-color: var(--success) !important;
 }
 
-.completed_button:hover {
+.success_button:hover {
   color: var(--success) !important;
   background-color: transparent !important;
+}
+
+.success_button:hover svg {
+  fill: var(--success) !important;
 }

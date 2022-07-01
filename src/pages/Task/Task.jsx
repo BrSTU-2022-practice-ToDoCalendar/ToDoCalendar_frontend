@@ -1,12 +1,16 @@
-import { useEffect } from 'react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 
 import Container from '../../components/Container/Container';
 import Header from '../../components/Header/Header';
-
 import TaskFabric from '../../scripts/task';
-
+import FooterPattern from '../../components/FooterPattern/FooterPattern';
+import { ReactComponent as ArrowLeftSVG } from '../../svg/left-arrow-svgrepo-com.svg';
+import { ReactComponent as CheckSVG } from '../../svg/check-svgrepo-com.svg';
+import { ReactComponent as CrossSVG } from '../../svg/cross-svgrepo-com.svg';
+import { ReactComponent as SaveSVG } from '../../svg/save-svgrepo-com.svg';
+import { ReactComponent as EditSVG } from '../../svg/edit-svgrepo-com.svg';
+import { ReactComponent as DeleteSVG } from '../../svg/delete-svgrepo-com.svg';
 import styles from './Task.module.css';
 
 function Task() {
@@ -23,6 +27,8 @@ function Task() {
   const [description, setDescription] = useState('');
 
   const [isEdit, setIsEdit] = useState(task_id ? false : true);
+
+  const [isCompleted, setIsCompleted] = useState(false);
 
   useEffect(() => {
     async function get_task() {
@@ -44,27 +50,42 @@ function Task() {
     if (task_id) get_task();
   }, [navigate, task_id]);
 
-  async function create_task() {
-    const start_date_instance = new Date(`${startDate} ${startTime}`);
-    const start_date = start_date_instance.toJSON();
+  async function save_or_edit_clicked() {
+    if (isEdit) {
+      const start_date_instance = new Date(`${startDate} ${startTime}`);
+      const start_date = start_date_instance.toJSON();
 
-    const end_date_instance = new Date(`${endDate} ${endTime}`);
-    const end_date = end_date_instance.toJSON();
+      const end_date_instance = new Date(`${endDate} ${endTime}`);
+      const end_date = end_date_instance.toJSON();
 
-    const isCreated = await TaskFabric.create({
-      title,
-      description,
-      start_date,
-      end_date,
-    });
+      const completed = isCompleted;
+      if (task_id) {
+        const isCreated = await TaskFabric.update(task_id, {
+          title,
+          description,
+          start_date,
+          end_date,
+          completed,
+        });
 
-    if (isCreated) {
-      navigate(`/`, { replace: true });
+        if (isCreated) {
+          navigate(`/`, { replace: true });
+        }
+      } else {
+        const isCreated = await TaskFabric.create({
+          title,
+          description,
+          start_date,
+          end_date,
+          completed,
+        });
+
+        if (isCreated) {
+          navigate(`/`, { replace: true });
+        }
+      }
     }
-  }
-
-  function complete_task() {
-    alert('Заглушка выполненого таска');
+    setIsEdit(!isEdit);
   }
 
   async function delete_task() {
@@ -76,113 +97,137 @@ function Task() {
     }
   }
 
-  function edit_or_view() {
-    setIsEdit(!isEdit);
-  }
-
   return (
-    <Container>
-      <Header title="Task" />
-      <section className={styles.date_section}>
-        {isEdit ? (
-          <>
-            Task start
-            <input
-              type="date"
-              name="trip-start"
-              value={startDate}
-              onInput={(event) => setStartDate(event.target.value)}
+    <FooterPattern
+      NotFooter={
+        <Container>
+          <Header>
+            <ArrowLeftSVG
+              onClick={(event) => navigate(`/`, { replace: true })}
             />
-            <input
-              type="time"
-              value={startTime}
-              onInput={(event) => setStartTime(event.target.value)}
-            />
-          </>
-        ) : (
-          <p>
-            Task start: {startDate}, {startTime}
-          </p>
-        )}
-      </section>
-      <section className={styles.date_section}>
-        {isEdit ? (
-          <>
-            Task end
-            <input
-              type="date"
-              name="trip-start"
-              value={endDate}
-              onInput={(event) => setEndDate(event.target.value)}
-            />
-            <input
-              type="time"
-              value={endTime}
-              max="24:00"
-              onInput={(event) => {
-                setEndTime(event.target.value);
-                console.log(event.target.value);
-              }}
-            />
-          </>
-        ) : (
-          <p>
-            Task end: {endDate}, {endTime}
-          </p>
-        )}
-      </section>
-      <section className={styles.title_section}>
-        {isEdit ? (
-          <input
-            type="text"
-            value={title}
-            onInput={(event) => setTitle(event.target.value)}
-            placeholder={'Task name'}
-          />
-        ) : (
-          <h2>{title}</h2>
-        )}
-      </section>
-      <section className={styles.description_section}>
-        {isEdit ? (
-          <textarea
-            value={description}
-            onInput={(event) => setDescription(event.target.value)}
-            placeholder={'Task description'}
-          />
-        ) : (
-          <pre>{description}</pre>
-        )}
-      </section>
-      <section className={styles.buttons_section}>
-        {task_id ? (
-          <button className={styles.delete_button} onClick={delete_task}>
-            Delete
-          </button>
-        ) : (
-          <></>
-        )}
+            <h2>Task</h2>
+          </Header>
+          <section className={styles.date_section}>
+            {isEdit ? (
+              <>
+                Task start
+                <input
+                  type="date"
+                  name="trip-start"
+                  value={startDate}
+                  onInput={(event) => setStartDate(event.target.value)}
+                />
+                <input
+                  type="time"
+                  value={startTime}
+                  onInput={(event) => setStartTime(event.target.value)}
+                />
+              </>
+            ) : (
+              <p>
+                Task start: {startDate}, {startTime}
+              </p>
+            )}
+          </section>
+          <section className={styles.date_section}>
+            {isEdit ? (
+              <>
+                Task end
+                <input
+                  type="date"
+                  name="trip-start"
+                  value={endDate}
+                  onInput={(event) => setEndDate(event.target.value)}
+                />
+                <input
+                  type="time"
+                  value={endTime}
+                  max="24:00"
+                  onInput={(event) => setEndTime(event.target.value)}
+                />
+              </>
+            ) : (
+              <p>
+                Task end: {endDate}, {endTime}
+              </p>
+            )}
+          </section>
+          <section className={styles.title_section}>
+            {isEdit ? (
+              <input
+                type="text"
+                value={title}
+                onInput={(event) => setTitle(event.target.value)}
+                placeholder={'Task name'}
+              />
+            ) : (
+              <h2>{title}</h2>
+            )}
+          </section>
+          <section className={styles.description_section}>
+            {isEdit ? (
+              <textarea
+                value={description}
+                onInput={(event) => setDescription(event.target.value)}
+                placeholder={'Task description'}
+              />
+            ) : (
+              <pre>{description}</pre>
+            )}
+          </section>
+          {isEdit ? (
+            <section className={styles.buttons_section}>
+              <button
+                className={
+                  isCompleted ? styles.success_button : styles.warning_button
+                }
+                onClick={(event) => setIsCompleted(!isCompleted)}
+              >
+                {isCompleted ? (
+                  <>
+                    <CheckSVG /> Task completed
+                  </>
+                ) : (
+                  <>
+                    <CrossSVG /> Task not completed
+                  </>
+                )}
+              </button>
+            </section>
+          ) : (
+            <></>
+          )}
+        </Container>
+      }
+      Footer={
+        <Container>
+          <section className={styles.buttons_section}>
+            {task_id ? (
+              <button onClick={delete_task} class={styles.danger_button}>
+                <DeleteSVG /> Delete
+              </button>
+            ) : (
+              <></>
+            )}
 
-        <button
-          className={styles.edit_button}
-          onClick={edit_or_view}
-          title={
-            isEdit ? 'Выбрать режим просмотра' : 'Выбрать режим редактирования'
-          }
-        >
-          {isEdit ? 'View task' : 'Edit task'}
-        </button>
-        {!task_id ? (
-          <button className={styles.completed_button} onClick={create_task}>
-            Create
-          </button>
-        ) : (
-          <button className={styles.completed_button} onClick={complete_task}>
-            Complete
-          </button>
-        )}
-      </section>
-    </Container>
+            <button
+              onClick={save_or_edit_clicked}
+              className={styles.success_button}
+            >
+              {isEdit ? (
+                <>
+                  <SaveSVG /> Save
+                </>
+              ) : (
+                <>
+                  <EditSVG /> Edit
+                </>
+              )}
+            </button>
+          </section>
+        </Container>
+      }
+    />
   );
 }
 
@@ -194,10 +239,10 @@ function getDateNow() {
 function getDate(d = new Date()) {
   const year = d.getFullYear();
 
-  let mounth = d.getMonth();
+  let mounth = d.getMonth() + 1;
   mounth = mounth < 10 ? `0${mounth}` : `${mounth}`;
 
-  let date = d.getMonth();
+  let date = d.getDate();
   date = date < 10 ? `0${date}` : `${date}`;
 
   const result = `${year}-${mounth}-${date}`;

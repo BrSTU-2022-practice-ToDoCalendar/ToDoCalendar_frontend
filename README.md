@@ -18,11 +18,47 @@
 
 ## How to run app
 
+### Run Frontend for Development
+
 ```bash
 cp .env.example .env
-cp .env.production.example .env.production
-npm i
+npm ci
 npm run start
+```
+
+### How to build and upload an image to Docker Hub
+
+1. Log in to Docker Hub:
+
+```bash
+docker login
+```
+
+2. Build image:
+
+```bash
+docker build -t pavelinnokentevichgalanin/todocalendar_frontend .
+```
+
+3. Check how it works:
+
+http://localhost:9001
+
+```bash
+docker-compose-up
+```
+
+4. Uploads the image to Docker Hub:
+
+```bash
+docker push pavelinnokentevichgalanin/todocalendar_frontend
+```
+
+5. If the image is already loaded on the server or another computer, then update
+   it it is possible like this:
+
+```bash
+docker pull pavelinnokentevichgalanin/todocalendar_frontend
 ```
 
 ## Application stack
@@ -34,6 +70,7 @@ npm run start
 - **[React](https://reactjs.org/)** - frontend framework
 - **[Firefox](https://www.mozilla.org/en-US/firefox/enterprise/)** - browser
 - **[SVG repo](https://www.svgrepo.com/)** - SVG icons
+- **[Docker, docker-compose](https://www.docker.com/)** - to run on the server
 
 ## Folder structure
 

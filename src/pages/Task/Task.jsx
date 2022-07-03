@@ -88,15 +88,6 @@ function Task() {
     setIsEdit(!isEdit);
   }
 
-  async function delete_task() {
-    const isDeleted = await TaskFabric.remove(task_id);
-    if (isDeleted) {
-      navigate(`/`, { replace: true });
-    } else {
-      alert('Task not deleted');
-    }
-  }
-
   return (
     <FooterPattern
       NotFooter={
@@ -179,7 +170,9 @@ function Task() {
             <section className={styles.buttons_section}>
               <button
                 className={
-                  isCompleted ? styles.success_button : styles.warning_button
+                  isCompleted
+                    ? styles.button_task_completed
+                    : styles.button_task_not_completed
                 }
                 onClick={(event) => setIsCompleted(!isCompleted)}
               >
@@ -202,18 +195,8 @@ function Task() {
       Footer={
         <Container>
           <section className={styles.buttons_section}>
-            {task_id ? (
-              <button onClick={delete_task} class={styles.danger_button}>
-                <DeleteSVG /> Delete
-              </button>
-            ) : (
-              <></>
-            )}
-
-            <button
-              onClick={save_or_edit_clicked}
-              className={styles.success_button}
-            >
+            <DeleteButton task_id={task_id} />
+            <button onClick={save_or_edit_clicked}>
               {isEdit ? (
                 <>
                   <SaveSVG /> Save
@@ -228,6 +211,27 @@ function Task() {
         </Container>
       }
     />
+  );
+}
+
+function DeleteButton(props) {
+  let navigate = useNavigate();
+
+  async function delete_task() {
+    const isDeleted = await TaskFabric.remove(props.task_id);
+    if (isDeleted) {
+      navigate(`/`, { replace: true });
+    } else {
+      alert('Task not deleted');
+    }
+  }
+
+  return props.task_id ? (
+    <button onClick={delete_task}>
+      <DeleteSVG /> Delete
+    </button>
+  ) : (
+    <></>
   );
 }
 

@@ -1,21 +1,29 @@
-export default class calendar {
+export default class TaskOnDay {
   /**
-   * Функция получения статусов календаря
-   *
+   * Функция получения тасков на определенную дату
+   * @param {*} year
+   * @param {*} month
+   * @param {*} day
    * @returns
    * ```
    * [
    *  {
-   *    "date": "2022-07-03T00:00:00Z",
+   *    "id": 2,
+   *    "title": "Матеша",
+   *    "description": "",
+   *    "start_date": "2022-07-04T15:25:00Z",
+   *    "end_date": "2022-07-04T15:30:00Z",
    *    "completed": true,
-   *    "not_completed": true
+   *    "user": 2
    *  }
    * ]
    * ```
    */
-  static async read() {
+  static async read(year, month, day) {
     try {
-      const url = `${process.env.REACT_APP_api_server}/api/v1/task/statuses`;
+      const url =
+        `${process.env.REACT_APP_api_server}/api/v1/task?` +
+        new URLSearchParams({ year, month, day });
 
       const access_token = localStorage.getItem('access');
 

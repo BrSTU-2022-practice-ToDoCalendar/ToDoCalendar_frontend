@@ -48,8 +48,8 @@
   display: flex;
   justify-content: center;
   width: 100%;
-  border: 1px solid var(--completed-task-color);
-  background-color: var(--completed-task-color);
+  border: 1px solid var(--color-task-current);
+  background-color: var(--color-task-current);
   color: white;
   padding: 8px;
   margin: 8px;
@@ -65,58 +65,42 @@
 }
 
 .buttons_section button:hover {
-  color: var(--completed-task-color);
+  color: var(--color-task-current);
   background-color: transparent;
 }
 
 .buttons_section button:hover svg {
-  fill: var(--completed-task-color);
+  fill: var(--color-task-current);
 }
 
-/* Кнопка удаления */
+/*  */
 
-.danger_button {
-  border: 1px solid var(--danger) !important;
-  background-color: var(--danger) !important;
+.button_task_completed {
+  border: 1px solid var(--color-task-completed) !important;
+  background-color: var(--color-task-completed) !important;
 }
 
-.danger_button:hover {
-  color: var(--danger) !important;
+.button_task_completed:hover {
+  color: var(--color-task-completed) !important;
   background-color: transparent !important;
 }
 
-.danger_button:hover svg {
-  fill: var(--danger) !important;
+.button_task_completed:hover svg {
+  fill: var(--color-task-completed) !important;
 }
 
-/* Кнопка просмотра редактирования */
+/*  */
 
-.warning_button {
-  border: 1px solid var(--warning) !important;
-  background-color: var(--warning) !important;
+.button_task_not_completed {
+  border: 1px solid var(--color-task-not-completed) !important;
+  background-color: var(--color-task-not-completed) !important;
 }
 
-.warning_button:hover {
-  color: var(--warning) !important;
+.button_task_not_completed:hover {
+  color: var(--color-task-not-completed) !important;
   background-color: transparent !important;
 }
 
-.warning_button:hover svg {
-  fill: var(--warning) !important;
-}
-
-/* Кнопка выполненого таска */
-
-.success_button {
-  border: 1px solid var(--success) !important;
-  background-color: var(--success) !important;
-}
-
-.success_button:hover {
-  color: var(--success) !important;
-  background-color: transparent !important;
-}
-
-.success_button:hover svg {
-  fill: var(--success) !important;
+.button_task_not_completed:hover svg {
+  fill: var(--color-task-not-completed) !important;
 }

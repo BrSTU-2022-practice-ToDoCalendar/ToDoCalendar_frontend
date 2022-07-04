@@ -3,6 +3,7 @@ import { Route, Routes } from 'react-router';
 import './env.css';
 import './App.css';
 
+import HomeRedirect from './pages/Home/HomeRedirect';
 import Home from './pages/Home/Home';
 import SignIn from './pages/SignIn/SignIn';
 import SignUp from './pages/SignUp/SignUp';
@@ -12,7 +13,8 @@ import Error404 from './pages/Error404/Error404';
 function App() {
   return (
     <Routes>
-      <Route path="/" element={<Home />} />
+      <Route path="/" element={<HomeRedirect />} />
+      <Route path="/:year/:month/:date" element={<Home />} />
       <Route path="/sign-in" element={<SignIn />} />
       <Route path="/sign-up" element={<SignUp />} />
       <Route path="/task" element={<Task />} />

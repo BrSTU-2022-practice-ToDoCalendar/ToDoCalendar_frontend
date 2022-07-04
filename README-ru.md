@@ -48,18 +48,18 @@ tree --charset ascii -I "node_modules|build" -d
 `-- src
     |-- components
     |   |-- ArrowIcon
+    |   |-- Calendar
     |   |-- CheckIcon
     |   |-- Container
     |   |-- FooterPattern
     |   |-- Header
     |   |-- LogoutIcon
-    |   `-- MenuIcon
+    |   |-- MenuIcon
+    |   |-- NewTaskButton
+    |   `-- TasksList
     |-- pages
     |   |-- Error404
     |   |-- Home
-    |   |   |-- Button
-    |   |   |-- Calendar
-    |   |   `-- TasksList
     |   |-- SignIn
     |   |-- SignUp
     |   `-- Task
@@ -84,3 +84,7 @@ tree --charset ascii -I "node_modules|build" -d
     нескольких страницах
   - **Виды файлов**:
     - `*.js`
+- **svg**
+  - **Описание**: папка с иконками
+  - **Виды файлов**:
+    - `*.svg`

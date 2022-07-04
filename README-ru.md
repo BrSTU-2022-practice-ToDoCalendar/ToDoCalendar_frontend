@@ -18,11 +18,47 @@
 
 ## Как запустить приложение
 
+### Запуск Frontend для разработки
+
 ```bash
 cp .env.example .env
-cp .env.production.example .env.production
-npm i
+npm ci
 npm run start
+```
+
+### Как сбилдить и загрузить образ на Docker Hub
+
+1. Авторизуемся на Docker Hub:
+
+```bash
+docker login
+```
+
+2. Билдим образ:
+
+```bash
+docker build -t pavelinnokentevichgalanin/todocalendar_frontend .
+```
+
+3. Проверяем как работает:
+
+http://localhost:9001
+
+```bash
+docker-compose up
+```
+
+4. Загружает образ на Docker Hub:
+
+```bash
+docker push pavelinnokentevichgalanin/todocalendar_frontend
+```
+
+5. Если на сервере или другом компьютере уже загружен образ, то обновить его
+   можно так:
+
+```bash
+docker pull pavelinnokentevichgalanin/todocalendar_frontend
 ```
 
 ## Стэк приложений
@@ -34,6 +70,7 @@ npm run start
 - **[React](https://reactjs.org/)** - фреймворк для фронтенда
 - **[Firefox](https://www.mozilla.org/en-US/firefox/enterprise/)** - браузер
 - **[SVG repo](https://www.svgrepo.com/)** - SVG иконки
+- **[Docker, docker-compose](https://www.docker.com/)** - для запуска на сервере
 
 ## Структура проекта
 

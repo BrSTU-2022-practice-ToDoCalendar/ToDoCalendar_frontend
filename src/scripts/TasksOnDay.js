@@ -22,7 +22,7 @@ export default class TaskOnDay {
   static async read(year, month, day) {
     try {
       const url =
-        `${process.env.REACT_APP_api_server}/api/v1/task?` +
+        `${process.env.REACT_APP__URL_BACKEND_SERVER}/api/v1/task?` +
         new URLSearchParams({ year, month, day });
 
       const access_token = localStorage.getItem('access');

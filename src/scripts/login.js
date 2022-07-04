@@ -43,10 +43,8 @@ export default async function login(username = '', password = '') {
       localStorage.setItem('refresh', refresh_token);
       localStorage.setItem('access', access_token);
 
-      const is_verify_refresh_token = await Verify.refresh();
-      const is_verify_access_token = await Verify.access();
-
-      if (is_verify_refresh_token && is_verify_access_token) {
+      const isVerify = await Verify.verifyTokens();
+      if (isVerify) {
         return true;
       }
 

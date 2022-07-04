@@ -20,7 +20,7 @@ function Home() {
 
   useEffect(() => {
     (async function () {
-      const isVerify = await Verify.allTokens();
+      const isVerify = await Verify.verifyTokens();
       if (!isVerify) {
         navigate('/sign-in', { replace: true });
         return;

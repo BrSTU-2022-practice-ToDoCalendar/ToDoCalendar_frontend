@@ -15,7 +15,7 @@ export default class calendar {
    */
   static async read() {
     try {
-      const url = `${process.env.REACT_APP__URL_BACKEND_SERVER}/api/v1/task/statuses`;
+      const url = `${process.env.REACT_APP__URL_BACKEND_SERVER}/api/v1/tasks/statuses`;
 
       const access_token = localStorage.getItem('access');
 

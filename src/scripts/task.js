@@ -1,7 +1,7 @@
 export default class Task {
   static async create(object = {}) {
     try {
-      const url = `${process.env.REACT_APP__URL_BACKEND_SERVER}/api/v1/task/`;
+      const url = `${process.env.REACT_APP__URL_BACKEND_SERVER}/api/v1/tasks/`;
 
       const body = {
         ...object,
@@ -36,7 +36,7 @@ export default class Task {
     if (task_id) {
       // Если это эполучение по id
       try {
-        const url = `${process.env.REACT_APP__URL_BACKEND_SERVER}/api/v1/task/${task_id}/`;
+        const url = `${process.env.REACT_APP__URL_BACKEND_SERVER}/api/v1/tasks/${task_id}/`;
 
         const access_token = localStorage.getItem('access');
 
@@ -63,7 +63,7 @@ export default class Task {
     } else {
       // если это получение всех тасков
       try {
-        const url = `${process.env.REACT_APP__URL_BACKEND_SERVER}/api/v1/task/`;
+        const url = `${process.env.REACT_APP__URL_BACKEND_SERVER}/api/v1/tasks/`;
 
         const access_token = localStorage.getItem('access');
 
@@ -92,7 +92,7 @@ export default class Task {
 
   static async update(id = 0, object = {}) {
     try {
-      const url = `${process.env.REACT_APP__URL_BACKEND_SERVER}/api/v1/task/${id}/`;
+      const url = `${process.env.REACT_APP__URL_BACKEND_SERVER}/api/v1/tasks/${id}/`;
 
       const body = {
         ...object,
@@ -125,7 +125,7 @@ export default class Task {
 
   static async remove(task_id = 1) {
     try {
-      const url = `${process.env.REACT_APP__URL_BACKEND_SERVER}/api/v1/task/${task_id}/`;
+      const url = `${process.env.REACT_APP__URL_BACKEND_SERVER}/api/v1/tasks/${task_id}/`;
 
       const access_token = localStorage.getItem('access');
 

@@ -9,7 +9,7 @@ export default class Verify {
    */
   static async verifyToken(token = '') {
     try {
-      const url = `${process.env.REACT_APP_api_server}/api/v1/verify-token/`;
+      const url = `${process.env.REACT_APP__URL_BACKEND_SERVER}/api/v1/verify-token/`;
 
       const body = {
         token: token,
@@ -113,7 +113,7 @@ export default class Verify {
       let refresh_token = localStorage.getItem('refresh');
       let access_token = localStorage.getItem('access');
 
-      const url = `${process.env.REACT_APP_api_server}/api/v1/refresh-token/`;
+      const url = `${process.env.REACT_APP__URL_BACKEND_SERVER}/api/v1/refresh-token/`;
 
       const body = {
         refresh: refresh_token,

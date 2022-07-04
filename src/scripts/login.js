@@ -11,7 +11,7 @@ import Verify from './verify';
  */
 export default async function login(username = '', password = '') {
   try {
-    const url = `${process.env.REACT_APP_api_server}/api/v1/login/`;
+    const url = `${process.env.REACT_APP__URL_BACKEND_SERVER}/api/v1/login/`;
 
     const body = {
       username: username,

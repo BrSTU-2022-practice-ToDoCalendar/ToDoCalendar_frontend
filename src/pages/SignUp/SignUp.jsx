@@ -10,7 +10,7 @@ function SignUp() {
 
   async function registration(event) {
     event.preventDefault();
-    const URL = `${process.env.REACT_APP_api_server}/api/v1/register/`;
+    const URL = `${process.env.REACT_APP__URL_BACKEND_SERVER}/api/v1/register/`;
     const body = {
       email,
       username,
@@ -38,14 +38,28 @@ function SignUp() {
 
   return (
     <div className={styles.background}>
-      <form className={styles.form} action=''>
+      <form className={styles.form} action="">
         <h2>Sign up</h2>
-        <input type='email' placeholder={'Email'} value={email} onInput={event => setEmail(event.target.value)} />
-        <input type='text' placeholder={'Login'} value={username} onInput={event => setUsername(event.target.value)} />
-        <input type='password' placeholder={'Password'} value={password}
-               onInput={event => setPassword(event.target.value)} />
+        <input
+          type="email"
+          placeholder={'Email'}
+          value={email}
+          onInput={(event) => setEmail(event.target.value)}
+        />
+        <input
+          type="text"
+          placeholder={'Login'}
+          value={username}
+          onInput={(event) => setUsername(event.target.value)}
+        />
+        <input
+          type="password"
+          placeholder={'Password'}
+          value={password}
+          onInput={(event) => setPassword(event.target.value)}
+        />
         <Link to={'/sign-in'}>You have account?</Link>
-        <button onClick={event => registration(event)}>Submit</button>
+        <button onClick={(event) => registration(event)}>Submit</button>
       </form>
     </div>
   );

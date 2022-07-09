@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import Verify from '../../scripts/verify';
-import logout from '../../scripts/logout';
+import VerifyFabric from '../../scripts/VerifyFabric';
+import SignFabric from '../../scripts/SignFabric';
 import { ReactComponent as LogoutSVG } from '../../svg/logout-svgrepo-com.svg';
 import Container from '../../components/Container/Container';
 import FooterPattern from '../../components/FooterPattern/FooterPattern';
@@ -20,20 +20,23 @@ function Home() {
 
   useEffect(() => {
     (async function () {
-      const isVerify = await Verify.verifyTokens();
-      if (!isVerify) {
-        navigate('/sign-in', { replace: true });
-        return;
-      }
+      const isVerify = await VerifyFabric.verifyTokens();
+      if (isVerify) return;
+      navigate('/sign-in');
     })();
   }, [navigate]);
+
+  function logout() {
+    SignFabric.logout();
+    navigate('/sign-in');
+  }
 
   return (
     <FooterPattern
       NotFooter={
         <Container>
           <Header>
-            <LogoutSVG onClick={(event) => logout(navigate)} />
+            <LogoutSVG onClick={logout} />
             <h2>Tassker</h2>
           </Header>
           <Calendar />

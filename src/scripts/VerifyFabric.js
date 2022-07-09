@@ -1,4 +1,14 @@
-export default class Verify {
+import toastr from 'toastr';
+
+/**
+ * Класс содержит методы
+ * - verifyToken(token) - проверить токен
+ * - verifyRefresh() - проверить refresh токен
+ * - verifyAccess() - проверить access токен
+ * - verifyTokens() - проверить два токена
+ * - updateAccessToken() - обновить access токен
+ */
+export default class VerifyFabric {
   /**
    * Функция отправляет в POST token (access или refresh)
    *
@@ -26,13 +36,15 @@ export default class Verify {
 
       const status = response.status;
 
-      if (status !== 200) {
-        return false;
+      if (status === 200) {
+        // toastr.success('Токен верифицирован', 'Верификация (VerifyFabric.js)');
+        return true;
       }
 
-      return true;
-    } catch (err) {
-      alert('' + err);
+      // toastr.error('Токен не верифицирован', 'Верификация (VerifyFabric.js)');
+      return false;
+    } catch (error) {
+      toastr.error('' + error, 'Верификация (VerifyFabric.js)');
     }
   }
 
@@ -46,18 +58,26 @@ export default class Verify {
   static async verifyRefresh(refresh_token = localStorage.getItem('refresh')) {
     if (refresh_token == null) {
       localStorage.removeItem('access');
+      toastr.error('Нет refresh токена', 'Верификация (VerifyFabric.js)');
       return false;
     }
 
-    const is_verify_refresh_token = await Verify.verifyToken(refresh_token);
+    const is_verify_refresh_token = await VerifyFabric.verifyToken(
+      refresh_token
+    );
 
     if (is_verify_refresh_token) {
       localStorage.setItem('refresh', refresh_token);
+      toastr.info('refresh токен авторизован', 'Верификация (VerifyFabric.js)');
       return true;
     }
 
     localStorage.removeItem('refresh');
     localStorage.removeItem('access');
+    toastr.error(
+      'refresh токен не авторизован',
+      'Верификация (VerifyFabric.js)'
+    );
     return false;
   }
 
@@ -69,18 +89,24 @@ export default class Verify {
    * - false - просрочен access токен, и он же не обновляется с помощью refresh токена
    */
   static async verifyAccess(access_token = localStorage.getItem('access')) {
-    let is_verify_access_token = await Verify.verifyToken(access_token);
+    let is_verify_access_token = await VerifyFabric.verifyToken(access_token);
     if (is_verify_access_token) {
       localStorage.setItem('access', access_token);
+      toastr.info('access токен автозован', 'Верификация (VerifyFabric.js)');
       return true;
     }
 
-    const isUpdated = await Verify.updateAccessToken(); // Продлеваем access токен
+    const isUpdated = await VerifyFabric.updateAccessToken(); // Продлеваем access токен
     if (isUpdated) {
+      toastr.info(
+        'access токен обновлён на новый',
+        'Верификация (VerifyFabric.js)'
+      );
       return true;
     }
 
     localStorage.removeItem('access');
+    toastr.info('access токен не авторизован', 'Верификация (VerifyFabric.js)');
     return false;
   }
 
@@ -94,8 +120,8 @@ export default class Verify {
    * - false - не авторизован(-ы) токен(-ы)
    */
   static async verifyTokens() {
-    const is_verify_access_token = await Verify.verifyAccess();
-    const is_verify_refresh_token = await Verify.verifyRefresh();
+    const is_verify_access_token = await VerifyFabric.verifyAccess();
+    const is_verify_refresh_token = await VerifyFabric.verifyRefresh();
 
     if (is_verify_access_token && is_verify_refresh_token) {
       return true;
@@ -138,13 +164,9 @@ export default class Verify {
       access_token = data.access;
       localStorage.setItem('access', access_token);
 
-      // КУДА ПРОПАЛ refresh токен? - вопрос к бэкэндерам
-      // refresh_token = data.refresh;
-      // localStorage.setItem('refresh', refresh_token);
-
       return true;
     } catch (error) {
-      alert('' + error);
+      toastr.error('' + error, 'Верификация (VerifyFabric.js)');
     }
   }
 }

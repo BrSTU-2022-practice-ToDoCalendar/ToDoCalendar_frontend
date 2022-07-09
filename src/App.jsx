@@ -1,12 +1,13 @@
 import { Route, Routes } from 'react-router';
 
-import './env.css';
+import 'toastr/build/toastr.min.css';
+import './consts/colors.css';
 import './App.css';
 
 import HomeRedirect from './pages/Home/HomeRedirect';
 import Home from './pages/Home/Home';
-import SignIn from './pages/SignIn/SignIn';
-import SignUp from './pages/SignUp/SignUp';
+import SignInPage from './components/SignPage/SignInPage';
+import SignUpPage from './components/SignPage/SignUpPage';
 import Task from './pages/Task/Task';
 import Error404 from './pages/Error404/Error404';
 
@@ -15,8 +16,8 @@ function App() {
     <Routes>
       <Route path="/" element={<HomeRedirect />} />
       <Route path="/:year/:month/:date" element={<Home />} />
-      <Route path="/sign-in" element={<SignIn />} />
-      <Route path="/sign-up" element={<SignUp />} />
+      <Route path="/sign-in" element={<SignInPage />} />
+      <Route path="/sign-up" element={<SignUpPage />} />
       <Route path="/task" element={<Task />} />
       <Route path="/task/:task_id" element={<Task />} />
       <Route path="*" element={<Error404 />} />

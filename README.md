@@ -93,12 +93,12 @@ tree --charset ascii -I "node_modules|build" -d
     |   |-- LogoutIcon
     |   |-- MenuIcon
     |   |-- NewTaskButton
+    |   |-- SignPage
     |   `-- TasksList
+    |-- consts
     |-- pages
     |   |-- Error404
     |   |-- Home
-    |   |-- SignIn
-    |   |-- SignUp
     |   `-- Task
     |-- scripts
     `-- svg
@@ -111,6 +111,10 @@ tree --charset ascii -I "node_modules|build" -d
   - **Types of files**:
     - `*.jsx`
     - `*.module.css`
+- **consts**:
+  - **Description**: folder with constants
+  - **Types of files**:
+    - `*.css`
 - **pages**:
   - **Description**: Folder with application pages
   - **Types of files**:

@@ -12,3 +12,8 @@ body {
   font-family: 'Inter';
   font-style: normal;
 }
+
+a {
+  color: #1887ff;
+  text-decoration: none;
+}

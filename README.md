@@ -63,8 +63,6 @@ docker pull pavelinnokentevichgalanin/todocalendar_frontend
 
 ## Application stack
 
-- **[Figma](https://www.figma.com/file/anNALPsTGG4iZa6IHQVJc7/Untitled?node-id=0%3A1)** -
-  application for design
 - **[VS Code](https://code.visualstudio.com/#alt-downloads)** - code editor
 - **[Node JS](https://nodejs.org/en/)** - for application development
 - **[React](https://reactjs.org/)** - frontend framework
@@ -84,26 +82,22 @@ tree --charset ascii -I "node_modules|build" -d
 |-- public
 `-- src
     |-- components
-    |   |-- ArrowIcon
-    |   |-- Calendar
-    |   |-- CheckIcon
     |   |-- Container
+    |   |-- Error404Page
     |   |-- FooterPattern
-    |   |-- Header
-    |   |-- LogoutIcon
-    |   |-- MenuIcon
-    |   |-- NewTaskButton
+    |   |-- Headers
+    |   |-- HomePages
+    |   |   |-- HomeDatePage
+    |   |   |-- HomeMonthPage
+    |   |   |-- HomeRedirectPage
+    |   |   `-- HomeYearPage
     |   |-- SignPage
-    |   `-- TasksList
+    |   `-- TaskPage
     |-- consts
-    |-- pages
-    |   |-- Error404
-    |   |-- Home
-    |   `-- Task
     |-- scripts
     `-- svg
 
-21 directories
+17 directories
 ```
 
 - **components**:
@@ -115,11 +109,6 @@ tree --charset ascii -I "node_modules|build" -d
   - **Description**: folder with constants
   - **Types of files**:
     - `*.css`
-- **pages**:
-  - **Description**: Folder with application pages
-  - **Types of files**:
-    - `*.jsx`
-    - `*.module.css`
 - **scripts**:
   - **Description**: A folder with application scripts that are repeated on
     several pages

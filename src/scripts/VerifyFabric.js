@@ -68,7 +68,11 @@ export default class VerifyFabric {
 
     if (is_verify_refresh_token) {
       localStorage.setItem('refresh', refresh_token);
-      toastr.info('refresh токен авторизован', 'Верификация (VerifyFabric.js)');
+      toastr.info(
+        'refresh токен авторизован',
+        'Верификация (VerifyFabric.js)',
+        { timeOut: 100 }
+      );
       return true;
     }
 
@@ -92,7 +96,9 @@ export default class VerifyFabric {
     let is_verify_access_token = await VerifyFabric.verifyToken(access_token);
     if (is_verify_access_token) {
       localStorage.setItem('access', access_token);
-      toastr.info('access токен автозован', 'Верификация (VerifyFabric.js)');
+      toastr.info('access токен автозован', 'Верификация (VerifyFabric.js)', {
+        timeOut: 100,
+      });
       return true;
     }
 
@@ -100,13 +106,22 @@ export default class VerifyFabric {
     if (isUpdated) {
       toastr.info(
         'access токен обновлён на новый',
-        'Верификация (VerifyFabric.js)'
+        'Верификация (VerifyFabric.js)',
+        {
+          timeOut: 100,
+        }
       );
       return true;
     }
 
     localStorage.removeItem('access');
-    toastr.info('access токен не авторизован', 'Верификация (VerifyFabric.js)');
+    toastr.info(
+      'access токен не авторизован',
+      'Верификация (VerifyFabric.js)',
+      {
+        timeOut: 100,
+      }
+    );
     return false;
   }
 

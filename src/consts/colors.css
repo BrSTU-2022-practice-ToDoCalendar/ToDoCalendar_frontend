@@ -4,7 +4,11 @@
   --color-task-current: #ee6e3f;
   --color-weekend: #ee6e3f;
 
+  --site-color: #ee6e3f;
+  --site-color-hover: rgb(238, 110, 63, 0.7);
+
   --danger: #dc3545;
+  --danger-hover: rgba(220, 53, 69, 0.7);
   --warning: #ffc107;
   --success: #198754;
 }

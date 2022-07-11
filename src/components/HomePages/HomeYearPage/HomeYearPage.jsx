@@ -5,6 +5,7 @@ import { useNavigate, useParams } from 'react-router';
 import YearFrame from '../../Headers/YearFrame';
 import DateFabric from '../../../scripts/DateFabric';
 import styles from './HomeYearPage.module.css';
+import TaskFabric from '../../../scripts/TaskFabric';
 
 export default function HomeYearPage(props) {
   const { year } = useParams();
@@ -20,7 +21,7 @@ export default function HomeYearPage(props) {
       navigate(`/${yearNow}`);
       return;
     }
-    setYearCalendar([
+    let yearArray = [
       DateFabric.getMonthDays(year, 1),
       DateFabric.getMonthDays(year, 2),
       DateFabric.getMonthDays(year, 3),
@@ -33,7 +34,37 @@ export default function HomeYearPage(props) {
       DateFabric.getMonthDays(year, 10),
       DateFabric.getMonthDays(year, 11),
       DateFabric.getMonthDays(year, 12),
-    ]);
+    ];
+
+    async function fetchTasks() {
+      const tasksArray = await TaskFabric.read({
+        year,
+      });
+      tasksArray.forEach((task) => {
+        const d = new Date(task.start_date);
+        const d_year = d.getFullYear();
+        const d_month = d.getMonth() + 1;
+        const d_date = d.getDate();
+        yearArray.forEach((month) => {
+          month.forEach((day) => {
+            if (
+              day.year === d_year &&
+              day.month === d_month &&
+              day.date === d_date
+            ) {
+              day.tasks.push(task);
+              if (task.completed) {
+                day.has_completed_task = true;
+              } else {
+                day.has_not_completed_task = true;
+              }
+            }
+          });
+        });
+      });
+      setYearCalendar(yearArray);
+    }
+    fetchTasks();
   }, [navigate, year]);
 
   function selectMonth(d = new Date()) {
@@ -44,40 +75,63 @@ export default function HomeYearPage(props) {
 
   return (
     <YearFrame>
-      <div className={styles.year_block}>
+      <ul className={styles.array_month}>
         {yearCalendar.map((month, month_i) => {
           return (
-            <div
+            <li
               key={`${year}-${month_i + 1}`}
-              className={styles.month_wrapper}
+              className={styles.array_month_element}
               onClick={(event) =>
                 selectMonth(new Date(`${year}-${month_i + 1}`))
               }
             >
               <h3>{DateFabric.getStringMonth(month_i + 1)}</h3>
-              <div className={styles.month_block}>
-                <span>{DateFabric.getStringDay(1, 'ru')}</span>
-                <span>{DateFabric.getStringDay(2, 'ru')}</span>
-                <span>{DateFabric.getStringDay(3, 'ru')}</span>
-                <span>{DateFabric.getStringDay(4, 'ru')}</span>
-                <span>{DateFabric.getStringDay(5, 'ru')}</span>
-                <span>{DateFabric.getStringDay(6, 'ru')}</span>
-                <span>{DateFabric.getStringDay(7, 'ru')}</span>
-                {month.map((date, date_i) => {
+              <ul className={styles.array_days}>
+                {[1, 2, 3, 4, 5, 6, 7].map((day, day_i) => {
                   return (
-                    <span
-                      key={`${year}-${month_i}-${date_i}`}
-                      className={date.isThisMonth ? '' : styles.month_alian_day}
-                    >
-                      {date.date}
-                    </span>
+                    <li key={day_i} className={styles.array_days_element}>
+                      {DateFabric.getStringDay(day, 'ru')}
+                    </li>
                   );
                 })}
-              </div>
-            </div>
+                {month.map((date, date_i) => {
+                  return (
+                    <li
+                      key={`${year}-${month_i}-${date_i}`}
+                      className={[
+                        styles.array_days_element,
+                        date.isThisMonth ? '' : styles.month_alian_day,
+                      ].join(' ')}
+                    >
+                      <div className={styles.array_days_element__number}>
+                        {date.date}
+                      </div>
+                      <div className={styles.array_days_element__circles}>
+                        {date.has_completed_task ? (
+                          <span
+                            className={
+                              styles.array_days_element__has_completed_task_circle
+                            }
+                          ></span>
+                        ) : (
+                          ''
+                        )}
+                        {date.has_not_completed_task && (
+                          <span
+                            className={
+                              styles.array_days_element__has_not_completed_task_circle
+                            }
+                          ></span>
+                        )}
+                      </div>
+                    </li>
+                  );
+                })}
+              </ul>
+            </li>
           );
         })}
-      </div>
+      </ul>
     </YearFrame>
   );
 }

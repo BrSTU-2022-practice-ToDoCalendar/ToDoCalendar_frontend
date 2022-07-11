@@ -1,0 +1,53 @@
+.counter_block {
+  font-size: 2em;
+  text-align: center;
+}
+
+.array {
+  margin: 0;
+  padding: 0;
+}
+
+.array_element {
+  list-style-type: none;
+  display: flex;
+  padding: 8px 16px;
+  align-items: center;
+}
+
+.array_element:hover {
+  background-color: var(--site-color-hover);
+  color: white;
+}
+
+.task_completed_circle,
+.task_not_completed_circle {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 1px solid black;
+  display: block;
+  margin-right: 8px;
+}
+
+.array_element:hover .task_completed_circle,
+.array_element:hover .task_not_completed_circle {
+  border-color: white;
+  background-color: white;
+}
+
+.task_completed_circle {
+  background-color: var(--color-task-completed);
+  border-color: var(--color-task-completed);
+}
+
+.task_not_completed_circle {
+  background-color: var(--color-task-not-completed);
+  border-color: var(--color-task-not-completed);
+}
+
+.time {
+  width: 100px;
+  display: flex;
+  justify-content: center;
+}

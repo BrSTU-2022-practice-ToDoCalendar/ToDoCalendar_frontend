@@ -5,7 +5,8 @@ import { useNavigate, useParams } from 'react-router';
 import DateFabric from '../../../scripts/DateFabric';
 import MonthFrame from '../../Headers/MonthFrame';
 import styles from './HomeMonthPage.module.css';
-import TaskFabric from '../../../scripts/TaskFabric';
+import TaskController from '../../../scripts/Task/TaskController';
+import ToastController from '../../../scripts/Toast/ToastController';
 
 export default function HomeMonthPage() {
   const { year, month } = useParams();
@@ -13,6 +14,7 @@ export default function HomeMonthPage() {
   let navigate = useNavigate();
 
   useEffect(() => {
+    ToastController.delete_all_messages();
     const d = new Date(`${year}-${month}`);
     if (d.toString() === 'Invalid Date') {
       const timeNow = new Date();
@@ -24,7 +26,7 @@ export default function HomeMonthPage() {
     let monthCalendar = DateFabric.getMonthDays(year, month);
 
     async function getTasks() {
-      const tasks = await TaskFabric.read({ year, month });
+      const tasks = await TaskController.read({ year, month });
       tasks.forEach((task) => {
         const start_date = DateFabric.convertDateToUTC(
           new Date(task.start_date)

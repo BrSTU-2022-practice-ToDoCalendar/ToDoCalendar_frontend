@@ -95,9 +95,14 @@ tree --charset ascii -I "node_modules|build" -d
     |   `-- TaskPage
     |-- consts
     |-- scripts
+    |   |-- Sign
+    |   |-- Task
+    |   |-- Toast
+    |   |-- Verify
+    |   `-- sleep
     `-- svg
 
-17 directories
+22 directories
 ```
 
 - **components**:

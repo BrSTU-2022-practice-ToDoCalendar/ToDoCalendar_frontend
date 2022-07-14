@@ -5,7 +5,8 @@ import { useNavigate, useParams } from 'react-router';
 import YearFrame from '../../Headers/YearFrame';
 import DateFabric from '../../../scripts/DateFabric';
 import styles from './HomeYearPage.module.css';
-import TaskFabric from '../../../scripts/TaskFabric';
+import TaskController from '../../../scripts/Task/TaskController';
+import ToastController from '../../../scripts/Toast/ToastController';
 
 export default function HomeYearPage(props) {
   const { year } = useParams();
@@ -14,6 +15,7 @@ export default function HomeYearPage(props) {
   const [yearCalendar, setYearCalendar] = useState([]);
 
   useEffect(() => {
+    ToastController.delete_all_messages();
     const d = new Date(`${year}`);
     if (d.toString() === 'Invalid Date') {
       const timeNow = new Date();
@@ -37,9 +39,7 @@ export default function HomeYearPage(props) {
     ];
 
     async function fetchTasks() {
-      const tasksArray = await TaskFabric.read({
-        year,
-      });
+      const tasksArray = await TaskController.read({ year });
       tasksArray.forEach((task) => {
         const d = new Date(task.start_date);
         const d_year = d.getFullYear();

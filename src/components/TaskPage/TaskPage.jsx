@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import TaskFrame from '../Headers/TaskFrame';
 import Container from '../Container/Container';
 import DateFabric from '../../scripts/DateFabric';
-import TaskFabric from '../../scripts/TaskFabric';
+import TaskController from '../../scripts/Task/TaskController';
 import styles from './TaskPage.module.css';
 
 const standart_task = {
@@ -41,7 +41,7 @@ export default function TaskPage() {
 
   useEffect(() => {
     async function fetchTask() {
-      const object = await TaskFabric.getTaskById(taskId);
+      const object = await TaskController.getTaskById(taskId);
       setTitle(object.title);
       setDescription(object.description);
       setIsCompleted(object.completed);
@@ -121,7 +121,7 @@ export default function TaskPage() {
   }
 
   async function save(data) {
-    await TaskFabric.create({
+    await TaskController.create({
       title,
       description,
       start_date: DateFabric.toJson(startDate, startTime),
@@ -132,7 +132,7 @@ export default function TaskPage() {
   }
 
   async function update(data) {
-    await TaskFabric.update(taskId, {
+    await TaskController.update(taskId, {
       title,
       description,
       start_date: DateFabric.toJson(startDate, startTime),
@@ -143,7 +143,7 @@ export default function TaskPage() {
   }
 
   async function remove(data) {
-    await TaskFabric.remove(taskId);
+    await TaskController.remove(taskId);
     navigate_to_home();
   }
 

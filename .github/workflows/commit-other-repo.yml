@@ -2,7 +2,7 @@ name: Build commit to other repo
 
 on:
   push:
-    branches: ['dev', '61-Pavel-Innokentevich-Galanin-Auto-deploy-add-to-github-pages']
+    branches: ['dev']
 
 env:
   user_name: 'github-actions[bot]'

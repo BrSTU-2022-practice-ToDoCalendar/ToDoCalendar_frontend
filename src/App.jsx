@@ -26,7 +26,7 @@ function App() {
       <Route path="/sign-in" element={<SignInPage />} />
       <Route path="/sign-up" element={<SignUpPage />} />
       <Route path="/task" element={<TaskPage />} />
-      <Route path="/task/:taskId/" element={<TaskPage />} />
+      <Route path="/task/:taskId" element={<TaskPage />} />
       <Route path="*" element={<Error404Page />} />
     </Routes>
   );

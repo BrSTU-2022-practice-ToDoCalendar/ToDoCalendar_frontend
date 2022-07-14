@@ -1,6 +1,7 @@
-import toastr from 'toastr';
+import sleep from '../sleep/sleep';
+import ToastController from '../Toast/ToastController';
 
-export default class TaskFabric {
+export default class TaskController {
   /**
    * Функция отправляет POST на создание таски
    * @param {*} object
@@ -20,10 +21,7 @@ export default class TaskFabric {
   static async create(object = {}) {
     try {
       const url = `${process.env.REACT_APP__URL_BACKEND_SERVER}/api/v1/tasks/`;
-
-      const body = {
-        ...object,
-      };
+      const body = { ...object };
 
       const access_token = localStorage.getItem('access');
 
@@ -39,14 +37,15 @@ export default class TaskFabric {
 
       const status = response.status;
       if (status === 201) {
-        toastr.success('Таска создана успешно', 'POST /tasks/ (TaskFabric.js)');
+        ToastController.info('Таска создана', 'TaskController.js POST');
         return true;
       }
 
-      toastr.error('Таска не создана', 'POST /tasks/ (TaskFabric.js)');
+      ToastController.warning('Таска не создана', 'TaskController.js POST');
       return false;
     } catch (error) {
-      toastr.error('' + error, 'POST /tasks/ (TaskFabric.js)');
+      ToastController.error(error, 'TaskController.js POST');
+      return false;
     }
   }
 
@@ -71,20 +70,46 @@ export default class TaskFabric {
       const data = await response.json();
 
       if (status === 200) {
-        toastr.info(
-          `Получили ${data.length} тасок/таски`,
-          'GET tasks (TaskFabric.js)',
-          {
-            timeOut: 100,
-          }
+        ToastController.info(
+          `Получили массив тасок (${data.length} шт.)`,
+          'TaskController.js GET'
         );
         return data;
       }
 
-      toastr.error(JSON.stringify(data, null, 2), 'GET tasks (TaskFabric.js)');
+      // Костыль, который через три секунды снова повторит запрос
+      // Ибо может access токен просрочен и за это время хватит ему обновиться
+      if (status === 401) {
+        await sleep(3000);
+        const access_token = localStorage.getItem('access');
+        const response = await fetch(url, {
+          method: 'GET',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${access_token}`,
+          },
+        });
+
+        const status = response.status;
+        const data = await response.json();
+
+        if (status === 200) {
+          ToastController.info(
+            `Получили массив тасок (${data.length} шт.)`,
+            'TaskController.js GET'
+          );
+          return data;
+        }
+      }
+
+      ToastController.warning(
+        'Не получили массив тасок ' + JSON.stringify(data),
+        'TaskController.js GET'
+      );
       return [];
     } catch (error) {
-      toastr.error('' + error, 'GET tasks (TaskFabric.js)');
+      ToastController.error(error, 'TaskController.js GET');
       return [];
     }
   }
@@ -143,14 +168,41 @@ export default class TaskFabric {
         const status = response.status;
         const data = await response.json();
         if (status === 200) {
-          toastr.success('Получили таску', 'GET /tasks/id/ (TaskFabric.js)');
+          ToastController.info('Получили таску', 'TaskController.js GET');
           return data;
         }
 
-        toastr.error('Не получили таску', 'GET /tasks/id/ (TaskFabric.js)');
+        // Костыль, который через три секунды снова повторит запрос
+        // Ибо может access токен просрочен и за это время хватит ему обновиться
+        if (status === 401) {
+          await sleep(3000);
+          const access_token = localStorage.getItem('access');
+
+          const response = await fetch(url, {
+            method: 'GET',
+            headers: {
+              Accept: 'application/json',
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${access_token}`,
+            },
+          });
+
+          const status = response.status;
+          const data = await response.json();
+          if (status === 200) {
+            ToastController.info('Получили таску', 'TaskController.js GET');
+            return data;
+          }
+        }
+
+        ToastController.warning(
+          'Не получили таску ' + JSON.stringify(data),
+          'TaskController.js GET'
+        );
         return {};
       } catch (error) {
-        toastr.error('' + error, 'GET /tasks/id/ (TaskFabric.js)');
+        ToastController.error(error, 'TaskController.js GET');
+        return {};
       }
     }
   }
@@ -164,10 +216,7 @@ export default class TaskFabric {
   static async update(id = 0, object = {}) {
     try {
       const url = `${process.env.REACT_APP__URL_BACKEND_SERVER}/api/v1/tasks/${id}/`;
-
-      const body = {
-        ...object,
-      };
+      const body = { ...object };
 
       const access_token = localStorage.getItem('access');
 
@@ -182,15 +231,20 @@ export default class TaskFabric {
       });
 
       const status = response.status;
-
-      if (status !== 200) {
-        alert('Task not updated');
-        return false;
+      if (status === 200) {
+        ToastController.info('Таска обновлена', 'TaskController.js UPDATE');
+        return true;
       }
 
-      return true;
-    } catch (err) {
-      alert('' + err);
+      const data = await response.json();
+      ToastController.warning(
+        'Таска не обновлена ' + JSON.stringify(data),
+        'TaskController.js UPDATE'
+      );
+      return false;
+    } catch (error) {
+      ToastController.error(error, 'TaskController.js UPDATE');
+      return false;
     }
   }
 
@@ -218,17 +272,19 @@ export default class TaskFabric {
 
       const status = response.status;
       if (status === 204) {
-        toastr.success(
-          'Таска удалена успешно',
-          'DELETE /tasks/ (TaskFabric.js)'
-        );
+        TaskController.info('Таска удалена', 'TaskController.js DELETE');
         return true;
       }
 
-      toastr.error('Таска не удалена', 'DELETE /tasks/ (TaskFabric.js)');
+      const data = await response.json();
+      ToastController.warning(
+        'Таска не удалена ' + JSON.stringify(data),
+        'TaskController.js DELETE'
+      );
       return false;
     } catch (error) {
-      toastr.error('' + error, 'DELETE /tasks/ (TaskFabric.js)');
+      ToastController.error(error, 'TaskController.js DELETE');
+      return false;
     }
   }
 }

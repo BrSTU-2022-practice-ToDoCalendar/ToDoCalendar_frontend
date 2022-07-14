@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router';
 
-import VerifyFabric from '../../scripts/VerifyFabric';
+import VerifyController from '../../scripts/Verify/VerifyController';
 import styles from './Header.module.css';
 
 export default function Header(props) {
@@ -9,7 +9,7 @@ export default function Header(props) {
 
   useEffect(() => {
     (async function () {
-      const isVerify = await VerifyFabric.verifyTokens();
+      const isVerify = await VerifyController.verifyTokens();
       if (isVerify) return;
       navigate('/sign-in');
     })();

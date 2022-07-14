@@ -1,13 +1,12 @@
-import toastr from 'toastr';
-
-import VerifyFabric from './VerifyFabric';
+import VerifyController from '../Verify/VerifyController';
+import ToastController from '../Toast/ToastController';
 
 /**
  * Класс содержит методы
  * - login() - для проверки входа
  * - singup() - для проверки регистрации
  */
-export default class SignFabric {
+export default class SignController {
   /**
    * Функция отправляет в POST имя пользователя и пароль. Ответ сервера:
    * 200 - ввошел (записываем refresh в LocalStorage)
@@ -47,20 +46,23 @@ export default class SignFabric {
         localStorage.setItem('refresh', refresh_token);
         localStorage.setItem('access', access_token);
 
-        const isVerify = await VerifyFabric.verifyTokens();
+        const isVerify = await VerifyController.verifyTokens();
         if (isVerify) {
-          toastr.success('Успешная авторизация', 'Вход (SignInFabric.js)');
+          ToastController.success('Авторизовались', 'SignController.js');
           return true;
         }
 
-        toastr.error('Авторизация не прошла успешно', 'Вход (SignInFabric.js)');
+        ToastController.warning('Не авторизовались', 'SignController.js');
         return false;
       }
 
-      toastr.error(JSON.stringify(data, null, 2), 'Вход (SignInFabric.js)');
+      ToastController.warning(
+        'Не авторизовались ' + JSON.stringify(data),
+        'SignController.js'
+      );
       return false;
     } catch (error) {
-      toastr.error('' + error, 'Вход (SignInFabric.js)');
+      ToastController.error(error, 'SignController.js');
       return false;
     }
   }
@@ -94,15 +96,18 @@ export default class SignFabric {
 
       const status = response.status;
       if (status === 201) {
-        toastr.success('Успешная регистрация', 'Регистрация (SignUpFabric.js)');
+        ToastController.success('Зарегистрировались', 'SignController.js');
         return true;
       }
 
       const data = await response.json();
-      toastr.error(JSON.stringify(data), 'Регистрация (SignUpFabric.js)');
+      ToastController.warning(
+        'Не зарегистрировались ' + JSON.stringify(data),
+        'SignController.js'
+      );
       return false;
     } catch (error) {
-      toastr.error('' + error, 'Регистрация (SignUpFabric.js)');
+      ToastController.error(error, 'SignController.js');
       return false;
     }
   }

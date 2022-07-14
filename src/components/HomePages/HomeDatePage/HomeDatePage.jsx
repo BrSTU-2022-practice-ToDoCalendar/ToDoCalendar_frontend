@@ -1,13 +1,13 @@
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router';
-import toastr from 'toastr';
 
 import DateFabric from '../../../scripts/DateFabric';
-import TaskFabric from '../../../scripts/TaskFabric';
+import TaskController from '../../../scripts/Task/TaskController';
 import Container from '../../Container/Container';
 import styles from './HomeDatePage.module.css';
 import DateFrame from '../../Headers/DateFrame';
+import ToastController from '../../../scripts/Toast/ToastController';
 
 export default function HomeDatePage() {
   const { year, month, date } = useParams();
@@ -15,20 +15,10 @@ export default function HomeDatePage() {
   let navigate = useNavigate();
 
   useEffect(() => {
+    ToastController.delete_all_messages();
     async function fetchTasksToday() {
-      const tasks_array = await TaskFabric.read({ year, month, day: date });
+      const tasks_array = await TaskController.read({ year, month, day: date });
       setTasks(tasks_array);
-      if (tasks_array.length === 0) {
-        toastr.success(
-          `Нет тасок на ${year}-${month}-${date}`,
-          '(HomeDatePage.jsx)'
-        );
-      } else {
-        toastr.success(
-          `Есть ${tasks_array.length} тасок/таски на ${year}-${month}-${date}`,
-          '(HomeDatePage.jsx)'
-        );
-      }
     }
     fetchTasksToday();
   }, [date, month, year]);

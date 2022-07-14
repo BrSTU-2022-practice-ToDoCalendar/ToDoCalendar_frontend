@@ -1,9 +1,9 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import toastr from 'toastr';
 
-import SignFabric from '../../scripts/SignFabric';
+import SignController from '../../scripts/Sign/SignController';
 import styles from './SignPage.module.css';
+import ToastController from '../../scripts/Toast/ToastController';
 
 export default function SignInPage() {
   const {
@@ -14,8 +14,8 @@ export default function SignInPage() {
   let navigate = useNavigate();
 
   const onSubmit = async (data) => {
-    toastr.success('Данные в форму введены вверно', 'Вход (SignIn.jsx)');
-    const isLogin = await SignFabric.login(data.username, data.password);
+    ToastController.success('Данные в форму введены верно', 'SignInPage.jsx');
+    const isLogin = await SignController.login(data.username, data.password);
     if (isLogin) {
       navigate('/');
     }

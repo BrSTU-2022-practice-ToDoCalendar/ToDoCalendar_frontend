@@ -2,10 +2,10 @@ import React from 'react';
 import { useNavigate } from 'react-router';
 import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import toastr from 'toastr';
 
-import SignFabric from '../../scripts/SignFabric';
+import SignController from '../../scripts/Sign/SignController';
 import styles from './SignPage.module.css';
+import ToastController from '../../scripts/Toast/ToastController';
 
 export default function SignUpPage() {
   const {
@@ -18,8 +18,8 @@ export default function SignUpPage() {
   let navigate = useNavigate();
 
   const onSubmit = async (data) => {
-    toastr.success('Данные в форму введены вверно', 'Регистрация (SignUp.jsx)');
-    const isRegistred = await SignFabric.signup(
+    ToastController.success('Данные в форму введены вверно', 'SignUpPage.jsx');
+    const isRegistred = await SignController.signup(
       data.email,
       data.username,
       data.password
@@ -28,7 +28,7 @@ export default function SignUpPage() {
       return;
     }
 
-    const isLogin = await SignFabric.login(data.username, data.password);
+    const isLogin = await SignController.login(data.username, data.password);
     if (isLogin) {
       navigate('/');
     }

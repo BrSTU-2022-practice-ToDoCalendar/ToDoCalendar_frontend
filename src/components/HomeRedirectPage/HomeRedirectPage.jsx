@@ -8,7 +8,7 @@ export default function HomeRedirectPage() {
     const d = new Date();
     const year = d.getFullYear();
     const month = d.getMonth() + 1;
-    navigate(`/${year}/${month}`);
+    navigate(`/year/${year}/month/${month}`);
   }, [navigate]);
 
   return <></>;

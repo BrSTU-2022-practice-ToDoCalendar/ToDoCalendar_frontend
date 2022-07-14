@@ -2,27 +2,26 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router';
 
-import YearFrame from '../../Headers/YearFrame';
-import DateFabric from '../../../scripts/DateFabric';
-import styles from './HomeYearPage.module.css';
-import TaskController from '../../../scripts/Task/TaskController';
-import ToastController from '../../../scripts/Toast/ToastController';
+import YearFrame from '../Headers/YearFrame';
+import DateFabric from '../../scripts/DateFabric';
+import TaskController from '../../scripts/Task/TaskController';
+import ToastController from '../../scripts/Toast/ToastController';
+import styles from './YearPage.module.css';
 
-export default function HomeYearPage(props) {
+export default function YearPage(props) {
   const { year } = useParams();
   let navigate = useNavigate();
 
   const [yearCalendar, setYearCalendar] = useState([]);
 
   useEffect(() => {
-    ToastController.delete_all_messages();
-    const d = new Date(`${year}`);
-    if (d.toString() === 'Invalid Date') {
-      const timeNow = new Date();
-      const yearNow = timeNow.getFullYear();
-      navigate(`/${yearNow}`);
+    if (new Date(`${year}`).toString() === 'Invalid Date') {
+      navigate(`/year/${year}/error404`);
       return;
     }
+
+    ToastController.delete_all_messages();
+
     let yearArray = [
       DateFabric.getMonthDays(year, 1),
       DateFabric.getMonthDays(year, 2),
@@ -70,7 +69,7 @@ export default function HomeYearPage(props) {
   function selectMonth(d = new Date()) {
     const year = d.getFullYear();
     const month = d.getMonth() + 1;
-    navigate(`/${year}/${month}`);
+    navigate(`/year/${year}/month/${month}`);
   }
 
   return (

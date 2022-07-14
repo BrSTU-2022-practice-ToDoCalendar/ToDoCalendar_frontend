@@ -2,26 +2,31 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router';
 
-import DateFabric from '../../../scripts/DateFabric';
-import TaskController from '../../../scripts/Task/TaskController';
-import Container from '../../Container/Container';
-import styles from './HomeDatePage.module.css';
-import DateFrame from '../../Headers/DateFrame';
-import ToastController from '../../../scripts/Toast/ToastController';
+import DateFabric from '../../scripts/DateFabric';
+import TaskController from '../../scripts/Task/TaskController';
+import Container from '../Container/Container';
+import DateFrame from '../Headers/DateFrame';
+import ToastController from '../../scripts/Toast/ToastController';
+import styles from './DatePage.module.css';
 
-export default function HomeDatePage() {
+export default function DatePage() {
   const { year, month, date } = useParams();
   const [tasks, setTasks] = useState([]);
   let navigate = useNavigate();
 
   useEffect(() => {
+    if (new Date(`${year}-${month}-${date}`).toString() === 'Invalid Date') {
+      navigate(`/year/${year}/month/${month}/date/${date}/error404`);
+    }
+
     ToastController.delete_all_messages();
+
     async function fetchTasksToday() {
       const tasks_array = await TaskController.read({ year, month, day: date });
       setTasks(tasks_array);
     }
     fetchTasksToday();
-  }, [date, month, year]);
+  }, [date, month, navigate, year]);
 
   function selectTask(id) {
     navigate(`/task/${id}`);

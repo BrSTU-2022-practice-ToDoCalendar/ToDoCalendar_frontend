@@ -10,12 +10,20 @@ export default function DateFrame(props) {
 
   function prevDate() {
     const prev = DateFabric.getPrevDate(year, month, date);
-    navigate(`/${prev.getFullYear()}/${prev.getMonth() + 1}/${prev.getDate()}`);
+    navigate(
+      `/year/${prev.getFullYear()}/month/${
+        prev.getMonth() + 1
+      }/date/${prev.getDate()}`
+    );
   }
 
   function nextDate() {
     const next = DateFabric.getNextDate(year, month, date);
-    navigate(`/${next.getFullYear()}/${next.getMonth() + 1}/${next.getDate()}`);
+    navigate(
+      `/year/${next.getFullYear()}/month/${
+        next.getMonth() + 1
+      }/date/${next.getDate()}`
+    );
   }
 
   return (

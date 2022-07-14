@@ -1,7 +1,7 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, NavLink } from 'react-router-dom';
 
-import Container from '../Container/Container';
 import DefaultFrame from '../Headers/DefaultFrame';
+import styles from './Error404Page.module.css';
 
 export default function Error404Page() {
   let navigate = useNavigate();
@@ -12,12 +12,19 @@ export default function Error404Page() {
 
   return (
     <DefaultFrame
-      title="404"
+      title="Error 404"
       left_buttons={<button onClick={toHome}>{'<'}</button>}
     >
-      <Container>
-        <h2>Error 404 - Page not found</h2>
-      </Container>
+      <div className={styles.wrapper}>
+        <div className={styles.title_block}>404</div>
+        <div className={styles.description_block}>
+          <p>Данные не найдены</p>
+          <p>
+            Нажми, чтобы вернуться на <NavLink to="/">домашнюю</NavLink>{' '}
+            страницу
+          </p>
+        </div>
+      </div>
     </DefaultFrame>
   );
 }

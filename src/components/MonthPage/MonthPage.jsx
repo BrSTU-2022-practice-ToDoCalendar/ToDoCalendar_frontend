@@ -2,27 +2,25 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router';
 
-import DateFabric from '../../../scripts/DateFabric';
-import MonthFrame from '../../Headers/MonthFrame';
-import styles from './HomeMonthPage.module.css';
-import TaskController from '../../../scripts/Task/TaskController';
-import ToastController from '../../../scripts/Toast/ToastController';
+import DateFabric from '../../scripts/DateFabric';
+import MonthFrame from '../Headers/MonthFrame';
+import TaskController from '../../scripts/Task/TaskController';
+import ToastController from '../../scripts/Toast/ToastController';
+import styles from './MonthPage.module.css';
 
-export default function HomeMonthPage() {
+export default function MonthPage() {
   const { year, month } = useParams();
   const [monthCalendar, setMonthCalendar] = useState([]);
   let navigate = useNavigate();
 
   useEffect(() => {
-    ToastController.delete_all_messages();
-    const d = new Date(`${year}-${month}`);
-    if (d.toString() === 'Invalid Date') {
-      const timeNow = new Date();
-      const yearNow = timeNow.getFullYear();
-      const monthNow = timeNow.getMonth() + 1;
-      navigate(`/${yearNow}/${monthNow}`);
+    if (new Date(`${year}-${month}`).toString() === 'Invalid Date') {
+      navigate(`/year/${year}/month/${month}/error404`);
       return;
     }
+
+    ToastController.delete_all_messages();
+
     let monthCalendar = DateFabric.getMonthDays(year, month);
 
     async function getTasks() {
@@ -60,7 +58,9 @@ export default function HomeMonthPage() {
     const choosenMonth = d.getMonth() + 1;
     const choosenDate = d.getDate();
     if (Number(year) === choosenYear && Number(month) === choosenMonth) {
-      navigate(`/${choosenYear}/${choosenMonth}/${choosenDate}`);
+      navigate(
+        `/year/${choosenYear}/month/${choosenMonth}/date/${choosenDate}`
+      );
     }
   }
 

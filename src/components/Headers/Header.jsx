@@ -24,20 +24,20 @@ export default function Header(props) {
     const yearNow = timeNow.getFullYear();
     const monthNow = timeNow.getMonth() + 1;
     const dateNow = timeNow.getDate();
-    navigate(`/${yearNow}/${monthNow}/${dateNow}`);
+    navigate(`/year/${yearNow}/month/${monthNow}/date/${dateNow}`);
   }
 
   function navigateToMonth() {
     const timeNow = new Date();
     const yearNow = timeNow.getFullYear();
     const monthNow = timeNow.getMonth() + 1;
-    navigate(`/${yearNow}/${monthNow}`);
+    navigate(`/year/${yearNow}/month/${monthNow}`);
   }
 
   function navigateToYear() {
     const timeNow = new Date();
     const yearNow = timeNow.getFullYear();
-    navigate(`/${yearNow}`);
+    navigate(`/year/${yearNow}`);
   }
 
   return (

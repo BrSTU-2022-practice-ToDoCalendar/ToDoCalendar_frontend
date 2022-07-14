@@ -8,11 +8,11 @@ export default function YearFrame(props) {
   let navigate = useNavigate();
 
   function prevYear() {
-    navigate(`/${Number(year) - 1}`);
+    navigate(`/year/${Number(year) - 1}`);
   }
 
   function nextYear() {
-    navigate(`/${Number(year) + 1}`);
+    navigate(`/year/${Number(year) + 1}`);
   }
 
   return (

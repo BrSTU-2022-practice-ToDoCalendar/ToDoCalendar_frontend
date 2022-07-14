@@ -83,16 +83,15 @@ tree --charset ascii -I "node_modules|build" -d
 `-- src
     |-- components
     |   |-- Container
+    |   |-- DatePage
     |   |-- Error404Page
     |   |-- FooterPattern
     |   |-- Headers
-    |   |-- HomePages
-    |   |   |-- HomeDatePage
-    |   |   |-- HomeMonthPage
-    |   |   |-- HomeRedirectPage
-    |   |   `-- HomeYearPage
+    |   |-- HomeRedirectPage
+    |   |-- MonthPage
     |   |-- SignPage
-    |   `-- TaskPage
+    |   |-- TaskPage
+    |   `-- YearPage
     |-- consts
     |-- scripts
     |   |-- Sign
@@ -102,7 +101,7 @@ tree --charset ascii -I "node_modules|build" -d
     |   `-- sleep
     `-- svg
 
-22 directories
+21 directories
 ```
 
 - **components**:

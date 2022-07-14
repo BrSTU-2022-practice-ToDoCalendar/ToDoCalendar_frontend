@@ -42,6 +42,11 @@ export default function TaskPage() {
   useEffect(() => {
     async function fetchTask() {
       const object = await TaskController.getTaskById(taskId);
+
+      if (Object.keys(object).length === 0) {
+        navigate(`/task/${taskId}/error404`);
+      }
+
       setTitle(object.title);
       setDescription(object.description);
       setIsCompleted(object.completed);
@@ -67,7 +72,7 @@ export default function TaskPage() {
     setStartTime(standart_task.startTime);
     setEndDate(standart_task.endDate);
     setEndTime(standart_task.endTime);
-  }, [taskId]);
+  }, [navigate, taskId]);
 
   function changed_dates(left_date = new Date(), right_date = new Date()) {
     if (left_date.getTime() >= right_date.getTime()) {
@@ -117,7 +122,7 @@ export default function TaskPage() {
     const year = d.getFullYear();
     const month = d.getMonth() + 1;
     const date = d.getDate();
-    navigate(`/${year}/${month}/${date}`);
+    navigate(`/year/${year}/month/${month}/date/${date}`);
   }
 
   async function save(data) {

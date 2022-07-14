@@ -20,5 +20,5 @@ jobs:
           push: true
           tags: pavelinnokentevichgalanin/todocalendar_frontend:latest
           build-args: |
-            REACT_APP__USE_HASH_ROUTER=${{ secrets.REACT_APP__USE_HASH_ROUTER }}
+            REACT_APP__USE_HASH_ROUTER=false
             REACT_APP__URL_BACKEND_SERVER=${{ secrets.REACT_APP__URL_BACKEND_SERVER }}

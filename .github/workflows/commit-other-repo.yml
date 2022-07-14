@@ -1,0 +1,28 @@
+name: Build commit to other repo
+
+env:
+  user_name: 'github-actions[bot]'
+  user_email: 'github-actions[bot]@users.noreply.github.com'
+  github_token: ${{ secrets.ACTIONS_DEPLOY_ACCESS_TOKEN }}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js 16.x
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16.x
+      - run: npm ci
+      - run: npm run build
+      - run: |
+          git config user.name $user_name
+          git config user.email $user_email
+          git remote set-url origin https://git:${github_token}@github.com/ToDoCalendar/ToDoCalendar.github.io.git
+          npm run deploy
+      env:
+        BUILD_PATH: './build'
+        PUBLIC_URL: '/'
+        REACT_APP__USE_HASH_ROUTER: 'true'
+        REACT_APP__URL_BACKEND_SERVER: ${{ secrets.REACT_APP__URL_BACKEND_SERVER }}

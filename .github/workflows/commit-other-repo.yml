@@ -18,13 +18,13 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 16.x
+      - run: npm ci
+      - run: npm run build
         env:
           BUILD_PATH: './build'
           PUBLIC_URL: '/'
           REACT_APP__USE_HASH_ROUTER: 'true'
           REACT_APP__URL_BACKEND_SERVER: ${{ secrets.REACT_APP__URL_BACKEND_SERVER }}
-      - run: npm ci
-      - run: npm run build
       - run: |
           git config user.name $user_name
           git config user.email $user_email

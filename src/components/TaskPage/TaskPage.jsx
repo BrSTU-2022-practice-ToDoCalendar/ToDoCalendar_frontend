@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 
 import TaskFrame from '../Headers/TaskFrame';
 import Container from '../Container/Container';
-import DateFabric from '../../scripts/DateFabric';
+import DateController from '../../scripts/Date/DateController';
 import TaskController from '../../scripts/Task/TaskController';
 import styles from './TaskPage.module.css';
 
@@ -12,10 +12,10 @@ const standart_task = {
   title: '_',
   isCompleted: false,
   description: '',
-  startDate: DateFabric.toStringDate(),
-  startTime: DateFabric.toStringTime(),
-  endDate: DateFabric.toStringDate(),
-  endTime: DateFabric.toStringTime(
+  startDate: DateController.toStringDate(),
+  startTime: DateController.toStringTime(),
+  endDate: DateController.toStringDate(),
+  endTime: DateController.toStringTime(
     new Date(new Date().getTime() + 1000 * 60 * 1)
   ),
 };
@@ -52,12 +52,12 @@ export default function TaskPage() {
       setIsCompleted(object.completed);
 
       const start_date = new Date(object.start_date);
-      setStartDate(DateFabric.toStringDate(start_date));
-      setStartTime(DateFabric.toStringTime(start_date));
+      setStartDate(DateController.toStringDate(start_date));
+      setStartTime(DateController.toStringTime(start_date));
 
       const end_date = new Date(object.end_date);
-      setEndDate(DateFabric.toStringDate(end_date));
-      setEndTime(DateFabric.toStringTime(end_date));
+      setEndDate(DateController.toStringDate(end_date));
+      setEndTime(DateController.toStringTime(end_date));
     }
 
     if (taskId) {
@@ -83,38 +83,38 @@ export default function TaskPage() {
 
   function changed_start_date(value) {
     let { left_date, right_date } = changed_dates(
-      DateFabric.setDate(value, startTime),
-      DateFabric.setDate(endDate, endTime)
+      DateController.setDate(value, startTime),
+      DateController.setDate(endDate, endTime)
     );
-    setStartDate(DateFabric.toStringDate(left_date));
-    setEndDate(DateFabric.toStringDate(right_date));
+    setStartDate(DateController.toStringDate(left_date));
+    setEndDate(DateController.toStringDate(right_date));
   }
 
   function changed_end_date(value) {
     let { left_date, right_date } = changed_dates(
-      DateFabric.setDate(startDate, startTime),
-      DateFabric.setDate(value, endTime)
+      DateController.setDate(startDate, startTime),
+      DateController.setDate(value, endTime)
     );
-    setStartDate(DateFabric.toStringDate(left_date));
-    setEndDate(DateFabric.toStringDate(right_date));
+    setStartDate(DateController.toStringDate(left_date));
+    setEndDate(DateController.toStringDate(right_date));
   }
 
   function changed_start_time(value) {
     let { left_date, right_date } = changed_dates(
-      DateFabric.setDate(startDate, value),
-      DateFabric.setDate(endDate, endTime)
+      DateController.setDate(startDate, value),
+      DateController.setDate(endDate, endTime)
     );
-    setStartTime(DateFabric.toStringTime(left_date));
-    setEndTime(DateFabric.toStringTime(right_date));
+    setStartTime(DateController.toStringTime(left_date));
+    setEndTime(DateController.toStringTime(right_date));
   }
 
   function changed_end_time(value) {
     let { left_date, right_date } = changed_dates(
-      DateFabric.setDate(startDate, startTime),
-      DateFabric.setDate(endDate, value)
+      DateController.setDate(startDate, startTime),
+      DateController.setDate(endDate, value)
     );
-    setStartTime(DateFabric.toStringTime(left_date));
-    setEndTime(DateFabric.toStringTime(right_date));
+    setStartTime(DateController.toStringTime(left_date));
+    setEndTime(DateController.toStringTime(right_date));
   }
 
   function navigate_to_home() {
@@ -129,8 +129,8 @@ export default function TaskPage() {
     await TaskController.create({
       title,
       description,
-      start_date: DateFabric.toJson(startDate, startTime),
-      end_date: DateFabric.toJson(endDate, endTime),
+      start_date: DateController.toJson(startDate, startTime),
+      end_date: DateController.toJson(endDate, endTime),
       completed: isCompleted,
     });
     navigate_to_home();
@@ -140,8 +140,8 @@ export default function TaskPage() {
     await TaskController.update(taskId, {
       title,
       description,
-      start_date: DateFabric.toJson(startDate, startTime),
-      end_date: DateFabric.toJson(endDate, endTime),
+      start_date: DateController.toJson(startDate, startTime),
+      end_date: DateController.toJson(endDate, endTime),
       completed: isCompleted,
     });
     navigate_to_home();

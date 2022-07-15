@@ -41,6 +41,7 @@
   height: 30px;
   font-size: 0.8rem;
   list-style-type: none;
+  text-align: center;
 }
 
 .array_days_element:nth-child(1),

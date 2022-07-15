@@ -1,4 +1,4 @@
-export default class DateFabric {
+export default class DateController {
   /**
    * Функция, возвращает наш день недели
    * @param {*} d - объект даты
@@ -12,11 +12,11 @@ export default class DateFabric {
 
   static getStringDay(day, lang = 'en') {
     if (lang === 'ru') {
-      const ru = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'];
-      return ru[day - 1];
+      const ru = ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'];
+      return ru[day];
     }
-    const en = ['Mon', 'Tue', 'Wen', 'Thu', 'Fri', 'Sat', 'Sun'];
-    return en[day - 1];
+    const en = ['Sun', 'Mon', 'Tue', 'Wen', 'Thu', 'Fri', 'Sat', 'Sun'];
+    return en[day];
   }
 
   static getStringMonth(month) {
@@ -47,26 +47,19 @@ export default class DateFabric {
   static getMonthDays(year, month) {
     year = Number(year);
     month = Number(month);
+
     let array = [];
     const first_date = new Date(`${year}-${month}`);
+
+    // Добавляем в месяц дни
     for (let i = 0; i < 31; ++i) {
-      let date_i = new Date(first_date.getTime() + 1000 * 60 * 60 * 24 * i);
-      let month_i = date_i.getMonth() + 1;
-      if (month_i === month) {
-        array.push({
-          Date: date_i,
-          json: date_i.toJSON(),
-          date: date_i.getDate(),
-          month: date_i.getMonth() + 1,
-          year: date_i.getFullYear(),
-          isThisMonth: true,
-          tasks: [],
-          has_not_completed_task: false,
-          has_completed_task: false,
-        });
-      } else {
-        break;
-      }
+      const d = new Date(first_date.getTime() + 1000 * 60 * 60 * 24 * i);
+      if (d.getMonth() + 1 !== month) break;
+
+      array.push({
+        date: d.toJSON(),
+        isThisMonth: true,
+      });
     }
 
     // 0 воскресенье, 1 понедельник, 2 вторник, 3 среда, 4 четверг, 5 пятница, 6 суббота
@@ -77,19 +70,12 @@ export default class DateFabric {
     // Если это 4 четверг, то добавить среду, четверг, пятницу, субботу, воскресенье в начало массива
     // Если это 5 пятница, то добавить четверг, среду, четверг, пятницу, субботу, воскресенье в начало массива
     // Если это 6 суббота, то добавить пятницу, четверг, среду, четверг, пятницу, субботу, воскресенье в начало массива
-    for (let i = 1; i < DateFabric.getDate(first_date); ++i) {
-      let date_i = new Date(first_date.getTime() - 1000 * 60 * 60 * 24 * i);
+    for (let i = 1; i < DateController.getDate(first_date); ++i) {
+      const d = new Date(first_date.getTime() - 1000 * 60 * 60 * 24 * i);
       array = [
         {
-          Date: date_i,
-          json: date_i.toJSON(),
-          date: date_i.getDate(),
-          month: date_i.getMonth() + 1,
-          year: date_i.getFullYear(),
+          date: d.toJSON(),
           isThisMonth: false,
-          tasks: [],
-          has_not_completed_task: false,
-          has_completed_task: false,
         },
         ...array,
       ];
@@ -102,54 +88,33 @@ export default class DateFabric {
     // Если это пятница, то добавляю субботу, воскресенье
     // Если это суббота, то добавляю воскресенье
     // Если это восресенье, то ничего не добавляю в конец массива
-    let last_date = array[array.length - 1].Date;
-    for (let i = 1; i <= 7 - DateFabric.getDate(last_date); ++i) {
-      let date_i = new Date(last_date.getTime() + 1000 * 60 * 60 * 24 * i);
+    let last_date = new Date(array[array.length - 1]?.date);
+    for (let i = 1; i <= 7 - DateController.getDate(last_date); ++i) {
+      const d = new Date(last_date.getTime() + 1000 * 60 * 60 * 24 * i);
       array.push({
-        Date: date_i,
-        json: date_i.toJSON(),
-        date: date_i.getDate(),
-        month: date_i.getMonth() + 1,
-        year: date_i.getFullYear(),
+        date: d.toJSON(),
         isThisMonth: false,
-        tasks: [],
-        has_not_completed_task: false,
-        has_completed_task: false,
       });
     }
 
-    last_date = array[array.length - 1].Date;
+    last_date = new Date(array[array.length - 1]?.date);
     if (array.length / 7 === 4) {
       for (let i = 1; i <= 7; ++i) {
-        let date_i = new Date(last_date.getTime() + 1000 * 60 * 60 * 24 * i);
+        const d = new Date(last_date.getTime() + 1000 * 60 * 60 * 24 * i);
         array.push({
-          Date: date_i,
-          json: date_i.toJSON(),
-          date: date_i.getDate(),
-          month: date_i.getMonth() + 1,
-          year: date_i.getFullYear(),
+          date: d.toJSON(),
           isThisMonth: false,
-          tasks: [],
-          has_not_completed_task: false,
-          has_completed_task: false,
         });
       }
     }
 
-    last_date = array[array.length - 1].Date;
+    last_date = new Date(array[array.length - 1]?.date);
     if (array.length / 7 === 5) {
       for (let i = 1; i <= 7; ++i) {
-        let date_i = new Date(last_date.getTime() + 1000 * 60 * 60 * 24 * i);
+        const d = new Date(last_date.getTime() + 1000 * 60 * 60 * 24 * i);
         array.push({
-          Date: date_i,
-          json: date_i.toJSON(),
-          date: date_i.getDate(),
-          month: date_i.getMonth() + 1,
-          year: date_i.getFullYear(),
+          date: d.toJSON(),
           isThisMonth: false,
-          tasks: [],
-          has_not_completed_task: false,
-          has_completed_task: false,
         });
       }
     }
@@ -183,17 +148,6 @@ export default class DateFabric {
     return month === 1
       ? new Date(`${year - 1}-12`)
       : new Date(`${year}-${month - 1}`);
-  }
-
-  static convertDateToUTC(date) {
-    return new Date(
-      date.getUTCFullYear(),
-      date.getUTCMonth(),
-      date.getUTCDate(),
-      date.getUTCHours(),
-      date.getUTCMinutes(),
-      date.getUTCSeconds()
-    );
   }
 
   static toStringTime(d = new Date()) {

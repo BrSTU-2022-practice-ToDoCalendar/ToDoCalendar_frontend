@@ -1,11 +1,10 @@
-import { useEffect } from 'react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router';
 
-import DateFabric from '../../scripts/DateFabric';
+import DateController from '../../scripts/Date/DateController';
 import MonthFrame from '../Headers/MonthFrame';
-import TaskController from '../../scripts/Task/TaskController';
 import ToastController from '../../scripts/Toast/ToastController';
+import CalendarController from '../../scripts/Calendar/CalendarController';
 import styles from './MonthPage.module.css';
 
 export default function MonthPage() {
@@ -21,37 +20,12 @@ export default function MonthPage() {
 
     ToastController.delete_all_messages();
 
-    let monthCalendar = DateFabric.getMonthDays(year, month);
-
     async function getTasks() {
-      const tasks = await TaskController.read({ year, month });
-      tasks.forEach((task) => {
-        const start_date = DateFabric.convertDateToUTC(
-          new Date(task.start_date)
-        );
-        const start_date__year = start_date.getFullYear();
-        const start_date__month = start_date.getMonth() + 1;
-        const start_date__date = start_date.getDate();
-        monthCalendar.forEach((calendar_element) => {
-          if (
-            calendar_element.year === start_date__year &&
-            calendar_element.month === start_date__month &&
-            calendar_element.date === start_date__date
-          ) {
-            calendar_element.tasks.push(task);
-            if (task.completed) {
-              calendar_element.has_completed_task = true;
-            }
-            if (!task.completed) {
-              calendar_element.has_not_completed_task = true;
-            }
-          }
-        });
-      });
+      let monthCalendar = await CalendarController.getMonthTasks(year, month);
       setMonthCalendar(monthCalendar);
     }
     getTasks();
-  }, [month, navigate, year]);
+  }, [navigate, year, month]);
 
   function chooseDate(d = new Date()) {
     const choosenYear = d.getFullYear();
@@ -68,7 +42,8 @@ export default function MonthPage() {
     <MonthFrame>
       <ul className={styles.array}>
         {monthCalendar.map((dateObj, date_i) => {
-          const d = new Date(dateObj.json);
+          const d = new Date(dateObj.date);
+          const currentDay = d.getDay();
           const currentYear = d.getFullYear();
           const currentMonth = d.getMonth() + 1;
           const currentDate = d.getDate();
@@ -86,7 +61,7 @@ export default function MonthPage() {
               }
             >
               <div className={styles.element_day}>
-                {DateFabric.getStringDay((date_i % 7) + 1, 'ru')}
+                {DateController.getStringDay(currentDay, 'ru')}
               </div>
               <div className={styles.element_date}>{currentDate}</div>
               <ul className={styles.element_circles}>

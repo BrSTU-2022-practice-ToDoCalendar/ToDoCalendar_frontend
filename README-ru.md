@@ -18,47 +18,26 @@
 
 ## Как запустить приложение
 
-### Запуск Frontend для разработки
+Запускаем backend:
 
 ```bash
+git clone https://github.com/ToDoCalendar/ToDoCalendar_server.git
+#git clone git@github.com:ToDoCalendar/ToDoCalendar_server.git
+cd ToDoCalendar_server
 cp .env.example .env
+docker-compose up -d
+docker-compose ps
+```
+
+Запускаем frontend:
+
+```bash
+git clone https://github.com/ToDoCalendar/ToDoCalendar_frontend.git
+#git clone git@github.com:ToDoCalendar/ToDoCalendar_frontend.git
+cd ToDoCalendar_frontend
 npm ci
+cp .env.example .env
 npm run start
-```
-
-### Как сбилдить и загрузить образ на Docker Hub
-
-1. Авторизуемся на Docker Hub:
-
-```bash
-docker login
-```
-
-2. Билдим образ:
-
-```bash
-docker build -t pavelinnokentevichgalanin/todocalendar_frontend .
-```
-
-3. Проверяем как работает:
-
-http://localhost:9001
-
-```bash
-docker-compose up
-```
-
-4. Загружает образ на Docker Hub:
-
-```bash
-docker push pavelinnokentevichgalanin/todocalendar_frontend
-```
-
-5. Если на сервере или другом компьютере уже загружен образ, то обновить его
-   можно так:
-
-```bash
-docker pull pavelinnokentevichgalanin/todocalendar_frontend
 ```
 
 ## Стэк приложений
@@ -67,8 +46,13 @@ docker pull pavelinnokentevichgalanin/todocalendar_frontend
 - **[Node JS](https://nodejs.org/en/)** - для разработки приложения
 - **[React](https://reactjs.org/)** - фреймворк для фронтенда
 - **[Firefox](https://www.mozilla.org/en-US/firefox/enterprise/)** - браузер
-- **[SVG repo](https://www.svgrepo.com/)** - SVG иконки
-- **[Docker, docker-compose](https://www.docker.com/)** - для запуска на сервере
+- **[Docker](https://www.docker.com/)** - для сборки фронта на DockerHub
+- **[Docker-compose](https://www.docker.com/)** - для запуска фронта на сервере
+- **[React-hook-form](https://react-hook-form.com/get-started)** - библиотека
+  для проверки формы
+- **[Toastr](https://codeseven.github.io/toastr/demo.html)** - библиотека, чтобы
+  выводить сообщения на экран, которые сами пропадают
+- **[GitHub pages](https://pages.github.com/)** - хостинг Jekyll от GitHub
 
 ## Структура проекта
 
@@ -93,15 +77,14 @@ tree --charset ascii -I "node_modules|build" -d
     |   |-- TaskPage
     |   `-- YearPage
     |-- consts
-    |-- scripts
-    |   |-- Sign
-    |   |-- Task
-    |   |-- Toast
-    |   |-- Verify
-    |   `-- sleep
-    `-- svg
+    `-- scripts
+        |-- Sign
+        |-- Task
+        |-- Toast
+        |-- Verify
+        `-- sleep
 
-21 directories
+20 directories
 ```
 
 - **components**:
@@ -118,7 +101,3 @@ tree --charset ascii -I "node_modules|build" -d
     нескольких страницах
   - **Виды файлов**:
     - `*.js`
-- **svg**
-  - **Описание**: папка с иконками
-  - **Виды файлов**:
-    - `*.svg`

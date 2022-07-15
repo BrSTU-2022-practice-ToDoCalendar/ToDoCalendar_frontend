@@ -45,7 +45,6 @@ export default class DateController {
    * Получаем прямоугольний массив делящий на 7 текущего месяца
    */
   static getMonthDays(year, month) {
-    year = Number(year);
     month = Number(month);
 
     let array = [];
@@ -148,6 +147,38 @@ export default class DateController {
     return month === 1
       ? new Date(`${year - 1}-12`)
       : new Date(`${year}-${month - 1}`);
+  }
+
+  static getNextYear(year) {
+    const time_now = new Date(`${year}`).getTime();
+    const next = new Date(time_now + 1000 * 60 * 60 * 24 * 366);
+    const next_year = next.getFullYear();
+
+    let string_year_with_zeros = '';
+    if (next_year < 0) {
+      string_year_with_zeros = `${-next_year}`.padStart(6, 0);
+      string_year_with_zeros = `-${string_year_with_zeros}`;
+    } else {
+      string_year_with_zeros = `${next_year}`.padStart(4, 0);
+    }
+
+    return string_year_with_zeros;
+  }
+
+  static getPrevYear(year) {
+    const time_now = new Date(`${year}`).getTime();
+    const prev = new Date(time_now - 1000 * 60 * 60 * 24 * 365);
+    const prev_year = prev.getFullYear();
+
+    let string_year_with_zeros = '';
+    if (prev_year < 0) {
+      string_year_with_zeros = `${-prev_year}`.padStart(6, 0);
+      string_year_with_zeros = `-${string_year_with_zeros}`;
+    } else {
+      string_year_with_zeros = `${prev_year}`.padStart(4, 0);
+    }
+
+    return string_year_with_zeros;
   }
 
   static toStringTime(d = new Date()) {

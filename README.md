@@ -18,47 +18,26 @@
 
 ## How to run app
 
-### Run Frontend for Development
+We start backend:
 
 ```bash
+git clone https://github.com/ToDoCalendar/ToDoCalendar_server.git
+#git clone git@github.com:ToDoCalendar/ToDoCalendar_server.git
+cd ToDoCalendar_server
 cp .env.example .env
+docker-compose up -d
+docker-compose ps
+```
+
+We start frontend:
+
+```bash
+git clone https://github.com/ToDoCalendar/ToDoCalendar_frontend.git
+#git clone git@github.com:ToDoCalendar/ToDoCalendar_frontend.git
+cd ToDoCalendar_frontend
 npm ci
+cp .env.example .env
 npm run start
-```
-
-### How to build and upload an image to Docker Hub
-
-1. Log in to Docker Hub:
-
-```bash
-docker login
-```
-
-2. Build image:
-
-```bash
-docker build -t pavelinnokentevichgalanin/todocalendar_frontend .
-```
-
-3. Check how it works:
-
-http://localhost:9001
-
-```bash
-docker-compose-up
-```
-
-4. Uploads the image to Docker Hub:
-
-```bash
-docker push pavelinnokentevichgalanin/todocalendar_frontend
-```
-
-5. If the image is already loaded on the server or another computer, then update
-   it it is possible like this:
-
-```bash
-docker pull pavelinnokentevichgalanin/todocalendar_frontend
 ```
 
 ## Application stack

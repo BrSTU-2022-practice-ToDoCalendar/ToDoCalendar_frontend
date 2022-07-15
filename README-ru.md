@@ -18,47 +18,26 @@
 
 ## Как запустить приложение
 
-### Запуск Frontend для разработки
+Запускаем backend:
 
 ```bash
+git clone https://github.com/ToDoCalendar/ToDoCalendar_server.git
+#git clone git@github.com:ToDoCalendar/ToDoCalendar_server.git
+cd ToDoCalendar_server
 cp .env.example .env
+docker-compose up -d
+docker-compose ps
+```
+
+Запускаем frontend:
+
+```bash
+git clone https://github.com/ToDoCalendar/ToDoCalendar_frontend.git
+#git clone git@github.com:ToDoCalendar/ToDoCalendar_frontend.git
+cd ToDoCalendar_frontend
 npm ci
+cp .env.example .env
 npm run start
-```
-
-### Как сбилдить и загрузить образ на Docker Hub
-
-1. Авторизуемся на Docker Hub:
-
-```bash
-docker login
-```
-
-2. Билдим образ:
-
-```bash
-docker build -t pavelinnokentevichgalanin/todocalendar_frontend .
-```
-
-3. Проверяем как работает:
-
-http://localhost:9001
-
-```bash
-docker-compose up
-```
-
-4. Загружает образ на Docker Hub:
-
-```bash
-docker push pavelinnokentevichgalanin/todocalendar_frontend
-```
-
-5. Если на сервере или другом компьютере уже загружен образ, то обновить его
-   можно так:
-
-```bash
-docker pull pavelinnokentevichgalanin/todocalendar_frontend
 ```
 
 ## Стэк приложений

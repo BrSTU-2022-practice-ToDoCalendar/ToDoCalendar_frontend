@@ -1,9 +1,7 @@
-import { useState } from 'react';
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router';
 
-import DateFabric from '../../scripts/DateFabric';
-import TaskController from '../../scripts/Task/TaskController';
+import CalendarController from '../../scripts/Calendar/CalendarController';
 import Container from '../Container/Container';
 import DateFrame from '../Headers/DateFrame';
 import ToastController from '../../scripts/Toast/ToastController';
@@ -21,11 +19,15 @@ export default function DatePage() {
 
     ToastController.delete_all_messages();
 
-    async function fetchTasksToday() {
-      const tasks_array = await TaskController.read({ year, month, day: date });
-      setTasks(tasks_array);
+    async function getDays() {
+      const array_tasks = await CalendarController.getDayTasks(
+        year,
+        month,
+        date
+      );
+      setTasks(array_tasks);
     }
-    fetchTasksToday();
+    getDays();
   }, [date, month, navigate, year]);
 
   function selectTask(id) {
@@ -38,9 +40,7 @@ export default function DatePage() {
         <div className={styles.counter_block}>{tasks.length} tasks</div>
         <ul className={styles.array}>
           {tasks.map((task, task_i) => {
-            const start_date = DateFabric.convertDateToUTC(
-              new Date(task.start_date)
-            );
+            const start_date = new Date(task.start_date);
 
             let hours = start_date.getHours();
             hours = hours < 10 ? `0${hours}` : `${hours}`;

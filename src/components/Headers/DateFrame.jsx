@@ -1,6 +1,6 @@
 import { useNavigate, useParams } from 'react-router';
 
-import DateFabric from '../../scripts/DateFabric';
+import DateController from '../../scripts/Date/DateController';
 import Header from './Header';
 import styles from './Header.module.css';
 
@@ -9,7 +9,7 @@ export default function DateFrame(props) {
   let navigate = useNavigate();
 
   function prevDate() {
-    const prev = DateFabric.getPrevDate(year, month, date);
+    const prev = DateController.getPrevDate(year, month, date);
     navigate(
       `/year/${prev.getFullYear()}/month/${
         prev.getMonth() + 1
@@ -18,7 +18,7 @@ export default function DateFrame(props) {
   }
 
   function nextDate() {
-    const next = DateFabric.getNextDate(year, month, date);
+    const next = DateController.getNextDate(year, month, date);
     navigate(
       `/year/${next.getFullYear()}/month/${
         next.getMonth() + 1
@@ -29,7 +29,7 @@ export default function DateFrame(props) {
   return (
     <div className={styles.wrapper}>
       <Header
-        title={`${year} ${DateFabric.getStringMonth(month)} ${date}`}
+        title={`${year} ${DateController.getStringMonth(month)} ${date}`}
         left_buttons={
           <>
             <button onClick={prevDate}>{'<'}</button>

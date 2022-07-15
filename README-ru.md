@@ -46,8 +46,13 @@ npm run start
 - **[Node JS](https://nodejs.org/en/)** - для разработки приложения
 - **[React](https://reactjs.org/)** - фреймворк для фронтенда
 - **[Firefox](https://www.mozilla.org/en-US/firefox/enterprise/)** - браузер
-- **[SVG repo](https://www.svgrepo.com/)** - SVG иконки
-- **[Docker, docker-compose](https://www.docker.com/)** - для запуска на сервере
+- **[Docker](https://www.docker.com/)** - для сборки фронта на DockerHub
+- **[Docker-compose](https://www.docker.com/)** - для запуска фронта на сервере
+- **[React-hook-form](https://react-hook-form.com/get-started)** - библиотека
+  для проверки формы
+- **[Toastr](https://codeseven.github.io/toastr/demo.html)** - библиотека, чтобы
+  выводить сообщения на экран, которые сами пропадают
+- **[GitHub pages](https://pages.github.com/)** - хостинг Jekyll от GitHub
 
 ## Структура проекта
 
@@ -72,15 +77,14 @@ tree --charset ascii -I "node_modules|build" -d
     |   |-- TaskPage
     |   `-- YearPage
     |-- consts
-    |-- scripts
-    |   |-- Sign
-    |   |-- Task
-    |   |-- Toast
-    |   |-- Verify
-    |   `-- sleep
-    `-- svg
+    `-- scripts
+        |-- Sign
+        |-- Task
+        |-- Toast
+        |-- Verify
+        `-- sleep
 
-21 directories
+20 directories
 ```
 
 - **components**:
@@ -97,7 +101,3 @@ tree --charset ascii -I "node_modules|build" -d
     нескольких страницах
   - **Виды файлов**:
     - `*.js`
-- **svg**
-  - **Описание**: папка с иконками
-  - **Виды файлов**:
-    - `*.svg`

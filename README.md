@@ -46,8 +46,13 @@ npm run start
 - **[Node JS](https://nodejs.org/en/)** - for application development
 - **[React](https://reactjs.org/)** - frontend framework
 - **[Firefox](https://www.mozilla.org/en-US/firefox/enterprise/)** - browser
-- **[SVG repo](https://www.svgrepo.com/)** - SVG icons
-- **[Docker, docker-compose](https://www.docker.com/)** - to run on the server
+- **[Docker](https://www.docker.com/)** - for building the front on DockerHub
+- **[Docker-compose](https://www.docker.com/)** - to run the front on the server
+- **[React-hook-form](https://react-hook-form.com/get-started)** - library for
+  form validation
+- **[Toastr](https://codeseven.github.io/toastr/demo.html)** - library to
+  display messages on the screen that disappear on their own
+- **[GitHub pages](https://pages.github.com/)** - Jekyll hosting from GitHub
 
 ## Folder structure
 
@@ -72,15 +77,14 @@ tree --charset ascii -I "node_modules|build" -d
     |   |-- TaskPage
     |   `-- YearPage
     |-- consts
-    |-- scripts
-    |   |-- Sign
-    |   |-- Task
-    |   |-- Toast
-    |   |-- Verify
-    |   `-- sleep
-    `-- svg
+    `-- scripts
+        |-- Sign
+        |-- Task
+        |-- Toast
+        |-- Verify
+        `-- sleep
 
-21 directories
+20 directories
 ```
 
 - **components**:
@@ -97,7 +101,3 @@ tree --charset ascii -I "node_modules|build" -d
     several pages
   - **Types of files**:
     - `*.js`
-- **svg**
-  - **Description**: Icon folder
-  - **Types of files**:
-    - `*.svg`

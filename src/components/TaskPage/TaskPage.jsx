@@ -204,7 +204,6 @@ export default function TaskPage() {
               value={startTime}
               onChange={(event) => changed_start_time(event.target.value)}
             />
-            {' - '}
             <input
               {...register('endDate', {
                 required: 'Поле endDate не может быть пустым',

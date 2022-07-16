@@ -29,7 +29,7 @@ export default function DateFrame(props) {
   return (
     <div className={styles.wrapper}>
       <Header
-        title={`${year} ${DateController.getStringMonth(month)} ${date}`}
+        title={`${DateController.getStringMonth(month)} ${date}, ${year}`}
         left_buttons={
           <>
             <button onClick={prevDate}>{'<'}</button>

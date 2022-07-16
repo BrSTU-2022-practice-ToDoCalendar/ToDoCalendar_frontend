@@ -8,6 +8,7 @@ export default class ToastController {
   static error(message, title = '', overrides = {}) {
     toastr.error(message, title, {
       timeOut: 20000,
+      positionClass: 'toast-bottom-right',
       ...overrides,
     });
   }
@@ -15,6 +16,7 @@ export default class ToastController {
   static info(message, title = '', overrides = {}) {
     toastr.info(message, title, {
       timeOut: 2000,
+      positionClass: 'toast-bottom-right',
       ...overrides,
     });
   }
@@ -22,6 +24,7 @@ export default class ToastController {
   static warning(message, title = '', overrides = {}) {
     toastr.warning(message, title, {
       timeOut: 10000,
+      positionClass: 'toast-bottom-right',
       ...overrides,
     });
   }
@@ -29,6 +32,7 @@ export default class ToastController {
   static success(message, title = '', overrides = {}) {
     toastr.success(message, title, {
       timeOut: 5000,
+      positionClass: 'toast-bottom-right',
       ...overrides,
     });
   }

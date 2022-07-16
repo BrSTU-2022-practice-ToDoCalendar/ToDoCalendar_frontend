@@ -21,7 +21,7 @@ export default function MonthFrame(props) {
   return (
     <div className={styles.wrapper}>
       <Header
-        title={`${year} ${DateController.getStringMonth(month)}`}
+        title={`${DateController.getStringMonth(month)} ${year}`}
         left_buttons={
           <>
             <button onClick={prevMonth}>{'<'}</button>

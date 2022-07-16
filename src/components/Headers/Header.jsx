@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router';
+import ToastController from '../../scripts/Toast/ToastController';
 
 import VerifyController from '../../scripts/Verify/VerifyController';
 import styles from './Header.module.css';
@@ -48,6 +49,12 @@ export default function Header(props) {
     navigate(`/year/${yearNow}`);
   }
 
+  function logout() {
+    localStorage.clear();
+    ToastController.success(`Вы вышли из аккаунта`);
+    navigate('/sign-in');
+  }
+
   return (
     <>
       <header className={styles.title_block}>
@@ -80,6 +87,9 @@ export default function Header(props) {
           </li>
           <li>
             <button onClick={navigateToYear}>Таски на год</button>
+          </li>
+          <li>
+            <button onClick={logout}>Выйти из аккаунта</button>
           </li>
         </ul>
       </nav>

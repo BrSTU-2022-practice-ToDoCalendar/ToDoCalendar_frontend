@@ -1,21 +1,27 @@
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router';
+import ToastController from '../../scripts/Toast/ToastController';
 
 import VerifyController from '../../scripts/Verify/VerifyController';
 import styles from './Header.module.css';
 
 export default function Header(props) {
+  const [menuIsOpened, setMenuIsOpened] = useState(false);
   let navigate = useNavigate();
 
   useEffect(() => {
-    (async function () {
+    setMenuIsOpened(false);
+
+    async function fetchVerify() {
       const isVerify = await VerifyController.verifyTokens();
       if (isVerify) return;
       navigate('/sign-in');
-    })();
+    }
+    fetchVerify();
   }, [navigate]);
 
   function navigateToTask() {
+    setMenuIsOpened(false);
     navigate(`/task`);
   }
 
@@ -24,6 +30,7 @@ export default function Header(props) {
     const yearNow = timeNow.getFullYear();
     const monthNow = timeNow.getMonth() + 1;
     const dateNow = timeNow.getDate();
+    setMenuIsOpened(false);
     navigate(`/year/${yearNow}/month/${monthNow}/date/${dateNow}`);
   }
 
@@ -31,35 +38,61 @@ export default function Header(props) {
     const timeNow = new Date();
     const yearNow = timeNow.getFullYear();
     const monthNow = timeNow.getMonth() + 1;
+    setMenuIsOpened(false);
     navigate(`/year/${yearNow}/month/${monthNow}`);
   }
 
   function navigateToYear() {
     const timeNow = new Date();
     const yearNow = timeNow.getFullYear();
+    setMenuIsOpened(false);
     navigate(`/year/${yearNow}`);
   }
 
+  function logout() {
+    localStorage.clear();
+    ToastController.success(`Вы вышли из аккаунта`);
+    navigate('/sign-in');
+  }
+
   return (
-    <header className={styles.header}>
-      <div>
-        {props.left_buttons}
-        <h2>{props.title}</h2>
-      </div>
-      <div>
-        <button onClick={navigateToTask} title="Добавить таску">
-          + Таска
+    <>
+      <header className={styles.title_block}>
+        <div>
+          {props.left_buttons}
+          <h2>{props.title}</h2>
+        </div>
+        <button
+          className={styles.menu_button}
+          onClick={(event) => setMenuIsOpened(!menuIsOpened)}
+        >
+          MENU
         </button>
-        <button onClick={navigateToDate} title="День сейчас">
-          День
-        </button>
-        <button onClick={navigateToMonth} title="Месяц сейчас">
-          Месяц
-        </button>
-        <button onClick={navigateToYear} title="Год сейчас">
-          Год
-        </button>
-      </div>
-    </header>
+      </header>
+      <nav
+        className={styles.menu}
+        style={{
+          display: menuIsOpened ? 'flex' : 'none',
+        }}
+      >
+        <ul>
+          <li>
+            <button onClick={navigateToTask}>Добавить таску</button>
+          </li>
+          <li>
+            <button onClick={navigateToDate}>Таски на день</button>
+          </li>
+          <li>
+            <button onClick={navigateToMonth}>Таски на месяц</button>
+          </li>
+          <li>
+            <button onClick={navigateToYear}>Таски на год</button>
+          </li>
+          <li>
+            <button onClick={logout}>Выйти из аккаунта</button>
+          </li>
+        </ul>
+      </nav>
+    </>
   );
 }

@@ -4,7 +4,6 @@ import { useNavigate, useParams } from 'react-router';
 import CalendarController from '../../scripts/Calendar/CalendarController';
 import Container from '../Container/Container';
 import DateFrame from '../Headers/DateFrame';
-import ToastController from '../../scripts/Toast/ToastController';
 import styles from './DatePage.module.css';
 
 export default function DatePage() {
@@ -16,8 +15,6 @@ export default function DatePage() {
     if (new Date(`${year}-${month}-${date}`).toString() === 'Invalid Date') {
       navigate(`/year/${year}/month/${month}/date/${date}/error404`);
     }
-
-    ToastController.delete_all_messages();
 
     async function getDays() {
       const array_tasks = await CalendarController.getDayTasks(

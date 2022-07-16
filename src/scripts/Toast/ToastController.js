@@ -1,5 +1,12 @@
 import toastr from 'toastr';
 
+toastr.options = {
+  closeButton: true,
+  progressBar: true,
+  positionClass: 'toast-bottom-right',
+  extendedTimeOut: '2000',
+};
+
 export default class ToastController {
   static delete_all_messages() {
     toastr.remove();
@@ -14,7 +21,7 @@ export default class ToastController {
 
   static info(message, title = '', overrides = {}) {
     toastr.info(message, title, {
-      timeOut: 2000,
+      timeOut: 1000,
       ...overrides,
     });
   }
@@ -28,7 +35,7 @@ export default class ToastController {
 
   static success(message, title = '', overrides = {}) {
     toastr.success(message, title, {
-      timeOut: 5000,
+      timeOut: 3000,
       ...overrides,
     });
   }

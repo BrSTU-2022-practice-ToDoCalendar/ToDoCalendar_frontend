@@ -1,6 +1,7 @@
 .counter_block {
   font-size: 2em;
   text-align: center;
+  padding: 8px 0;
 }
 
 .array {

@@ -27,47 +27,60 @@
 /* buttons */
 
 .buttons_block {
-  padding: 8px 0;
+  padding: 4px 0;
 }
 
 .buttons_block button {
+  width: 100%;
   border: 2px solid var(--site-color);
   background-color: var(--site-color);
   color: white;
   padding: 8px 32px;
-  border-radius: 8px;
-  margin-right: 8px;
+  border-radius: 4px;
+  margin: 2px;
 }
 
 .buttons_block button:hover {
-  background-color: transparent;
-  color: var(--site-color);
+  background-color: var(--site-color-light);
+  border-color: var(--site-color-light);
 }
 
 /* title */
 
 .title_block {
-  padding: 8px 0;
+  padding: 4px 0;
 }
 
 .title_block input {
-  width: calc(100% - 2px * 2 - 16px * 2);
+  width: calc(100% - 2px * 2 - 8px * 2);
   border: 2px solid lightgray;
-  border-radius: 8px;
-  padding: 16px;
-  font-size: 1.6em;
+  border-radius: 4px;
+  padding: 8px;
+  font-size: 1.2em;
 }
 
 /* date */
 
 .date_block {
-  padding: 8px 0;
+  padding: 4px 0;
 }
 
-.date_block input {
-  border: 2px solid lightgray;
-  border-radius: 8px;
-  padding: 16px;
+@media screen and (max-width: 761px) {
+  .date_block input {
+    width: calc(50% - 8px * 2 - 2px * 2);
+    border: 2px solid lightgray;
+    border-radius: 4px;
+    padding: 8px;
+  }
+}
+
+@media screen and (min-width: 762px) {
+  .date_block input {
+    width: calc(25% - 8px * 2 - 2px * 2);
+    border: 2px solid lightgray;
+    border-radius: 4px;
+    padding: 8px;
+  }
 }
 
 /* completed */
@@ -75,7 +88,7 @@
 .check_block {
   display: flex;
   align-items: center;
-  padding: 8px 0;
+  padding: 4px 0;
 }
 
 .check_block input {
@@ -86,7 +99,7 @@
   width: 64px;
   height: 32px;
   border-radius: 32px;
-  margin: 8px 8px 8px 0;
+  margin-right: 8px;
   background-color: var(--site-color-hover);
   display: block;
   border: 2px solid var(--site-color-hover) !important;
@@ -111,7 +124,7 @@
 /* description */
 
 .description_block {
-  padding: 8px 0;
+  padding: 4px 0;
 }
 
 .description_block > div {
@@ -119,10 +132,10 @@
 }
 
 .description_block textarea {
-  width: calc(100% - 2px * 2 - 16px * 2) !important;
-  height: calc(100% - 2px * 2 - 16px * 2 - 16px);
+  width: calc(100% - 2px * 2 - 8px * 2) !important;
+  height: calc(100% - 2px * 2 - 8px * 2 - 16px);
   border: 2px solid lightgray;
   border-radius: 8px;
-  margin: 0 0 16px 0;
-  padding: 16px;
+  margin-bottom: 8px;
+  padding: 8px;
 }

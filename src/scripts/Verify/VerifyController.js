@@ -37,17 +37,12 @@ export default class VerifyController {
       const status = response.status;
 
       if (status === 200) {
-        // ToastController.info('Токен верефецирован', 'VerifyController.js POST');
         return true;
       }
 
-      // ToastController.warning(
-      //   'Токен не верефецирован',
-      //   'VerifyController.js POST'
-      // );
       return false;
     } catch (error) {
-      ToastController.error(error, 'VerifyController.js POST');
+      ToastController.error(error, 'POST /verify-token/');
       return false;
     }
   }
@@ -62,7 +57,6 @@ export default class VerifyController {
   static async verifyRefresh(refresh_token = localStorage.getItem('refresh')) {
     if (refresh_token == null) {
       localStorage.removeItem('access');
-      ToastController.warning('Нет refresh токена', 'VerifyController.js');
       return false;
     }
 
@@ -72,7 +66,7 @@ export default class VerifyController {
 
     if (is_verify_refresh_token) {
       localStorage.setItem('refresh', refresh_token);
-      ToastController.info('Refresh токен авторизован', 'VerifyController.js');
+      ToastController.info('Refresh токен авторизован', 'POST /verify-token/');
       return true;
     }
 
@@ -80,7 +74,7 @@ export default class VerifyController {
     localStorage.removeItem('access');
     ToastController.warning(
       'Refresh токен не авторизован',
-      'VerifyController.js'
+      'POST /verify-token/'
     );
     return false;
   }
@@ -93,12 +87,16 @@ export default class VerifyController {
    * - false - просрочен access токен, и он же не обновляется с помощью refresh токена
    */
   static async verifyAccess(access_token = localStorage.getItem('access')) {
+    if (localStorage.getItem('refresh') == null) {
+      return false;
+    }
+
     let is_verify_access_token = await VerifyController.verifyToken(
       access_token
     );
     if (is_verify_access_token) {
       localStorage.setItem('access', access_token);
-      ToastController.info('Access токен авторизован', 'VerifyController.js');
+      ToastController.info('Access токен авторизован', 'POST /verify-token/');
       return true;
     }
 
@@ -110,7 +108,7 @@ export default class VerifyController {
     localStorage.removeItem('access');
     ToastController.warning(
       'Access токен не авторизован',
-      'VerifyController.js'
+      'POST /verify-token/'
     );
     return false;
   }
@@ -166,18 +164,18 @@ export default class VerifyController {
         localStorage.setItem('access', access_token);
         ToastController.info(
           'Access токен обновлен на новый',
-          'VerifyController.js POST'
+          'POST /verify-token/'
         );
         return true;
       }
 
       ToastController.warning(
         'Access токен не обновлен на новый',
-        'VerifyController.js POST'
+        'POST /verify-token/'
       );
       return false;
     } catch (error) {
-      ToastController.error(error, 'VerifyController.js POST');
+      ToastController.error(error, 'POST /verify-token/');
     }
   }
 }

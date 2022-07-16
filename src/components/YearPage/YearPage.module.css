@@ -1,11 +1,11 @@
 /* блок со всеми месяцами года */
 .array_month {
-  height: 100%;
+  height: calc(100% - 8px * 2);
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  margin: 0;
+  margin: 8px 0;
   padding: 0;
 }
 

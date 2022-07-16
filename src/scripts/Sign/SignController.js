@@ -48,21 +48,21 @@ export default class SignController {
 
         const isVerify = await VerifyController.verifyTokens();
         if (isVerify) {
-          ToastController.success('Авторизовались', 'SignController.js');
+          ToastController.success('Авторизовались', 'POST /login/');
           return true;
         }
 
-        ToastController.warning('Не авторизовались', 'SignController.js');
+        ToastController.warning('Не авторизовались', 'POST /login/');
         return false;
       }
 
       ToastController.warning(
-        'Не авторизовались ' + JSON.stringify(data),
-        'SignController.js'
+        `Не авторизовались <pre>${JSON.stringify(data, null, 2)}</pre>`,
+        'POST /login/'
       );
       return false;
     } catch (error) {
-      ToastController.error(error, 'SignController.js');
+      ToastController.error(error, 'POST /login/');
       return false;
     }
   }
@@ -96,18 +96,18 @@ export default class SignController {
 
       const status = response.status;
       if (status === 201) {
-        ToastController.success('Зарегистрировались', 'SignController.js');
+        ToastController.success('Зарегистрировались', 'POST /register/');
         return true;
       }
 
       const data = await response.json();
       ToastController.warning(
-        'Не зарегистрировались ' + JSON.stringify(data),
-        'SignController.js'
+        `Не зарегистрировались <pre>${JSON.stringify(data, null, 2)}</pre>`,
+        'POST /register/'
       );
       return false;
     } catch (error) {
-      ToastController.error(error, 'SignController.js');
+      ToastController.error(error, 'POST /register/');
       return false;
     }
   }

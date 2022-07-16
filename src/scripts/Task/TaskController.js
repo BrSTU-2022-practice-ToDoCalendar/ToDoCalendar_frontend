@@ -37,20 +37,32 @@ export default class TaskController {
 
       const status = response.status;
       if (status === 201) {
-        ToastController.info('Таска создана', 'TaskController.js POST');
+        ToastController.success('Таска создана', 'POST /tasks/');
         return true;
       }
 
-      ToastController.warning('Таска не создана', 'TaskController.js POST');
+      const data = await response.data;
+      ToastController.warning(
+        `Таска не создана <pre>${JSON.stringify(data, null, 2)}</pre>`,
+        'POST /tasks/'
+      );
       return false;
     } catch (error) {
-      ToastController.error(error, 'TaskController.js POST');
+      ToastController.error(error, 'POST /tasks/');
       return false;
     }
   }
 
   static async read(params = {}) {
     try {
+      if (
+        (localStorage.getItem('access') == null &&
+          localStorage.getItem('refresh') == null) ||
+        localStorage.getItem('refresh') == null
+      ) {
+        return [];
+      }
+
       const url =
         `${process.env.REACT_APP__URL_BACKEND_SERVER}/api/v1/tasks?` +
         new URLSearchParams(params);
@@ -70,9 +82,10 @@ export default class TaskController {
       const data = await response.json();
 
       if (status === 200) {
-        ToastController.info(
-          `Получили массив тасок (${data.length} шт.)`,
-          'TaskController.js GET'
+        ToastController.success(
+          `Получили массив тасок (${data.length})`,
+          'GET /tasks/',
+          { timeOut: 1000 }
         );
         return data;
       }
@@ -95,21 +108,22 @@ export default class TaskController {
         const data = await response.json();
 
         if (status === 200) {
-          ToastController.info(
-            `Получили массив тасок (${data.length} шт.)`,
-            'TaskController.js GET'
+          ToastController.success(
+            `Получили массив тасок (${data.length})`,
+            'GET /tasks/',
+            { timeOut: 1000 }
           );
           return data;
         }
       }
 
       ToastController.warning(
-        'Не получили массив тасок ' + JSON.stringify(data),
-        'TaskController.js GET'
+        `Не получили массив тасок <pre>${JSON.stringify(data, null, 2)}</pre>`,
+        'GET /tasks/'
       );
       return [];
     } catch (error) {
-      ToastController.error(error, 'TaskController.js GET');
+      ToastController.error(error, 'GET /tasks/');
       return [];
     }
   }
@@ -150,6 +164,14 @@ export default class TaskController {
    */
   static async getTaskById(task_id) {
     if (task_id) {
+      if (
+        (localStorage.getItem('access') == null &&
+          localStorage.getItem('refresh') == null) ||
+        localStorage.getItem('refresh') == null
+      ) {
+        return {};
+      }
+
       // Если это эполучение по id
       try {
         const url = `${process.env.REACT_APP__URL_BACKEND_SERVER}/api/v1/tasks/${task_id}/`;
@@ -168,7 +190,7 @@ export default class TaskController {
         const status = response.status;
         const data = await response.json();
         if (status === 200) {
-          ToastController.info('Получили таску', 'TaskController.js GET');
+          ToastController.success('Получили таску', 'GET /tasks/{id}/');
           return data;
         }
 
@@ -190,18 +212,18 @@ export default class TaskController {
           const status = response.status;
           const data = await response.json();
           if (status === 200) {
-            ToastController.info('Получили таску', 'TaskController.js GET');
+            ToastController.success('Получили таску', 'GET /tasks/{id}/');
             return data;
           }
         }
 
         ToastController.warning(
-          'Не получили таску ' + JSON.stringify(data),
-          'TaskController.js GET'
+          `Не получили таску <pre>${JSON.stringify(data, null, 2)}</pre>`,
+          'GET /tasks/{id}/'
         );
         return {};
       } catch (error) {
-        ToastController.error(error, 'TaskController.js GET');
+        ToastController.error(error, 'GET /tasks/{id}/');
         return {};
       }
     }
@@ -232,18 +254,18 @@ export default class TaskController {
 
       const status = response.status;
       if (status === 200) {
-        ToastController.info('Таска обновлена', 'TaskController.js UPDATE');
+        ToastController.success(`Таска обновлена `, 'PUT /tasks/{id}/');
         return true;
       }
 
       const data = await response.json();
       ToastController.warning(
-        'Таска не обновлена ' + JSON.stringify(data),
-        'TaskController.js UPDATE'
+        `Таска не обновлена <pre>${JSON.stringify(data, null, 2)}</pre>`,
+        'PUT /tasks/{id}/'
       );
       return false;
     } catch (error) {
-      ToastController.error(error, 'TaskController.js UPDATE');
+      ToastController.error(error, 'PUT /tasks/{id}/');
       return false;
     }
   }
@@ -272,18 +294,18 @@ export default class TaskController {
 
       const status = response.status;
       if (status === 204) {
-        TaskController.info('Таска удалена', 'TaskController.js DELETE');
+        ToastController.success('Таска удалена', 'DELETE /tasks/{id}/');
         return true;
       }
 
       const data = await response.json();
       ToastController.warning(
-        'Таска не удалена ' + JSON.stringify(data),
-        'TaskController.js DELETE'
+        `Таска не удалена <pre>${JSON.stringify(data, null, 2)}</pre>`,
+        'DELETE /tasks/{id}/'
       );
       return false;
     } catch (error) {
-      ToastController.error(error, 'TaskController.js DELETE');
+      ToastController.error(error, `DELETE /tasks/{id}/`);
       return false;
     }
   }

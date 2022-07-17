@@ -1,9 +1,5 @@
 import { Route, Routes } from 'react-router';
 
-import 'toastr/build/toastr.min.css';
-import './consts/colors.css';
-import './App.css';
-
 import HomeRedirectPage from './components/HomeRedirectPage/HomeRedirectPage';
 import YearPage from './components/YearPage/YearPage';
 import MonthPage from './components/MonthPage/MonthPage';

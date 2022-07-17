@@ -100,15 +100,16 @@
   height: 32px;
   border-radius: 32px;
   margin-right: 8px;
-  background-color: var(--site-color-hover);
+  background-color: var(--color-task-not-completed);
   display: block;
-  border: 2px solid var(--site-color-hover) !important;
+  border: 2px solid var(--color-task-not-completed) !important;
   display: flex;
   justify-content: left;
 }
 
 .check_block .checked {
-  background-color: var(--site-color) !important;
+  background-color: var(--color-task-completed) !important;
+  border-color: var(--color-task-completed) !important;
   justify-content: right;
 }
 

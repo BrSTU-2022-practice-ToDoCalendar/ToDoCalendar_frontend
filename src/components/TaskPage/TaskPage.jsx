@@ -16,7 +16,7 @@ const standart_task = {
   startTime: DateController.toStringTime(),
   endDate: DateController.toStringDate(),
   endTime: DateController.toStringTime(
-    new Date(new Date().getTime() + 1000 * 60 * 1)
+    new Date(new Date().getTime() + 1000 * 60 * 10)
   ),
 };
 
@@ -76,7 +76,7 @@ export default function TaskPage() {
 
   function changed_dates(left_date = new Date(), right_date = new Date()) {
     if (left_date.getTime() >= right_date.getTime()) {
-      right_date = new Date(left_date.getTime() + 1000 * 60 * 1);
+      right_date = new Date(left_date.getTime() + 1000 * 60 * 10);
     }
     return { left_date, right_date };
   }
@@ -104,6 +104,8 @@ export default function TaskPage() {
       DateController.setDate(startDate, value),
       DateController.setDate(endDate, endTime)
     );
+    setStartDate(DateController.toStringDate(left_date));
+    setEndDate(DateController.toStringDate(right_date));
     setStartTime(DateController.toStringTime(left_date));
     setEndTime(DateController.toStringTime(right_date));
   }
@@ -113,6 +115,8 @@ export default function TaskPage() {
       DateController.setDate(startDate, startTime),
       DateController.setDate(endDate, value)
     );
+    setStartDate(DateController.toStringDate(left_date));
+    setEndDate(DateController.toStringDate(right_date));
     setStartTime(DateController.toStringTime(left_date));
     setEndTime(DateController.toStringTime(right_date));
   }

@@ -4,7 +4,7 @@ import { useNavigate, useParams } from 'react-router';
 import CalendarController from '../../scripts/Calendar/CalendarController';
 import DateController from '../../scripts/Date/DateController';
 import Container from '../Container/Container';
-import DateFrame from '../Headers/DateFrame';
+import DateFrame from '../DateFrame/DateFrame';
 import styles from './DatePage.module.css';
 
 export default function DatePage() {
@@ -15,9 +15,7 @@ export default function DatePage() {
   let navigate = useNavigate();
 
   useEffect(() => {
-    if (new Date(`${year}-${month}-${date}`).toString() === 'Invalid Date') {
-      navigate(`/year/${year}/month/${month}/date/${date}/error404`);
-    }
+   
 
     async function getDays() {
       const array_tasks = await CalendarController.getDayTasks(
@@ -95,28 +93,37 @@ export default function DatePage() {
           <ul className={styles.array}>
             {tasks.map((task, task_i) => {
               const start_date = new Date(task.start_date);
+              const start_current_date = new Date(
+                `${year}-${month}-${date} 00:00`
+              );
+              const end_current_date = new Date(
+                `${year}-${month}-${date} 23:59`
+              );
+              const end_date = new Date(task.end_date);
 
-              let hours = start_date.getHours();
-              hours = hours < 10 ? `0${hours}` : `${hours}`;
+              const start_time =
+                start_date.getTime() < start_current_date.getTime()
+                  ? '00:00'
+                  : `${DateController.toStringTime(start_date)}`;
 
-              let minutes = start_date.getMinutes();
-              minutes = minutes < 10 ? `0${minutes}` : `${minutes}`;
+              const end_time =
+                end_current_date.getTime() < end_date.getTime()
+                  ? '23:59'
+                  : `${DateController.toStringTime(end_date)}`;
 
               return (
                 <li
                   key={task_i}
                   className={styles.array_element}
                   onClick={(event) => selectTask(task.id)}
+                  title={`${start_time} - ${end_time}`}
                 >
                   {task.completed ? (
                     <span className={styles.task_completed_circle}></span>
                   ) : (
                     <span className={styles.task_not_completed_circle}></span>
                   )}
-                  <span className={styles.time}>
-                    ({hours}:{minutes})
-                  </span>
-                  <span>{task.title}</span>
+                  {task.title}
                 </li>
               );
             })}

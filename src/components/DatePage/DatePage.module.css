@@ -49,12 +49,6 @@
   border-color: var(--color-task-not-completed);
 }
 
-.time {
-  width: 100px;
-  display: flex;
-  justify-content: center;
-}
-
 /* стили для view с часами */
 
 .wrapper {
@@ -115,6 +109,11 @@
   padding: 0;
 
   display: flex;
+  opacity: 0.5;
+}
+
+.button_view:hover{
+  opacity: 1;
 }
 
 .button_view__on {

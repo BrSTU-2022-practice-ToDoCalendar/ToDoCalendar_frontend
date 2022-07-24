@@ -1,24 +1,18 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router';
 
-import YearFrame from '../Headers/YearFrame';
+import YearFrame from '../YearFrame/YearFrame';
 import DateController from '../../scripts/Date/DateController';
 import ToastController from '../../scripts/Toast/ToastController';
 import CalendarController from '../../scripts/Calendar/CalendarController';
 import styles from './YearPage.module.css';
 
 export default function YearPage(props) {
-  const { year } = useParams();
   let navigate = useNavigate();
-
+  const { year } = useParams();
   const [yearCalendar, setYearCalendar] = useState([]);
 
   useEffect(() => {
-    if (new Date(`${year}`).toString() === 'Invalid Date') {
-      navigate(`/year/${year}/error404`);
-      return;
-    }
-
     ToastController.delete_all_messages();
 
     async function getTasks() {
@@ -26,12 +20,10 @@ export default function YearPage(props) {
       setYearCalendar(yearArray);
     }
     getTasks();
-  }, [navigate, year]);
+  }, [year]);
 
-  function selectMonth(d = new Date()) {
-    const year = d.getFullYear();
-    const month = d.getMonth() + 1;
-    navigate(`/year/${year}/month/${month}`);
+  function selectMonth(selectedYear, selectedMonth) {
+    navigate(`/year/${selectedYear}/month/${selectedMonth}`);
   }
 
   return (
@@ -42,9 +34,7 @@ export default function YearPage(props) {
             <li
               key={`${year}-${month_i + 1}`}
               className={styles.array_month_element}
-              onClick={(event) =>
-                selectMonth(new Date(`${year}-${month_i + 1}`))
-              }
+              onClick={(event) => selectMonth(year, month_i + 1)}
             >
               <h3>{DateController.getStringMonth(month_i + 1)}</h3>
               <ul className={styles.array_days}>

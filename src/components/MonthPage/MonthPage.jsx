@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router';
 
 import DateController from '../../scripts/Date/DateController';
-import MonthFrame from '../Headers/MonthFrame';
+import MonthFrame from '../MonthFrame/MonthFrame';
 import ToastController from '../../scripts/Toast/ToastController';
 import CalendarController from '../../scripts/Calendar/CalendarController';
 import styles from './MonthPage.module.css';
@@ -13,11 +13,6 @@ export default function MonthPage() {
   let navigate = useNavigate();
 
   useEffect(() => {
-    if (new Date(`${year}-${month}`).toString() === 'Invalid Date') {
-      navigate(`/year/${year}/month/${month}/error404`);
-      return;
-    }
-
     ToastController.delete_all_messages();
 
     async function getTasks() {
@@ -27,15 +22,10 @@ export default function MonthPage() {
     getTasks();
   }, [navigate, year, month]);
 
-  function chooseDate(d = new Date()) {
-    const choosenYear = d.getFullYear();
-    const choosenMonth = d.getMonth() + 1;
-    const choosenDate = d.getDate();
-    if (Number(year) === choosenYear && Number(month) === choosenMonth) {
-      navigate(
-        `/year/${choosenYear}/month/${choosenMonth}/date/${choosenDate}`
-      );
-    }
+  function selectDate(selectedYear, selectedMonth, selectedDate) {
+    navigate(
+      `/year/${selectedYear}/month/${selectedMonth}/date/${selectedDate}`
+    );
   }
 
   return (
@@ -55,9 +45,7 @@ export default function MonthPage() {
                 dateObj.isThisMonth ? '' : styles.month_alian_day,
               ].join(' ')}
               onClick={(event) =>
-                chooseDate(
-                  new Date(`${currentYear}-${currentMonth}-${currentDate}`)
-                )
+                selectDate(currentYear, currentMonth, currentDate)
               }
             >
               <div className={styles.element_day}>

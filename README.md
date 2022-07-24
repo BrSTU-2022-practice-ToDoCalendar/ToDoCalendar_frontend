@@ -52,6 +52,7 @@ npm run start
   form validation
 - **[Toastr](https://codeseven.github.io/toastr/demo.html)** - library to
   display messages on the screen that disappear on their own
+- **[Font Awesome](https://fontawesome.com/)** - icons
 - **[GitHub pages](https://pages.github.com/)** - Jekyll hosting from GitHub
 
 ## Folder structure
@@ -67,26 +68,44 @@ tree --charset ascii -I "node_modules|build" -d
 `-- src
     |-- components
     |   |-- Container
+    |   |-- DateFrame
     |   |-- DatePage
+    |   |-- DefaultFrame
     |   |-- Error404Page
     |   |-- FooterPattern
-    |   |-- Headers
+    |   |-- Header
     |   |-- HomeRedirectPage
+    |   |-- HoursPage
+    |   |-- MonthFrame
     |   |-- MonthPage
     |   |-- SignPage
     |   |-- TaskPage
+    |   |-- YearFrame
     |   `-- YearPage
     |-- consts
     `-- scripts
         |-- Calendar
         |-- Date
+        |   |-- getMonthDays
+        |   |-- getNextDate
+        |   |-- getNextMonth
+        |   |-- getNextYear
+        |   |-- getPrevDate
+        |   |-- getPrevMonth
+        |   |-- getPrevYear
+        |   |-- getStringDay
+        |   |-- getStringMonth
+        |   |-- setDate
+        |   |-- toJson
+        |   |-- toStringDate
+        |   `-- toStringTime
         |-- Sign
         |-- Task
         |-- Toast
         |-- Verify
         `-- sleep
 
-22 directories
+40 directories
 ```
 
 - **components**:

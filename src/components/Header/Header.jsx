@@ -1,7 +1,13 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router';
-import ToastController from '../../scripts/Toast/ToastController';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  faArrowLeft,
+  faBars,
+  faXmark,
+} from '@fortawesome/free-solid-svg-icons';
 
+import ToastController from '../../scripts/Toast/ToastController';
 import VerifyController from '../../scripts/Verify/VerifyController';
 import styles from './Header.module.css';
 
@@ -22,7 +28,7 @@ export default function Header(props) {
 
   function navigateToTask() {
     setMenuIsOpened(false);
-    navigate(`/task`);
+    navigate(`/task/new`, { replace: true });
   }
 
   function navigateToDate() {
@@ -59,6 +65,9 @@ export default function Header(props) {
     <>
       <header className={styles.title_block}>
         <div>
+          <button onClick={(event) => navigate(-1)}>
+            <FontAwesomeIcon icon={faArrowLeft} />
+          </button>
           {props.left_buttons}
           <h2>{props.title}</h2>
         </div>
@@ -66,7 +75,7 @@ export default function Header(props) {
           className={styles.menu_button}
           onClick={(event) => setMenuIsOpened(!menuIsOpened)}
         >
-          MENU
+          <FontAwesomeIcon icon={faBars} />
         </button>
       </header>
       <nav
@@ -75,6 +84,12 @@ export default function Header(props) {
           display: menuIsOpened ? 'flex' : 'none',
         }}
       >
+        <span
+          className={styles.close}
+          onClick={(event) => setMenuIsOpened(!menuIsOpened)}
+        >
+          <FontAwesomeIcon icon={faXmark} />
+        </span>
         <ul>
           <li>
             <button onClick={navigateToTask}>Добавить таску</button>

@@ -2,10 +2,11 @@ import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 
-import TaskFrame from '../Headers/TaskFrame';
 import Container from '../Container/Container';
 import DateController from '../../scripts/Date/DateController';
 import TaskController from '../../scripts/Task/TaskController';
+import DefaultFrame from '../DefaultFrame/DefaultFrame';
+import Error404Page from '../Error404Page/Error404Page';
 import styles from './TaskPage.module.css';
 
 const standart_task = {
@@ -21,8 +22,8 @@ const standart_task = {
 };
 
 export default function TaskPage() {
+  let navigate = useNavigate();
   const { taskId } = useParams();
-
   const [title, setTitle] = useState(standart_task.title);
   const [isCompleted, setIsCompleted] = useState(standart_task.isCompleted);
   const [description, setDescription] = useState(standart_task.description);
@@ -30,21 +31,39 @@ export default function TaskPage() {
   const [startTime, setStartTime] = useState(standart_task.startTime);
   const [endDate, setEndDate] = useState(standart_task.endDate);
   const [endTime, setEndTime] = useState(standart_task.endTime);
-
+  const [isSuccessCreate, setIsSuccessCreate] = useState(false);
+  const [isSuccessUpdate, setIsSuccessUpdate] = useState(false);
+  const [isSuccessDelete, setIsSuccessDelete] = useState(false);
+  const [is404, setIs404] = useState(false);
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
-  let navigate = useNavigate();
-
   useEffect(() => {
+    setTitle(standart_task.title);
+    setIsCompleted(standart_task.isCompleted);
+    setDescription(standart_task.description);
+    setStartDate(standart_task.startDate);
+    setStartTime(standart_task.startTime);
+    setEndDate(standart_task.endDate);
+    setEndTime(standart_task.endTime);
+
+    setIsSuccessCreate(false);
+    setIsSuccessUpdate(false);
+    setIsSuccessDelete(false);
+    setIs404(false);
+
+    if (!taskId) return;
+
+    if (taskId === 'new') return;
+
     async function fetchTask() {
       const object = await TaskController.getTaskById(taskId);
 
       if (Object.keys(object).length === 0) {
-        navigate(`/task/${taskId}/error404`);
+        setIs404(true);
       }
 
       setTitle(object.title);
@@ -60,18 +79,7 @@ export default function TaskPage() {
       setEndTime(DateController.toStringTime(end_date));
     }
 
-    if (taskId) {
-      fetchTask();
-      return;
-    }
-
-    setTitle(standart_task.title);
-    setIsCompleted(standart_task.isCompleted);
-    setDescription(standart_task.description);
-    setStartDate(standart_task.startDate);
-    setStartTime(standart_task.startTime);
-    setEndDate(standart_task.endDate);
-    setEndTime(standart_task.endTime);
+    fetchTask();
   }, [navigate, taskId]);
 
   function changed_dates(left_date = new Date(), right_date = new Date()) {
@@ -121,14 +129,6 @@ export default function TaskPage() {
     setEndTime(DateController.toStringTime(right_date));
   }
 
-  function navigate_to_home() {
-    const d = new Date(startDate);
-    const year = d.getFullYear();
-    const month = d.getMonth() + 1;
-    const date = d.getDate();
-    navigate(`/year/${year}/month/${month}/date/${date}`);
-  }
-
   async function save(data) {
     await TaskController.create({
       title,
@@ -137,7 +137,7 @@ export default function TaskPage() {
       end_date: DateController.toJson(endDate, endTime),
       completed: isCompleted,
     });
-    navigate_to_home();
+    setIsSuccessCreate(true);
   }
 
   async function update(data) {
@@ -148,20 +148,76 @@ export default function TaskPage() {
       end_date: DateController.toJson(endDate, endTime),
       completed: isCompleted,
     });
-    navigate_to_home();
+    setIsSuccessUpdate(true);
   }
 
   async function remove(data) {
     await TaskController.remove(taskId);
-    navigate_to_home();
+    setIsSuccessDelete(true);
+  }
+
+  function navigateNewTask(event) {
+    event.preventDefault();
+    navigate('/task/new');
+    window.location.reload();
+  }
+
+  if (is404) {
+    return <Error404Page message={'Таска не существует'} />;
+  }
+
+  if (isSuccessCreate || isSuccessUpdate || isSuccessDelete) {
+    return (
+      <DefaultFrame title="Task">
+        <form className={styles.form}>
+          <Container>
+            <h2>
+              {isSuccessCreate
+                ? 'Таска успешно создана'
+                : isSuccessUpdate
+                ? 'Таска успешно обновлена'
+                : isSuccessDelete
+                ? 'Таска успешно удалена'
+                : ''}
+            </h2>
+            <div className={styles.buttons_block}>
+              <button onClick={(event) => navigateNewTask(event)}>
+                Создать новую другую таску
+              </button>
+            </div>
+            <div className={styles.title_block}>
+              <input value={title} />
+            </div>
+            <div className={styles.date_block}>
+              <input type="date" value={startDate} />
+              <input type="time" value={startTime} />
+              <input type="date" value={endDate} />
+              <input type="time" value={endTime} />
+            </div>
+            <div className={styles.check_block}>
+              <label
+                checked={isCompleted}
+                className={isCompleted ? styles.checked : ''}
+              ></label>
+              {isCompleted ? 'Task completed' : 'Task not completed'}
+            </div>
+          </Container>
+          <div className={styles.description_block}>
+            <Container>
+              <textarea value={description} />
+            </Container>
+          </div>
+        </form>
+      </DefaultFrame>
+    );
   }
 
   return (
-    <TaskFrame>
+    <DefaultFrame title={'Task'}>
       <form className={styles.form}>
         <Container>
           <div className={styles.buttons_block}>
-            {taskId ? (
+            {taskId && taskId !== 'new' ? (
               <>
                 <button onClick={handleSubmit(update)}>Обновить таску</button>
                 <button onClick={handleSubmit(remove)}>Удалить таску</button>
@@ -252,6 +308,6 @@ export default function TaskPage() {
           </Container>
         </div>
       </form>
-    </TaskFrame>
+    </DefaultFrame>
   );
 }

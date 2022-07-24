@@ -1,5 +1,5 @@
-import Header from './Header';
-import styles from './Header.module.css';
+import Header from '../Header/Header';
+import styles from './DefaultFrame.module.css';
 
 export default function DefaultFrame(props) {
   return (

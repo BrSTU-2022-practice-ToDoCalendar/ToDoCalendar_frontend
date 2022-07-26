@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 
 import Container from '../Container/Container';
@@ -22,7 +22,6 @@ const standart_task = {
 };
 
 export default function TaskPage() {
-  let navigate = useNavigate();
   const { taskId } = useParams();
   const [title, setTitle] = useState(standart_task.title);
   const [isCompleted, setIsCompleted] = useState(standart_task.isCompleted);
@@ -80,7 +79,7 @@ export default function TaskPage() {
     }
 
     fetchTask();
-  }, [navigate, taskId]);
+  }, [taskId]);
 
   function changed_dates(left_date = new Date(), right_date = new Date()) {
     if (left_date.getTime() >= right_date.getTime()) {
@@ -156,17 +155,16 @@ export default function TaskPage() {
     setIsSuccessDelete(true);
   }
 
-  function navigateNewTask(event) {
-    event.preventDefault();
-    navigate('/task/new');
-    window.location.reload();
-  }
-
   if (is404) {
     return <Error404Page message={'Таска не существует'} />;
   }
 
   if (isSuccessCreate || isSuccessUpdate || isSuccessDelete) {
+    const start_date = new Date(`${startDate} ${startTime}`);
+    const strt_dt_year = start_date.getFullYear();
+    const strt_dt_month = start_date.getMonth() + 1;
+    const strt_dt_date = start_date.getDate();
+
     return (
       <DefaultFrame title="Task">
         <form className={styles.form}>
@@ -180,22 +178,67 @@ export default function TaskPage() {
                 ? 'Таска успешно удалена'
                 : ''}
             </h2>
-            <div className={styles.buttons_block}>
-              <button onClick={(event) => navigateNewTask(event)}>
-                Создать новую другую таску
-              </button>
-            </div>
+            <nav>
+              <ul>
+                <li>
+                  <Link
+                    to={`/year/${strt_dt_year}/month/${strt_dt_month}/date/${strt_dt_date}`}
+                  >
+                    Вернуться к таскам на день
+                  </Link>
+                </li>
+                <li>
+                  <Link to={`/year/${strt_dt_year}/month/${strt_dt_month}`}>
+                    Вернуться к таскам на месяц
+                  </Link>
+                </li>
+                <li>
+                  <Link to={`/year/${strt_dt_year}`}>
+                    Вернуться к таскам на год
+                  </Link>
+                </li>
+                <li>
+                  <a href="/task/new">Перейти к созданию новой таски</a>
+                </li>
+                {isSuccessUpdate ? (
+                  <li>
+                    <a href={`/task/${taskId}`}>Редактировать таску снова</a>
+                  </li>
+                ) : null}
+              </ul>
+            </nav>
             <div className={styles.title_block}>
-              <input value={title} />
+              <input
+                readOnly={true}
+                title="Нельзя редактировать, так как это режим просмотра"
+                value={title}
+              />
             </div>
             <div className={styles.date_block}>
-              <input type="date" value={startDate} />
-              <input type="time" value={startTime} />
-              <input type="date" value={endDate} />
-              <input type="time" value={endTime} />
+              <input
+                readOnly={true}
+                title="Нельзя редактировать, так как это режим просмотра"
+                value={startDate}
+              />
+              <input
+                readOnly={true}
+                title="Нельзя редактировать, так как это режим просмотра"
+                value={startTime}
+              />
+              <input
+                readOnly={true}
+                title="Нельзя редактировать, так как это режим просмотра"
+                value={endDate}
+              />
+              <input
+                readOnly={true}
+                title="Нельзя редактировать, так как это режим просмотра"
+                value={endTime}
+              />
             </div>
             <div className={styles.check_block}>
               <label
+                title="Нельзя редактировать, так как это режим просмотра"
                 checked={isCompleted}
                 className={isCompleted ? styles.checked : ''}
               ></label>
@@ -204,7 +247,11 @@ export default function TaskPage() {
           </Container>
           <div className={styles.description_block}>
             <Container>
-              <textarea value={description} />
+              <textarea
+                readOnly={true}
+                title="Нельзя редактировать, так как это режим просмотра"
+                value={description}
+              />
             </Container>
           </div>
         </form>

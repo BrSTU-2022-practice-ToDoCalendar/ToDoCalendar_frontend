@@ -18,6 +18,10 @@
   grid-template-rows: min-content auto;
 }
 
+.form h2 {
+  color: var(--site-color);
+}
+
 .form input,
 .form textarea {
   outline: 0;
